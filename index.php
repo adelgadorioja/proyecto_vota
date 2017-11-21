@@ -18,7 +18,7 @@
 			<label for="usuario">Usuario</label>
 			<input type="text" id="usuario" name="usuario">
 			<label for="contrasena">Contraseña</label>
-			<input type="text" id="contrasena" name="contrasena">
+			<input type="password" id="contrasena" name="contrasena">
 			<input type="submit" id="botonAceptar" name="aceptar" value="Aceptar">
 		</form>
 	</div>

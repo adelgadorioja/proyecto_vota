@@ -1,5 +1,6 @@
 body {
 	background-image: url(IMG/fondo.png);
+	font-family: 'Montserrat', sans-serif;
 	-webkit-background-size: cover;
  	-moz-background-size: cover;
   	-o-background-size: cover;
@@ -9,6 +10,8 @@ body {
   	background-repeat: no-repeat;
 }
 
+/* --------------------- LOGIN --------------------- */
+
 #contenedorIndex {
 	width: 35em;
 	position: absolute;
@@ -16,13 +19,60 @@ body {
     top: 50%;
     transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
-	box-shadow: 0 0 2em 0 black;
+	text-align: center;
 }
 
-#contenedorIndex label, #contenedorIndex input {
+#contenedorIndex h1 {
+	font-size: 8em;
+	font-weight: 900;
+	line-height: -2em;
+}
+
+#contenedorIndex h2 {
+	font-size: 1.3em;
+}
+
+#contenedorIndex h1, #contenedorIndex h2 {
+	color: #fff;
+}
+
+#contenedorIndex #circulo {
+	display: inline-block;
+	width: 2em;
+	height: 2em;
+	border-radius: 1em;
+	background-color: #B12D25;
+	font-size: 5em;
+	color: #fff;
+	line-height: 2em;
+	font-weight: 800;
+}
+#contenedorIndex input[type="text"], #contenedorIndex input[type="password"], #contenedorIndex input[type="submit"] {
 	display: block;
 	width: 25em;
-	margin: 0 auto;
+	margin: 1.2em auto;
 	box-sizing: border-box;
 	text-align: center;
+	background-color: #F4824A;
+	border: none;
+	font-weight: 800;
+	letter-spacing: 0.5em;
+	padding: 0.3em;
+	font-size: 1em;
+	color: #B12D25;
+
+}
+
+#contenedorIndex input[type="submit"] {
+	background-color: #B12D25;
+	color: #fff;
+}
+
+#formularioLogin {
+	background-color: #fff;
+	padding-top: 1em;
+	padding-bottom: 0.3em;
+	margin-top: 2em;
+	box-shadow: 0 0 2em 0 black;
+	border-radius: 0.5em;
 }

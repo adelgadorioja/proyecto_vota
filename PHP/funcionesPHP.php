@@ -18,4 +18,7 @@ function realizarConsulta($query) {
   unset($pdo);
 }
 
+function crearConsulta(){
+  
+}
 ?>

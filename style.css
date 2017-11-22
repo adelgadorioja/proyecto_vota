@@ -1,36 +1,28 @@
-/* LOGIN */
-
 body {
-	font-family: Arial;
+	background-image: url(IMG/fondo.png);
+	-webkit-background-size: cover;
+ 	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+  	background-position: center;
+  	background-attachment: fixed;
+  	background-repeat: no-repeat;
 }
 
 #contenedorIndex {
-	width: 80%;
+	width: 35em;
 	position: absolute;
 	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	-webkit-transform: translate(-50%, -50%);
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+	box-shadow: 0 0 2em 0 black;
 }
 
-#formularioLogin, #presentacion {
-	width: 50%;
-	display: inline-block;
-	padding: 1em;
-	box-sizing: border-box;
-}
-
-#formularioLogin label, #formularioLogin input {
+#contenedorIndex label, #contenedorIndex input {
 	display: block;
-	width: 100%;
-	text-align: center;
+	width: 25em;
+	margin: 0 auto;
 	box-sizing: border-box;
-}
-
-#formularioLogin label, #formularioLogin input[type="text"] {
-	margin-bottom: 1em;
-}
-
-#formularioLogin #botonAceptar {
-	margin-top: 2.5em;
+	text-align: center;
 }

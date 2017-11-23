@@ -3,9 +3,13 @@
 	$usuario = $_POST['usuario'];
 	$contrasena = $_POST['contrasena'];
 	$rs = realizarConsulta("SELECT * FROM usuarios WHERE id_usuario = '$usuario' AND contrasena = '$contrasena'");
-	if($rs->num_rows === 0){
+	if($rs->rowCount() == 0){
+		cerrarSesion();
 		header('Location: ../index.php');
 	}else{
-		header('Location: userPage.php');
+		$usuario = $query->fetch();
+		$usuario = $usuario['id_usuario'];
+		iniciarSesion($usuario);
+		header('Location: creacionConsulta.php');
 	}
 ?>

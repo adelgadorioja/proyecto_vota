@@ -62,4 +62,21 @@
     insertarElemento($crearConsulta);
     exit;
   }
+
+  function obtenerConsulta($idConsulta) {
+    $obtenerConsulta = realizarConsulta("SELECT des_pregunta from consultas WHERE id_consulta =".$idConsulta);
+    $consulta = $obtenerConsulta->fetch();
+    return $consulta['des_pregunta'];
+  }
+
+  function obtenerOpciones($idConsulta) {
+    $listaOpciones = [];
+    $obtenerOpciones = realizarConsulta("SELECT des_opcion from opciones WHERE id_consulta =".$idConsulta);
+    $opcion = $obtenerOpciones->fetch();
+    while ($opcion) {
+      array_push($listaOpciones, $opcion['des_opcion']);
+      $opcion = $obtenerOpciones->fetch();
+    }
+    return $listaOpciones;
+  }
 ?>

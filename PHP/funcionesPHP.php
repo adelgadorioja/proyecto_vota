@@ -11,14 +11,13 @@
 	function crearConsulta(){
 	  	$tituloConsulta = $_POST['titulo'];
 	  	$fechainicio = $_POST['inicio'];
-	  	$fechaexpiración = $_POST['final'];
+	  	$fechaexpiracion = $_POST['final'];
 	  	conectarBD();
-	  	$consulta = "INSERT INTO consultas VALUES ('$id','$tituloConsulta', '$fechainicio', '$fechaexpiración')";
- 		$resultat = mysqli_query($conn, $consulta);
-	  	if (!$resultat){
-	   	 	echo "Consulta erronea.";
-	  	}else{
-	    	echo "Consulta afegida correctament.";
-	  	}
+	  	$consulta = "INSERT INTO consultas VALUES 
+	  				(NULL,'$tituloConsulta','tercera','funka', '$fechainicio', '$fechaexpiracion')";
+ 		$resultat = mysqli_query($GLOBALS['conn'], $consulta);
+	}
+	if (isset($_POST['titulo'])) {
+		crearConsulta();
 	}
 ?>

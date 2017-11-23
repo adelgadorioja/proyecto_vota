@@ -4,14 +4,11 @@
 	<title>Votaciones AM</title>
 </head>
 <body>
-	<?php
-		include 'funcionesPHP.php';
-	?>
 	<h2>Crear consulta</h2>
-	<form action="<?php crearConsulta() ?>">
-		Títol<input type="text" name="titulo">
-		Data d'inici: <input type="date" name="inicio">
-		Data final: <input type="date" name="final">
+	<form action="funcionesPHP.php" method="POST">
+		Titulo <input type="text" name="titulo" placeholder="Nombre consulta"><br><br>
+		Fecha de inicio: <input type="date" name="inicio"><br><br>
+		Fecha de cierre: <input type="date" name="final"><br><br>
 		<input type="submit" value="Crear consulta">
 		<input type="reset">
 	</form>

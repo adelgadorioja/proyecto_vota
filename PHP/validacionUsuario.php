@@ -7,7 +7,7 @@
 		cerrarSesion();
 		header('Location: ../index.php');
 	}else{
-		$usuario = $query->fetch();
+		$usuario = $rs->fetch();
 		$usuario = $usuario['id_usuario'];
 		iniciarSesion($usuario);
 		header('Location: creacionConsulta.php');

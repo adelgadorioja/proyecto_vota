@@ -46,3 +46,5 @@ function mostrarConsulta(){
 function insertarElemento(tag,elemento){
 	elemento.parentNode.insertBefore(tag, elemento.nextSibling);
 }
+=======
+>>>>>>> 58f30a9253d03e892b4c9d668d0b1f4c0118cf7a

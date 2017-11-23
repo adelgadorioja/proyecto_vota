@@ -12,7 +12,7 @@
 		Títol<input type="text" name="titulo">
 		Data d'inici: <input type="date" name="inicio">
 		Data final: <input type="date" name="final">
-		<input type="submit" value="Crear">
+		<input type="submit" value="Crear consulta">
 		<input type="reset">
 	</form>
 </body>

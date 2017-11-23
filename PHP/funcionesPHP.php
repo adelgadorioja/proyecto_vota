@@ -1,32 +1,24 @@
 <?php
-
-function realizarConsulta($query) {
-  try {
-    $hostname = "localhost";
-    $dbname = "proyecto_vota";
-    $username = "root";
-    $pw = "123abc123";
-    $pdo = new PDO ("mysql:host=$hostname;dbname=$dbname","$username","$pw");
-  } catch (PDOException $e) {
-    echo "Fallo en la conexión: " . $e->getMessage() . "\n";
-    exit;
-  }
-
-  $rs = $pdo->prepare($query);
-  $rs->execute();
-  return $rs;
-  unset($pdo);
-}
-
-function crearConsulta(){
-  $tituloConsulta = $_POST['titulo'];
-  $contrasena = $_POST['contrasena'];
-  $rs = realizarConsulta("SELECT * FROM usuarios WHERE id_usuario = '$usuario' AND contrasena = '$contrasena'");
-  if ($rs->fetch()) {
-    header('Location: ../userPage.php');
-  }
-  else {
-    header('Location: ../index.php');
-  }
-}
+	function conectarBD(){
+		$GLOBALS['conn'] = mysqli_connect('localhost','root','123abc123');
+		mysqli_select_db($GLOBALS['conn'], 'proyecto_vota');
+	}
+	function realizarConsulta($query) {
+		conectarBD();
+		$resultat = mysqli_query($GLOBALS['conn'], $query) or die(mysql_error());
+		return $resultat;
+	}
+	function crearConsulta(){
+	  	$tituloConsulta = $_POST['titulo'];
+	  	$fechainicio = $_POST['inicio'];
+	  	$fechaexpiración = $_POST['final'];
+	  	conectarBD();
+	  	$consulta = "INSERT INTO consultas VALUES ('$id','$tituloConsulta', '$fechainicio', '$fechaexpiración')";
+ 		$resultat = mysqli_query($conn, $consulta);
+	  	if (!$resultat){
+	   	 	echo "Consulta erronea.";
+	  	}else{
+	    	echo "Consulta afegida correctament.";
+	  	}
+	}
 ?>

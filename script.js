@@ -1,9 +1,13 @@
+function insertarElemento(tag,elemento){
+	elemento.parentNode.insertBefore(tag, elemento.nextSibling);
+}
 function mostrarConsulta(){
 	
 	var hermano = document.getElementsByTagName("button")[0];
     var form = document.createElement("form");
     form.setAttribute("action","consultaCreada.php");
     form.setAttribute("method","POST");
+    form.setAttribute("onsubmit","habilitarBotones()")
 
 	    var label = document.createElement("label");
 	    var textoLabel = document.createTextNode("Nombre de la consulta:");
@@ -41,10 +45,21 @@ function mostrarConsulta(){
     	form.appendChild(input4);    	
 
     insertarElemento(form,hermano);
+    botonesRespuestas(); 
 }
+function botonesRespuestas(){
+	var hermano = document.getElementsByTagName("form")[0];
+    var button = document.createElement("button");
+    button.disabled = false;
+    button.setAttribute("value","Crear respuesta")
+    insertarElemento(button,hermano);
 
-function insertarElemento(tag,elemento){
-	elemento.parentNode.insertBefore(tag, elemento.nextSibling);
+    var hermano = document.getElementsByTagName("button")[1];
+    var button2 = document.createElement("button");
+    button2.disabled = false;
+    button2.setAttribute("value","Borrar respuesta")
+    insertarElemento(button2,hermano);
 }
-=======
->>>>>>> 58f30a9253d03e892b4c9d668d0b1f4c0118cf7a
+function habilitarBotones(){
+
+}

@@ -15,8 +15,8 @@
 		<h2>aseguramos tu anonimato</h2>
 		<form id="formularioLogin" action="PHP/validacionUsuario.php" method="POST">
 			<div id="circulo">?</div>
-			<input type="text" id="usuario" name="usuario">
-			<input type="password" id="contrasena" name="contrasena">
+			<input type="text" placeholder="usuario" id="usuario" name="usuario">
+			<input type="password" placeholder="contraseña" id="contrasena" name="contrasena">
 			<input type="submit" id="botonAceptar" name="aceptar" value="aceptar">
 		</form>
 	</div>

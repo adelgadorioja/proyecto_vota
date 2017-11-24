@@ -1,4 +1,7 @@
 var numRes = 0;
+function redirigirConsulta(idConsulta) {
+	location.href ="realizarVotacion.php?idConsulta="+idConsulta;
+}
 function insertarElemento(tag,elemento){
 	elemento.parentNode.insertBefore(tag, elemento.nextSibling);
 }

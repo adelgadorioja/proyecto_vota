@@ -4,7 +4,6 @@
 	<title>Votaciones VOTA</title>
 	<link rel="stylesheet" type="text/css" href="../reset.css">
 	<link rel="stylesheet" type="text/css" href="../style.css">
-	<script type="text/javascript" src="../script.js"></script>
 </head>
 <body>
 	<?php
@@ -19,8 +18,8 @@
 			<a href="inicio.php"><h1>proyecto<span>vota</span></h1></a>
 			<nav>
 				<a href="inicio.php">inicio</a>
-				<a href="creacionConsulta.php" class="actual">crear consulta</a>
-				<a href="realizarInvitacion.php">invitar</a>
+				<a href="creacionConsulta.php">crear consulta</a>
+				<a href="realizarInvitacion.php" class="actual">invitar</a>
 				<a href="cerrarSesion.php">cerrar sesión</a>
 			</nav>
 		</div>
@@ -35,10 +34,9 @@
 			</div>
 		</div>
 		<div id="contenido" class="caja">
-			<h2>Crear consulta</h2>
-			<button onclick="mostrarConsulta()">Crear consulta</button>
+			<h2>Realizar invitación</h2>
 		</div>
-		
 	</div>
+
 </body>
 </html>

@@ -9,7 +9,8 @@
 	}else{
 		$usuario = $rs->fetch();
 		$usuario = $usuario['id_usuario'];
-		iniciarSesion($usuario);
-		header('Location: creacionConsulta.php');
+		$tipoUsuario = $usuario['permisos'] == "a"? "administrador" : "usuario";
+		iniciarSesion($usuario, $tipoUsuario);
+		header('Location: inicio.php');
 	}
 ?>

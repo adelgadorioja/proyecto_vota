@@ -38,9 +38,10 @@
     desconectarBD();
   }
 
-  function iniciarSesion($usuario) {
+  function iniciarSesion($usuario, $tipoUsuario) {
     session_start();
     $_SESSION['usuario'] = $usuario;
+    $_SESSION['tipoUsuario'] = $tipoUsuario;
   }
 
   function cerrarSesion() {
@@ -69,14 +70,32 @@
     return $consulta['des_pregunta'];
   }
 
+  function obtenerTodasConsultas() {
+    $consultas = [];
+    $obtenerTodasConsultas = realizarConsulta("SELECT * from consultas");
+    $consulta = $obtenerTodasConsultas->fetch();
+    while ($consulta) {
+      $consulta = [0=> $consulta['des_pregunta'], 1=>$consulta['id_usuario'], 2=>$consulta['fecha_inicio'], 3=>$consulta['fecha_final'], 4=>$consulta['id_consulta']];
+      array_push($consultas, $consulta);
+      $consulta = $obtenerTodasConsultas->fetch();
+    }
+    return $consultas;
+  }
+
   function obtenerOpciones($idConsulta) {
     $listaOpciones = [];
-    $obtenerOpciones = realizarConsulta("SELECT des_opcion from opciones WHERE id_consulta =".$idConsulta);
+    $obtenerOpciones = realizarConsulta("SELECT id_opcion, des_opcion from opciones WHERE id_consulta =".$idConsulta);
     $opcion = $obtenerOpciones->fetch();
     while ($opcion) {
-      array_push($listaOpciones, $opcion['des_opcion']);
+      $opcion = [0=> $opcion['des_opcion'], 1=>$opcion['id_opcion']];
+      array_push($listaOpciones, $opcion);
       $opcion = $obtenerOpciones->fetch();
     }
     return $listaOpciones;
+  }
+
+  function realizarVotacion($usuario, $idOpcion) {
+    $realizarVotacion = "INSERT INTO votos VALUES(NULL, '$idOpcion', '$usuario')";
+    insertarElemento($realizarVotacion);
   }
 ?>

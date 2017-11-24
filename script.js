@@ -75,13 +75,13 @@ function botonesRespuestas(form){
     textoButton = document.createTextNode("Finalizar");
     button3.appendChild(textoButton);
     button3.disabled = true;
-    button3.setAttribute("type","submit");
+    button3.setAttribute("type","button");
     button3.setAttribute("onclick","respuestaNoVacia()");
     form.appendChild(button3);
 }
 function habilitarBotones(){
 	var botones = document.getElementsByTagName("button");
-	for (var i = 0; i < botones.length-1; i++) {
+	for (var i = 1; i < botones.length-1; i++) {
 		if(botones[i].disabled == true){
 			botones[i].disabled = false;
 		}else{
@@ -100,8 +100,14 @@ function consultaNoVacia(){
 	}
 }
 function respuestaNoVacia(){
-	var respuestas = document.getElementsByTagName("input");
-	alert(respuestas);
+	var elements = document.querySelector("form").elements;
+	var respuesta = "";
+    for (var i = 1; i < elements.length; i++) {
+    	respuesta = elements.querySelector()
+    	if (respuesta == null || respuesta == "") {
+    		alert("ep, respuesta vacía");
+    	}
+    }
 }
 function anadirRespuesta(form){
 	numRes++;
@@ -114,7 +120,7 @@ function anadirRespuesta(form){
 
     var input = document.createElement("input");
     input.setAttribute("type","text");
-    input.setAttribute("name","respuesta"+numRes);	
+    input.setAttribute("name","respuesta"+numRes);
     botonFinal.parentNode.insertBefore(input, botonFinal);
 
 	if (numRes == 2) {

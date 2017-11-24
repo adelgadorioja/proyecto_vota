@@ -18,8 +18,8 @@
 		<div id="cabecera">
 			<a href="inicio.php"><h1>proyecto<span>vota</span></h1></a>
 			<nav>
-				<a href="inicio.php">inicio</a>
-				<a href="creacionConsulta.php" class="actual">crear consulta</a>
+				<a href="inicio.php" class="actual">inicio</a>
+				<a href="creacionConsulta.php">crear consulta</a>
 				<a href="realizarInvitacion.php">invitar</a>
 				<a href="cerrarSesion.php">cerrar sesión</a>
 			</nav>
@@ -35,15 +35,27 @@
 			</div>
 		</div>
 		<div id="contenido" class="caja">
-			<h2>Crear consulta</h2>
-			<form action="consultaCreada.php" method="POST">
-				<label>Pregunta</label> <input type="text" name="consulta">
-				<label>Fecha de inicio</label> <input type="date" name="fecInicio">
-				<label>Fecha de cierre</label> <input type="date" name="fecFin">
-				<input type="submit" value="Crear consulta">
-			</form>
+			<h2>Consultas</h2>
+			<table>
+				<th class="redondeado">Pregunta</th>
+				<th>Usuario creador</th>
+				<th>Fecha inicio</th>
+				<th class="redondeado">Fecha fin</th>
+				<?php
+					$consultas = obtenerTodasConsultas();
+					for ($i=0; $i < sizeof($consultas); $i++) { 
+						echo "<tr onclick='redirigirConsulta(".$consultas[$i][4].")'>";
+						echo "<td>".$consultas[$i][0]."</td>";
+						echo "<td>".$consultas[$i][1]."</td>";
+						echo "<td>".$consultas[$i][2]."</td>";
+						echo "<td>".$consultas[$i][3]."</td>";
+						echo "</tr>";
+					}
+				?>
+			</table>
 		</div>
 		
 	</div>
+
 </body>
 </html>

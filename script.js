@@ -119,10 +119,12 @@ function anadirRespuesta(form){
 	}
 }
 function borrarRespuestas(){
-	var inputs = document.getElementsByTagName("input");
+	/*var inputs = document.getElementsByTagName("input");
 	var respuestas = inputs.querySelectorAll('input[name="respuesta"]');
 	for (var i = 0; i < respuestas.length; i++) {
 		respuestas[i].parentNode.removeChild(respuestas[i]);
+	*/
+	// hay que acabar de ver como cojer los inputs de respuestas
 }
 function mostrarRespuestas() {
 	var respuestas = document.getElementById("respuestas");

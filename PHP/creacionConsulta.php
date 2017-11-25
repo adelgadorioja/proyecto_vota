@@ -37,7 +37,7 @@
 		</div>
 		<div id="contenido" class="caja">
 			<h2>Crear consulta</h2>
-			<button onclick="mostrarConsulta()">Crear consulta</button>
+			<button id="botonCrearConsulta" onclick="mostrarConsulta()">Crear consulta</button>
 		</div>
 		
 	</div>

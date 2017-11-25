@@ -19,9 +19,5 @@
 	$usuario = $_SESSION['usuario'];
 	$fecInicio = $_POST['fecInicio'];
 	$fecFin = $_POST['fecFin'];
-	echo ("esto es consulta: ".$consulta);
-	echo ("esto es usuario: ".$usuario);
-	echo ("esto es fecInicio: ".$fecInicio);
-	echo ("esto es fecFin: ".$fecFin);
 	crearConsulta($consulta, $usuario, $fecInicio, $fecFin);
 ?>

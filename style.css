@@ -70,7 +70,6 @@ body {
 	padding: 0.3em;
 	font-size: 1em;
 	color: #B12D25;
-
 }
 
 #contenedorIndex input[type="submit"] {
@@ -280,4 +279,57 @@ header nav .actual {
 	background-color: #F4824A;
 	color: #B12D25;
 	transition: 0.5s;
+}
+
+/* --------------------- CREAR CONSULTA --------------------- */
+#contenido #botonCrearConsulta, #contenido #botonSiguiente, #contenido .botonRespuesta {
+	width: 100%;
+	padding: 0.5em;
+	background-color: #B12D25;
+	color: #F4824A;
+	border: none;
+	font-size: 1em;
+	font-weight: 800;
+	border-radius: 0.8em;
+	cursor: pointer;
+	margin-bottom: 1em;
+}
+#contenido #botonCrearConsulta:disabled, #contenido #botonSiguiente:disabled {
+	opacity: 0.8;
+	cursor: default;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+#contenido #botonSiguiente {
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
+}
+#contenido label {
+	display: inline-block;
+	width: 12em;
+	margin-bottom: 1em;
+}
+
+#contenido input {
+	display: inline-block;
+	width: 12em;
+	margin-right: 2em;
+}
+#contenido .botonRespuesta:disabled {
+	display: none;
+}
+#contenido .botonRespuesta{
+	border-radius: 0;
+	width: 49.5%;
+	float: left;
+	box-sizing: border-box;
+}
+#contenido .floatDerecha {
+	float: right;
+}
+#contenido .botonRespuesta:last-child {
+	clear: both;
+	width: 100%;
+	border-bottom-right-radius: 0.8em;
+	border-bottom-left-radius: 0.8em;
 }

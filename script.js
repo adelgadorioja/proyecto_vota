@@ -58,30 +58,29 @@ function mostrarConsulta(){
 function botonesRespuestas(form){
     var button = document.createElement("button");
     var textoButton = document.createTextNode("Añadir respuesta");
-    button.appendChild(textoButton);
     button.setAttribute("type","button");
+    button.appendChild(textoButton);
     button.disabled = true;
     button.setAttribute("onclick","anadirRespuesta(form)")
     form.appendChild(button);
 
     var button2 = document.createElement("button");
     textoButton = document.createTextNode("Borrar respuestas");
+    button2.setAttribute("type","button");
     button2.appendChild(textoButton);
     button2.disabled = true;
   	button2.setAttribute("onclick","borrarRespuestas()");
     form.appendChild(button2);
 
-    var button3 = document.createElement("button");
-    textoButton = document.createTextNode("Finalizar");
-    button3.appendChild(textoButton);
-    button3.disabled = true;
-    button3.setAttribute("type","button");
-    button3.setAttribute("onclick","respuestaNoVacia()");
-    form.appendChild(button3);
+    var input = document.createElement("input");
+    input.setAttribute("value","Finalizar");
+    input.disabled = true;
+    input.setAttribute("type","submit");
+    form.appendChild(input);
 }
 function habilitarBotones(){
 	var botones = document.getElementsByTagName("button");
-	for (var i = 1; i < botones.length-1; i++) {
+	for (var i = 1; i < botones.length; i++) {
 		if(botones[i].disabled == true){
 			botones[i].disabled = false;
 		}else{
@@ -94,39 +93,35 @@ function consultaNoVacia(){
 	var fecInicio = document.forms["formulario"]["fecInicio"].value;
 	var fecFin = document.forms["formulario"]["fecFin"].value;
 	if (titulo == null || titulo == "" || fecInicio == null || fecInicio == "" || fecFin == null || fecFin == ""){
-		alert("Has d'omplir tots els camps!");
+		alert("Debes rellenar todos los campos para continuar!");
 	}else{
 		habilitarBotones();
 	}
 }
-function respuestaNoVacia(){
-	var elements = document.querySelector("form").elements;
-	var respuesta = "";
-    for (var i = 1; i < elements.length; i++) {
-    	respuesta = elements.querySelector()
-    	if (respuesta == null || respuesta == "") {
-    		alert("ep, respuesta vacía");
-    	}
-    }
-}
 function anadirRespuesta(form){
 	numRes++;
-	var botonFinal = document.getElementsByTagName("button")[4];
+	var inputFinal = document.getElementsByTagName("input");
+	inputFinal = inputFinal[inputFinal.length-1];
 
 	var label = document.createElement("label");
     textoLabel = document.createTextNode("Respuesta "+numRes+":");
     label.appendChild(textoLabel);
-    botonFinal.parentNode.insertBefore(label, botonFinal);
+    inputFinal.parentNode.insertBefore(label, inputFinal);
 
     var input = document.createElement("input");
     input.setAttribute("type","text");
-    input.setAttribute("name","respuesta"+numRes);
-    botonFinal.parentNode.insertBefore(input, botonFinal);
+    input.setAttribute("name","respuesta");
+    input.required = true;
+    inputFinal.parentNode.insertBefore(input, inputFinal);
 
 	if (numRes == 2) {
-		botonFinal.disabled = false;
+		inputFinal.disabled = false;
 	}
 }
 function borrarRespuestas(){
-	var respuestas = document.getElementsByTagName("")
+	var inputs = document.getElementsByTagName("input");
+	var respuestas = inputs.querySelectorAll('input[name="respuesta"]');
+	for (var i = 0; i < respuestas.length; i++) {
+		respuestas[i].parentNode.removeChild(respuestas[i]);
+	}
 }

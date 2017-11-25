@@ -10,6 +10,17 @@ body {
   	background-repeat: no-repeat;
 }
 
+/* --------------------- DIALOG --------------------- */
+#mensajeDialog {
+	text-align: left;
+	overflow: hidden;
+	box-sizing: border-box;
+	transition: 0.5s;
+	display: hidden;
+	background-color: red;
+	color: white;
+}
+
 /* --------------------- LOGIN --------------------- */
 
 #contenedorIndex {
@@ -68,6 +79,7 @@ body {
 }
 
 #formularioLogin {
+	padding: 1em;
 	background-color: #fff;
 	padding-top: 1em;
 	padding-bottom: 0.3em;
@@ -76,7 +88,7 @@ body {
 	border-radius: 0.5em;
 }
 
-/* --------------------- INICIO --------------------- */
+/* --------------------- INTERFAZ --------------------- */
 
 a {
 	color: inherit;
@@ -197,14 +209,12 @@ header nav .actual {
 }
 #content #contenido th {
 	text-align: left;
-	font-weight: 800;
 	background-color: #B12D25;
 	color: white;
 	padding: 0.5em;
 	border: 0.2em solid white;
 }
 #content #contenido td {
-	background-color: #F4824A;
 	padding: 0.5em;
 	border: 0.2em solid white;
 }
@@ -215,17 +225,59 @@ header nav .actual {
 	border-top-right-radius: 0.8em;
 }
 #content #contenido td {
-	background-color: #F4824A;
 	padding: 0.5em;
 	border: 0.2em solid white;
 }
 #content #contenido tr {
 	color: #333;
+
 }
 #content #contenido tr:hover {
 	color: #000;
 	cursor: pointer;
+	background-color: #eee;
 }
 #content #contenido th:hover {
 	cursor: default;
+}
+
+/* --------------------- REALIZAR VOTACIÓN --------------------- */
+
+.pregunta {
+	font-size: 1.5em;
+	color: #B12D25;
+}
+.respuesta {
+	display: block;
+	padding: 0.5em;
+	color: #333;
+}
+.respuesta:hover {
+	color: #000;
+	cursor: pointer;
+	background-color: #eee;
+}
+#respuestas {
+	max-height: 0;
+	overflow: hidden;
+	transition: 1s;
+	margin-top: 1em;
+}
+#contenido input[type="submit"] {
+	width: 100%;
+	padding: 0.5em;
+	background-color: #B12D25;
+	color: #F4824A;
+	border: none;
+	font-size: 1em;
+	font-weight: 800;
+	margin-top: 1em;
+	border-bottom-right-radius: 0.8em;
+	border-bottom-left-radius: 0.8em;
+	cursor: pointer;
+}
+#contenido input[type="submit"]:hover {
+	background-color: #F4824A;
+	color: #B12D25;
+	transition: 0.5s;
 }

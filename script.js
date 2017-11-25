@@ -8,14 +8,16 @@ function insertarElemento(tag,elemento){
 function mostrarConsulta(){
 	var creacionConsulta = document.getElementsByTagName("button")[0];
 	creacionConsulta.disabled = true;
+	
 	var hermano = document.getElementsByTagName("button")[0];
     var form = document.createElement("form");
+
     form.setAttribute("name","formulario");
     form.setAttribute("action","consultaCreada.php");
     form.setAttribute("method","post");
 
 	    var label = document.createElement("label");
-	    var textoLabel = document.createTextNode("Nombre de la consulta:");
+	    var textoLabel = document.createTextNode("Consulta");
 	    label.appendChild(textoLabel);
 	    form.appendChild(label);
 
@@ -24,8 +26,11 @@ function mostrarConsulta(){
 	    input.setAttribute("name","consulta");
     	form.appendChild(input);
 
+    	var br = document.createElement("br");
+    	form.appendChild(br);
+
     	var label2 = document.createElement("label");
-	    textoLabel = document.createTextNode("Fecha de inicio:");
+	    textoLabel = document.createTextNode("Fecha de inicio");
 	    label2.appendChild(textoLabel);
 	    form.appendChild(label2);
 
@@ -35,7 +40,7 @@ function mostrarConsulta(){
     	form.appendChild(input2);
 
     	var label3 = document.createElement("label");
-    	textoLabel = document.createTextNode("Fecha de expiración:");
+    	textoLabel = document.createTextNode("Fecha de expiración");
 	    label3.appendChild(textoLabel);
 	    form.appendChild(label3);
 
@@ -44,9 +49,13 @@ function mostrarConsulta(){
 	    input3.setAttribute("name","fecFin");
     	form.appendChild(input3);
 
+    	var br2 = document.createElement("br");
+    	form.appendChild(br2);
+
     	var button = document.createElement("button");
-	    var textoButton = document.createTextNode("Siguiente:");
+	    var textoButton = document.createTextNode("Añadir respuestas");
 	    button.setAttribute("type","button");
+	    button.setAttribute("id","botonSiguiente");
     	button.appendChild(textoButton);
 	    button.setAttribute("onclick","consultaNoVacia()")
     	form.appendChild(button);
@@ -58,29 +67,33 @@ function mostrarConsulta(){
 function botonesRespuestas(form){
     var button = document.createElement("button");
     var textoButton = document.createTextNode("Añadir respuesta");
-    button.setAttribute("type","button");
     button.appendChild(textoButton);
+    button.setAttribute("type","button");
     button.disabled = true;
-    button.setAttribute("onclick","anadirRespuesta(form)")
+    button.setAttribute("onclick","anadirRespuesta(form)");
+    button.setAttribute("class","botonRespuesta");
     form.appendChild(button);
 
     var button2 = document.createElement("button");
     textoButton = document.createTextNode("Borrar respuestas");
-    button2.setAttribute("type","button");
     button2.appendChild(textoButton);
     button2.disabled = true;
   	button2.setAttribute("onclick","borrarRespuestas()");
+  	button2.setAttribute("class","botonRespuesta floatDerecha");
     form.appendChild(button2);
 
-    var input = document.createElement("input");
-    input.setAttribute("value","Finalizar");
-    input.disabled = true;
-    input.setAttribute("type","submit");
-    form.appendChild(input);
+    var button3 = document.createElement("button");
+    textoButton = document.createTextNode("Finalizar");
+    button3.appendChild(textoButton);
+    button3.disabled = true;
+    button3.setAttribute("type","button");
+    button3.setAttribute("onclick","respuestaNoVacia()");
+    button3.setAttribute("class","botonRespuesta");
+    form.appendChild(button3);
 }
 function habilitarBotones(){
 	var botones = document.getElementsByTagName("button");
-	for (var i = 1; i < botones.length; i++) {
+	for (var i = 1; i < botones.length-1; i++) {
 		if(botones[i].disabled == true){
 			botones[i].disabled = false;
 		}else{
@@ -93,38 +106,41 @@ function consultaNoVacia(){
 	var fecInicio = document.forms["formulario"]["fecInicio"].value;
 	var fecFin = document.forms["formulario"]["fecFin"].value;
 	if (titulo == null || titulo == "" || fecInicio == null || fecInicio == "" || fecFin == null || fecFin == ""){
-		alert("Debes rellenar todos los campos para continuar!");
+		alert("Has d'omplir tots els camps!");
 	}else{
 		habilitarBotones();
 	}
 }
+function respuestaNoVacia(){
+	var elements = document.querySelector("form").elements;
+	var respuesta = "";
+    for (var i = 1; i < elements.length; i++) {
+    	respuesta = elements.querySelector()
+    	if (respuesta == null || respuesta == "") {
+    		alert("ep, respuesta vacía");
+    	}
+    }
+}
 function anadirRespuesta(form){
 	numRes++;
-	var inputFinal = document.getElementsByTagName("input");
-	inputFinal = inputFinal[inputFinal.length-1];
+	var botonFinal = document.getElementsByTagName("button")[4];
 
 	var label = document.createElement("label");
     textoLabel = document.createTextNode("Respuesta "+numRes+":");
     label.appendChild(textoLabel);
-    inputFinal.parentNode.insertBefore(label, inputFinal);
+    botonFinal.parentNode.insertBefore(label, botonFinal);
 
     var input = document.createElement("input");
     input.setAttribute("type","text");
-    input.setAttribute("name","respuesta");
-    input.required = true;
-    inputFinal.parentNode.insertBefore(input, inputFinal);
+    input.setAttribute("name","respuesta"+numRes);
+    botonFinal.parentNode.insertBefore(input, botonFinal);
 
 	if (numRes == 2) {
-		inputFinal.disabled = false;
+		botonFinal.disabled = false;
 	}
 }
 function borrarRespuestas(){
-	/*var inputs = document.getElementsByTagName("input");
-	var respuestas = inputs.querySelectorAll('input[name="respuesta"]');
-	for (var i = 0; i < respuestas.length; i++) {
-		respuestas[i].parentNode.removeChild(respuestas[i]);
-	*/
-	// hay que acabar de ver como cojer los inputs de respuestas
+	var respuestas = document.getElementsByTagName("");
 }
 function mostrarRespuestas() {
 	var respuestas = document.getElementById("respuestas");

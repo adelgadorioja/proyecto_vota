@@ -6,7 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="../style.css">
 	<script type="text/javascript" src="../script.js"></script>
 </head>
-<body>
+<body onload="setTimeout('mostrarRespuestas()', 2000);">
 	<?php
 		include 'funcionesPHP.php';
 		if (!comprobarSesionIniciada()) {
@@ -39,13 +39,17 @@
 			<form method="POST" action="votacionRealizada.php">
 				<?php
 					$consulta = obtenerConsulta($_GET['idConsulta']);
-					echo "<label>$consulta</label>\n";
+					echo "<label class='pregunta'>$consulta</label>\n";
 					$opciones = obtenerOpciones($_GET['idConsulta']);
-					for ($i=0; $i < sizeof($opciones); $i++) { 
-						echo "\t<input type='radio' value='".$opciones[$i][1]."' name='opcion'>".$opciones[$i][0]."</input>\n";
+					echo "<div id='respuestas'>";
+					for ($i=0; $i < sizeof($opciones); $i++) {
+						echo "\t\t\t\t<label class='respuesta'>";
+						echo "\t\t\t\t<input type='radio' value='".$opciones[$i][1]."' name='opcion'/>\n";
+						echo "\t\t\t\t".$opciones[$i][0]."</label>\n";
 					}
 				?>
 				<input type="submit" name="aceptar" value="aceptar">
+				</div>
 			</form>
 		</div>
 		

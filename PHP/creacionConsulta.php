@@ -5,6 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="../reset.css">
 	<link rel="stylesheet" type="text/css" href="../style.css">
 	<script type="text/javascript" src="../script.js"></script>
+	<meta charset="utf-8">
 </head>
 <body>
 	<?php

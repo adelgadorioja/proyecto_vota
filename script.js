@@ -123,5 +123,33 @@ function borrarRespuestas(){
 	var respuestas = inputs.querySelectorAll('input[name="respuesta"]');
 	for (var i = 0; i < respuestas.length; i++) {
 		respuestas[i].parentNode.removeChild(respuestas[i]);
+}
+function mostrarRespuestas() {
+	var respuestas = document.getElementById("respuestas");
+	respuestas.style.maxHeight = respuestas.scrollHeight + "px";
+}
+function comprobarInputVacio(event) {
+	input = event.currentTarget;
+	dialog = document.getElementById("mensajeDialog");
+	textoDialog = document.getElementById("mensajeDialog").textContent;
+	if (input.value == "") {
+		input.style.border= "1px solid red";
+		if (textoDialog == "") {
+			textoDialog	= document.createTextNode("El campo '" + input.name + "' es obligatorio.");
+			dialog.appendChild(textoDialog);
+			dialog.style.display = "block";
+			dialog.style.padding = "0.5em";
+			dialog.style.marginBottom = "1em";
+		}
+		else {
+			document.getElementById("mensajeDialog").textContent = "El campo '" + input.name + "' es obligatorio.";
+		}
+	}
+	else {
+		document.getElementById("mensajeDialog").textContent = "";
+		dialog.style.display = "hidden";
+		dialog.style.padding = "0em";
+		dialog.style.marginBottom = "0em";
+		input.style.border= "none";
 	}
 }

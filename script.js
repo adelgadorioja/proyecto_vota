@@ -15,6 +15,7 @@ function mostrarConsulta(){
     form.setAttribute("name","formulario");
     form.setAttribute("action","consultaCreada.php");
     form.setAttribute("method","post");
+    form.setAttribute("id","formularioCrearConsulta");
 
 	    var label = document.createElement("label");
 	    var textoLabel = document.createTextNode("Consulta");

@@ -143,12 +143,12 @@ function anadirRespuesta(form){
 function borrarRespuestas(){
 	numRes = 0;
 
-	var inputsRespuestas = document.getElementsByName("respuesta");
+	var inputsRespuestas = document.getElementsByClassName("respuesta");
 	for (var i = inputsRespuestas.length - 1; i >= 0; i--) {
 		inputsRespuestas[i].parentNode.removeChild(inputsRespuestas[i]);
 	}
 	
-	var labelsRespuestas = document.getElementsByName("labelrespuesta");
+	var labelsRespuestas = document.getElementsByClassName("labelrespuesta");
 	for (var i = labelsRespuestas.length - 1; i >= 0; i--) {
 		labelsRespuestas[i].parentNode.removeChild(labelsRespuestas[i]);
 	}

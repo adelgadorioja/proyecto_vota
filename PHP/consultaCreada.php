@@ -2,9 +2,6 @@
 <html>
 <head>
 	<title>Votaciones VOTA</title>
-	<?php
-		
-	?>
 </head>
 <body>
 

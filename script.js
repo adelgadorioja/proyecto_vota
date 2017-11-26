@@ -142,21 +142,23 @@ function anadirRespuesta(form){
 }
 function borrarRespuestas(){
 	numRes = 0;
-	var padre = document.getElementsByTagName("form")[0];
 
-	var inputsRespuestas = document.getElementsByClassName("respuesta");
-	for (var i = 0; i < inputsRespuestas.length; i++) {
-		padre.removeChild(inputsRespuestas[0]);
+	var inputsRespuestas = document.getElementsByName("respuesta");
+	for (var i = inputsRespuestas.length - 1; i >= 0; i--) {
+		inputsRespuestas[i].parentNode.removeChild(inputsRespuestas[i]);
 	}
 	
-	var labelsRespuestas = document.getElementsByClassName("labelrespuesta");
-	for (var y = 0; y < labelsRespuestas.length; y++) {
-		padre.removeChild(labelsRespuestas[0]);
+	var labelsRespuestas = document.getElementsByName("labelrespuesta");
+	for (var i = labelsRespuestas.length - 1; i >= 0; i--) {
+		labelsRespuestas[i].parentNode.removeChild(labelsRespuestas[i]);
 	}
 
 	var inputs = document.getElementsByTagName("input");
 	var inputFinal = inputs[inputs.length-1];
 	inputFinal.disabled = true;
+
+	var borrarRespuestas = document.getElementsByClassName("floatDerecha")[0];
+    borrarRespuestas.disabled = true;
 }
 function mostrarRespuestas() {
 	var respuestas = document.getElementById("respuestas");

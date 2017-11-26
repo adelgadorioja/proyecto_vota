@@ -304,30 +304,30 @@ header nav .actual {
 	border-top-right-radius: 0;
 	border-top-left-radius: 0;
 }
-#contenido label {
+#contenido #formularioCrearConsulta label {
 	display: inline-block;
 	width: 12em;
 	margin-bottom: 1em;
 }
 
-#contenido input {
+#contenido #formularioCrearConsulta input {
 	display: inline-block;
 	width: 12em;
 	margin-right: 2em;
 }
-#contenido .botonRespuesta:disabled {
+#contenido #formularioCrearConsulta .botonRespuesta:disabled {
 	display: none;
 }
-#contenido .botonRespuesta{
+#contenido #formularioCrearConsulta .botonRespuesta{
 	border-radius: 0;
 	width: 49.5%;
 	float: left;
 	box-sizing: border-box;
 }
-#contenido .floatDerecha {
+#contenido #formularioCrearConsulta .floatDerecha {
 	float: right;
 }
-#contenido .botonRespuesta:last-child {
+#contenido #formularioCrearConsulta .botonRespuesta:last-child {
 	clear: both;
 	width: 100%;
 	border-bottom-right-radius: 0.8em;

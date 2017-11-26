@@ -63,8 +63,7 @@ body {
 	margin: 1.2em auto;
 	box-sizing: border-box;
 	text-align: center;
-	background-color: #F4824A;
-	border: none;
+	border: 1px solid #333;
 	font-weight: 800;
 	letter-spacing: 0.5em;
 	padding: 0.3em;
@@ -75,6 +74,7 @@ body {
 #contenedorIndex input[type="submit"] {
 	background-color: #B12D25;
 	color: #fff;
+	border: none;
 }
 
 #formularioLogin {
@@ -238,6 +238,9 @@ header nav .actual {
 }
 #content #contenido th:hover {
 	cursor: default;
+}
+#content #contenido input[type=text], #content #contenido input[type=date] {
+	border: 1px solid #333;
 }
 
 /* --------------------- REALIZAR VOTACIÓN --------------------- */

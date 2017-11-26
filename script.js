@@ -142,18 +142,21 @@ function anadirRespuesta(form){
 function borrarRespuestas(){
 	numRes = 0;
 	var inputsRespuestas = document.getElementsByName("respuesta");
-	for (var i = 0; i < inputsRespuestas.length; i++) {
-		inputsRespuestas[0].parentNode.removeChild(inputsRespuestas[i]);
+	for (var i = inputsRespuestas.length - 1; i >= 0; i--) {
+		inputsRespuestas[i].parentNode.removeChild(inputsRespuestas[i]);
 	}
 	
 	var labelsRespuestas = document.getElementsByName("labelrespuesta");
-	for (var y = 0; y < labelsRespuestas.length; y++) {
-		labelsRespuestas[0].parentNode.removeChild(labelsRespuestas[y]);
+	for (var i = labelsRespuestas.length - 1; i >= 0; i--) {
+		labelsRespuestas[i].parentNode.removeChild(labelsRespuestas[i]);
 	}
 
 	var inputs = document.getElementsByTagName("input");
 	var inputFinal = inputs[inputs.length-1];
 	inputFinal.disabled = true;
+
+	var borrarRespuestas = document.getElementsByClassName("floatDerecha")[0];
+    borrarRespuestas.disabled = true;
 
 	//hay que acabar de mirarselo porque no borra bien
 }

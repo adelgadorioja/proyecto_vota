@@ -37,6 +37,7 @@
 		</div>
 		<div id="contenido" class="caja">
 			<h2>Crear consulta</h2>
+			<div id="mensajeDialog"></div>
 			<button id="botonCrearConsulta" onclick="mostrarConsulta()">Crear consulta</button>
 		</div>
 		

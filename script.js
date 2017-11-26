@@ -25,6 +25,7 @@ function mostrarConsulta(){
 	    var input = document.createElement("input");
 	    input.setAttribute("type","text");
 	    input.setAttribute("name","consulta");
+	    input.setAttribute("onblur","comprobarInputVacio(event)");
     	form.appendChild(input);
 
     	var br = document.createElement("br");
@@ -38,6 +39,7 @@ function mostrarConsulta(){
 	    var input2 = document.createElement("input");
 	    input2.setAttribute("type","date");
 	    input2.setAttribute("name","fecInicio");
+	    input2.setAttribute("onblur","comprobarInputVacio(event)");
     	form.appendChild(input2);
 
     	var label3 = document.createElement("label");
@@ -48,6 +50,7 @@ function mostrarConsulta(){
 	    var input3 = document.createElement("input");
 	    input3.setAttribute("type","date");
 	    input3.setAttribute("name","fecFin");
+	    input3.setAttribute("onblur","comprobarInputVacio(event)");
     	form.appendChild(input3);
 
     	var br2 = document.createElement("br");
@@ -125,6 +128,7 @@ function anadirRespuesta(form){
     var input = document.createElement("input");
     input.setAttribute("type","text");
     input.setAttribute("name","respuesta");
+    input.setAttribute("onblur","comprobarInputVacio(event)");
     input.required = true;
     inputFinal.parentNode.insertBefore(input, inputFinal);
 	
@@ -179,6 +183,6 @@ function comprobarInputVacio(event) {
 		dialog.style.display = "hidden";
 		dialog.style.padding = "0em";
 		dialog.style.marginBottom = "0em";
-		input.style.border= "none";
+		input.style.border= "1px solid #333";
 	}
 }

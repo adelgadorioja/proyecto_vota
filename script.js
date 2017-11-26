@@ -75,21 +75,30 @@ function botonesRespuestas(form){
     form.appendChild(button);
 
     var button2 = document.createElement("button");
-    textoButton = document.createTextNode("Borrar respuestas");
-    button2.appendChild(textoButton);
-    button2.disabled = true;
+    button2.setAttribute("type","button");
+    button2.setAttribute("class","botonRespuesta floatDerecha");
   	button2.setAttribute("onclick","borrarRespuestas()");
-  	button2.setAttribute("class","botonRespuesta floatDerecha");
+  	textoButton = document.createTextNode("Borrar respuestas");
+    button2.appendChild(textoButton);
+  	button2.disabled = true;
     form.appendChild(button2);
 
-    var button3 = document.createElement("button");
-    textoButton = document.createTextNode("Finalizar");
-    button3.appendChild(textoButton);
-    button3.disabled = true;
-    button3.setAttribute("type","button");
-    button3.setAttribute("onclick","respuestaNoVacia()");
-    button3.setAttribute("class","botonRespuesta");
-    form.appendChild(button3);
+    var input = document.createElement("input");
+    input.disabled = true;
+    input.setAttribute("type","submit");
+    input.setAttribute("value","Finalizar");
+    input.setAttribute("class","botonRespuesta");
+    form.appendChild(input);
+}
+function consultaNoVacia(){
+	var titulo = document.forms["formulario"]["consulta"].value;
+	var fecInicio = document.forms["formulario"]["fecInicio"].value;
+	var fecFin = document.forms["formulario"]["fecFin"].value;
+	if (titulo == null || titulo == "" || fecInicio == null || fecInicio == "" || fecFin == null || fecFin == ""){
+		alert("Debes rellenar todos los campos!");
+	}else{
+		habilitarBotones();
+	}
 }
 function habilitarBotones(){
 	var botones = document.getElementsByTagName("button");
@@ -101,46 +110,47 @@ function habilitarBotones(){
 		}
 	}
 }
-function consultaNoVacia(){
-	var titulo = document.forms["formulario"]["consulta"].value;
-	var fecInicio = document.forms["formulario"]["fecInicio"].value;
-	var fecFin = document.forms["formulario"]["fecFin"].value;
-	if (titulo == null || titulo == "" || fecInicio == null || fecInicio == "" || fecFin == null || fecFin == ""){
-		alert("Has d'omplir tots els camps!");
-	}else{
-		habilitarBotones();
-	}
-}
-function respuestaNoVacia(){
-	var elements = document.querySelector("form").elements;
-	var respuesta = "";
-    for (var i = 1; i < elements.length; i++) {
-    	respuesta = elements.querySelector()
-    	if (respuesta == null || respuesta == "") {
-    		alert("ep, respuesta vacía");
-    	}
-    }
-}
 function anadirRespuesta(form){
 	numRes++;
-	var botonFinal = document.getElementsByTagName("button")[4];
+	var inputs = document.getElementsByTagName("input");
+	var inputFinal = inputs[inputs.length-1];
 
 	var label = document.createElement("label");
+	label.setAttribute("name","labelrespuesta");
     textoLabel = document.createTextNode("Respuesta "+numRes+":");
     label.appendChild(textoLabel);
-    botonFinal.parentNode.insertBefore(label, botonFinal);
+    inputFinal.parentNode.insertBefore(label, inputFinal);
 
     var input = document.createElement("input");
     input.setAttribute("type","text");
-    input.setAttribute("name","respuesta"+numRes);
-    botonFinal.parentNode.insertBefore(input, botonFinal);
+    input.setAttribute("name","respuesta");
+    input.required = true;
+    inputFinal.parentNode.insertBefore(input, inputFinal);
+	
+    var borrarRespuestas = document.getElementsByClassName("floatDerecha")[0];
+    borrarRespuestas.disabled = false;
 
-	if (numRes == 2) {
-		botonFinal.disabled = false;
+	if (numRes >= 2) {
+		inputFinal.disabled = false;
 	}
 }
 function borrarRespuestas(){
-	var respuestas = document.getElementsByTagName("");
+	numRes = 0;
+	var inputsRespuestas = document.getElementsByName("respuesta");
+	for (var i = 0; i < inputsRespuestas.length; i++) {
+		inputsRespuestas[0].parentNode.removeChild(inputsRespuestas[i]);
+	}
+	
+	var labelsRespuestas = document.getElementsByName("labelrespuesta");
+	for (var y = 0; y < labelsRespuestas.length; y++) {
+		labelsRespuestas[0].parentNode.removeChild(labelsRespuestas[y]);
+	}
+
+	var inputs = document.getElementsByTagName("input");
+	var inputFinal = inputs[inputs.length-1];
+	inputFinal.disabled = true;
+
+	//hay que acabar de mirarselo porque no borra bien
 }
 function mostrarRespuestas() {
 	var respuestas = document.getElementById("respuestas");

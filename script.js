@@ -101,7 +101,7 @@ function consultaNoVacia(){
 	if (titulo == null || titulo == "" || fecInicio == null || fecInicio == "" || fecFin == null || fecFin == ""){
 		alert("Debes rellenar todos los campos!");
 	}else{
-		habilitarBotones();
+		validacionFechas();
 	}
 }
 function habilitarBotones(){
@@ -112,6 +112,21 @@ function habilitarBotones(){
 		}else{
 			botones[i].disabled = true;
 		}
+	}
+}
+function validacionFechas(){
+	var hoy = new Date();
+	var dia = hoy.getDate();
+	var mes = hoy.getMonth() + 1;
+	var año = hoy.getFullYear();
+	hoy = año + "-" + mes + "-" + dia;
+
+	var fech_inicio = document.forms["formulario"]["fecInicio"].value;
+
+	if (hoy>=fech_inicio){
+		alert("La fecha de inicio de la consulta debe ser mayor a la actual.");
+	}else{
+		habilitarBotones();
 	}
 }
 function anadirRespuesta(form){

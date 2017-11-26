@@ -120,14 +120,15 @@ function anadirRespuesta(form){
 	var inputFinal = inputs[inputs.length-1];
 
 	var label = document.createElement("label");
-	label.setAttribute("name","labelrespuesta");
+	label.setAttribute("class","labelrespuesta");
     textoLabel = document.createTextNode("Respuesta "+numRes+":");
     label.appendChild(textoLabel);
     inputFinal.parentNode.insertBefore(label, inputFinal);
 
     var input = document.createElement("input");
     input.setAttribute("type","text");
-    input.setAttribute("name","respuesta");
+    input.setAttribute("name","respuesta"+numRes);
+    input.setAttribute("class","respuesta");
     input.setAttribute("onblur","comprobarInputVacio(event)");
     input.required = true;
     inputFinal.parentNode.insertBefore(input, inputFinal);
@@ -141,21 +142,21 @@ function anadirRespuesta(form){
 }
 function borrarRespuestas(){
 	numRes = 0;
-	var inputsRespuestas = document.getElementsByName("respuesta");
+	var padre = document.getElementsByTagName("form")[0];
+
+	var inputsRespuestas = document.getElementsByClassName("respuesta");
 	for (var i = 0; i < inputsRespuestas.length; i++) {
-		inputsRespuestas[0].parentNode.removeChild(inputsRespuestas[i]);
+		padre.removeChild(inputsRespuestas[0]);
 	}
 	
-	var labelsRespuestas = document.getElementsByName("labelrespuesta");
+	var labelsRespuestas = document.getElementsByClassName("labelrespuesta");
 	for (var y = 0; y < labelsRespuestas.length; y++) {
-		labelsRespuestas[0].parentNode.removeChild(labelsRespuestas[y]);
+		padre.removeChild(labelsRespuestas[0]);
 	}
 
 	var inputs = document.getElementsByTagName("input");
 	var inputFinal = inputs[inputs.length-1];
 	inputFinal.disabled = true;
-
-	//hay que acabar de mirarselo porque no borra bien
 }
 function mostrarRespuestas() {
 	var respuestas = document.getElementById("respuestas");

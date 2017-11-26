@@ -98,4 +98,20 @@
     $realizarVotacion = "INSERT INTO votos VALUES(NULL, '$idOpcion', '$usuario')";
     insertarElemento($realizarVotacion);
   }
+  function cojerRespuestas($array){
+	$arrayRespuestas = array();
+	foreach ($array as $llave => $valor) {
+	    if (strpos($llave, 'respuesta') !== false) {
+    		$arrayRespuestas[] = $valor;
+		}
+	}
+	return ($arrayRespuestas);
+  }
+  function anadirOpciones($arrayOpciones,$des_consulta){
+  	$idConsulta = realizarConsulta("SELECT id_consulta from consultas WHERE des_pregunta =".$des_consulta);
+  	foreach($arrayOpciones as $valor){
+  		$anadirOpciones = "INSERT INTO `opciones` (`id_opcion`, `id_consulta`, `des_opcion`) VALUES (NULL, '$idConsulta', '$valor')";
+  		insertarElemento($anadirOpciones);
+  	}
+  }
 ?>

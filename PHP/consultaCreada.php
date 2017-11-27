@@ -20,7 +20,6 @@
 	$fecInicio = $_POST['fecInicio'];
 	$fecFin = $_POST['fecFin'];
 	crearConsulta($consulta, $usuario, $fecInicio, $fecFin);
-
 	$arrayRespuestas = cojerRespuestas($_POST);
 	anadirOpciones($arrayRespuestas,$consulta);
 ?>

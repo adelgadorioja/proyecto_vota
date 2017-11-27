@@ -110,7 +110,7 @@
   function anadirOpciones($arrayOpciones,$des_consulta){
   	$idConsulta = realizarConsulta("SELECT id_consulta from consultas WHERE des_pregunta =".$des_consulta);
   	foreach($arrayOpciones as $valor){
-  		$anadirOpciones = "INSERT INTO `opciones` (`id_opcion`, `id_consulta`, `des_opcion`) VALUES (NULL, '$idConsulta', '$valor')";
+  		$anadirOpciones = "INSERT INTO opciones ('id_opcion', 'id_consulta', 'des_opcion') VALUES (NULL, '$idConsulta', '$valor')";
   		insertarElemento($anadirOpciones);
   	}
   }

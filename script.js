@@ -61,7 +61,7 @@ function mostrarConsulta(){
 	    button.setAttribute("type","button");
 	    button.setAttribute("id","botonSiguiente");
     	button.appendChild(textoButton);
-	    button.setAttribute("onclick","consultaNoVacia()")
+	    button.setAttribute("onclick","comprobarCampos()")
     	form.appendChild(button);
 
     	botonesRespuestas(form);
@@ -89,20 +89,11 @@ function botonesRespuestas(form){
 
     var input = document.createElement("input");
     input.disabled = true;
-    input.setAttribute("type","submit");
+    input.setAttribute("type","button");
     input.setAttribute("value","Finalizar");
+    input.setAttribute("onclick","comprobarCampos()");
     input.setAttribute("class","botonRespuesta");
     form.appendChild(input);
-}
-function consultaNoVacia(){
-	var titulo = document.forms["formulario"]["consulta"].value;
-	var fecInicio = document.forms["formulario"]["fecInicio"].value;
-	var fecFin = document.forms["formulario"]["fecFin"].value;
-	if (titulo == null || titulo == "" || fecInicio == null || fecInicio == "" || fecFin == null || fecFin == ""){
-		alert("Debes rellenar todos los campos!");
-	}else{
-		validacionFechas1();
-	}
 }
 function habilitarBotones(){
 	var botones = document.getElementsByTagName("button");
@@ -124,7 +115,7 @@ function validacionFechas1(){
 	var fech_inicio = document.forms["formulario"]["fecInicio"].value;
 
 	if (hoy>=fech_inicio){
-		alert("La fecha de inicio de la consulta debe ser mayor a la actual.");
+		mensajeError("La fecha inicial debe ser mayor a la fecha actual!");
 	}else{
 		validacionFechas2();
 	}
@@ -132,8 +123,8 @@ function validacionFechas1(){
 function validacionFechas2() {
 	var fecInicio = document.forms["formulario"]["fecInicio"].value;
 	var fecFin = document.forms["formulario"]["fecFin"].value;
-	if (fecInicio>fecFin) {
-		alert("La fecha final de la consulta debe ser posterior a la de inicio.")
+	if (fecInicio>=fecFin) {
+		mensajeError("La fecha final debe ser posterior a la fecha inicial y tener una separación mínima de un día!");
 	} else {
 		habilitarBotones();
 	}
@@ -194,16 +185,7 @@ function comprobarInputVacio(event) {
 	textoDialog = document.getElementById("mensajeDialog").textContent;
 	if (input.value == "") {
 		input.style.border= "1px solid red";
-		if (textoDialog == "") {
-			textoDialog	= document.createTextNode("El campo '" + input.name + "' es obligatorio.");
-			dialog.appendChild(textoDialog);
-			dialog.style.display = "block";
-			dialog.style.padding = "0.5em";
-			dialog.style.marginBottom = "1em";
-		}
-		else {
-			document.getElementById("mensajeDialog").textContent = "El campo '" + input.name + "' es obligatorio.";
-		}
+		mensajeError("El campo '" + input.name + "' es obligatorio.");
 	}
 	else {
 		document.getElementById("mensajeDialog").textContent = "";
@@ -211,5 +193,35 @@ function comprobarInputVacio(event) {
 		dialog.style.padding = "0em";
 		dialog.style.marginBottom = "0em";
 		input.style.border= "1px solid #333";
+	}
+}
+function mensajeError(mensaje){
+	dialog = document.getElementById("mensajeDialog");
+	textoDialog = document.getElementById("mensajeDialog").textContent;
+	document.getElementById("mensajeDialog").textContent = "";
+	
+	textoDialog	= document.createTextNode(mensaje);
+	dialog.appendChild(textoDialog);
+	
+	dialog.style.display = "block";
+	dialog.style.padding = "0.5em";
+	dialog.style.marginBottom = "1em";	
+}
+function comprobarCampos(){
+	var campos = document.getElementsByTagName("input");
+	var respuestas = document.getElementsByClassName("respuesta");
+	var formularioValido = true;
+	for (var i = 0; i < campos.length; i++) {
+		if (campos[i].value == "") {
+			formularioValido = false;
+			mensajeError("Debes rellenar todos los campos.");
+			break;
+		}
+	}
+	if (formularioValido == true && respuestas.length == 0) {
+		validacionFechas1();
+	}
+	if (formularioValido == true && respuestas.length>=2) {
+		document.forms["formulario"].submit();
 	}
 }

@@ -4,12 +4,10 @@
       $GLOBALS['conn'] = new PDO ("mysql:host=localhost;dbname=proyecto_vota;charset=utf8","root","123abc123");
     } catch(PDOException $e) {
       echo "Fallo en la conexión: " . $e->getMessage() . "\n";
-      exit;
     }
   }
 
   function desconectarBD(){
-    exit;
     unset($GLOBALS['conn']);
   }
 
@@ -61,7 +59,6 @@
   function crearConsulta($consulta, $usuario, $fechaInicio, $fechaExpiracion){
     $crearConsulta = "INSERT INTO consultas VALUES (NULL,'$consulta','$usuario', '$fechaInicio', '$fechaExpiracion')";
     insertarElemento($crearConsulta);
-    exit;
   }
 
   function obtenerConsulta($idConsulta) {
@@ -107,11 +104,14 @@
 	}
 	return ($arrayRespuestas);
   }
-  function anadirOpciones($arrayOpciones,$des_consulta){
-  	$idConsulta = realizarConsulta("SELECT id_consulta from consultas WHERE des_pregunta =".$des_consulta);
-  	foreach($arrayOpciones as $valor){
-  		$anadirOpciones = "INSERT INTO opciones ('id_opcion', 'id_consulta', 'des_opcion') VALUES (NULL, '$idConsulta', '$valor')";
-  		insertarElemento($anadirOpciones);
-  	}
+
+  function anadirOpciones($arrayOpciones, $des_consulta){
+  	$idConsulta = realizarConsulta("SELECT id_consulta from consultas WHERE des_pregunta ='".$des_consulta."'");
+    $idConsulta = $idConsulta->fetch();
+    $idConsulta = $idConsulta['id_consulta'];
+  	for ($i=0; $i < sizeof($arrayOpciones); $i++) { 
+      $anadirOpciones = "INSERT INTO opciones VALUES(NULL, '$idConsulta', '".$arrayOpciones[$i]."')";
+      insertarElemento($anadirOpciones);
+    }
   }
 ?>

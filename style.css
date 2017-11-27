@@ -288,6 +288,7 @@ header nav .actual {
 }
 
 /* --------------------- CREAR CONSULTA --------------------- */
+
 #contenido #botonCrearConsulta, #contenido #botonSiguiente, #contenido .botonRespuesta {
 	width: 100%;
 	padding: 0.5em;
@@ -312,14 +313,15 @@ header nav .actual {
 }
 #contenido #formularioCrearConsulta label {
 	display: inline-block;
-	width: 12em;
+	width: 22.5%;
 	margin-bottom: 1em;
 }
 
-#contenido #formularioCrearConsulta input {
+#contenido #formularioCrearConsulta input[type=text], #contenido #formularioCrearConsulta input[type=date] {
 	display: inline-block;
-	width: 12em;
+	width: 22.5%;
 	margin-right: 2em;
+	padding: 0;
 }
 #contenido #formularioCrearConsulta .botonRespuesta:disabled {
 	display: none;

@@ -101,7 +101,7 @@ function consultaNoVacia(){
 	if (titulo == null || titulo == "" || fecInicio == null || fecInicio == "" || fecFin == null || fecFin == ""){
 		alert("Debes rellenar todos los campos!");
 	}else{
-		validacionFechas();
+		validacionFechas1();
 	}
 }
 function habilitarBotones(){
@@ -114,7 +114,7 @@ function habilitarBotones(){
 		}
 	}
 }
-function validacionFechas(){
+function validacionFechas1(){
 	var hoy = new Date();
 	var dia = hoy.getDate();
 	var mes = hoy.getMonth() + 1;
@@ -126,6 +126,15 @@ function validacionFechas(){
 	if (hoy>=fech_inicio){
 		alert("La fecha de inicio de la consulta debe ser mayor a la actual.");
 	}else{
+		validacionFechas2();
+	}
+}
+function validacionFechas2() {
+	var fecInicio = document.forms["formulario"]["fecInicio"].value;
+	var fecFin = document.forms["formulario"]["fecFin"].value;
+	if (fecInicio>fecFin) {
+		alert("La fecha final de la consulta debe ser posterior a la de inicio.")
+	} else {
 		habilitarBotones();
 	}
 }

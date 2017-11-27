@@ -43,3 +43,7 @@
 	</div>
 </body>
 </html>
+
+<?php
+	realizarVotacion($_SESSION['usuario'], $_POST['opcion']);
+?>

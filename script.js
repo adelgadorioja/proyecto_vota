@@ -126,7 +126,7 @@ function validacionFechas2() {
 	if (fecInicio>=fecFin) {
 		mensajeError("La fecha final debe ser posterior a la fecha inicial y tener una separación mínima de un día!");
 	} else {
-		habilitarBotones();
+		validacionFechas3();
 	}
 }
 function anadirRespuesta(form){
@@ -225,3 +225,37 @@ function comprobarCampos(){
 		document.forms["formulario"].submit();
 	}
 }
+
+function validacionFechas3() {
+	var fecInicio = document.forms["formulario"]["fecInicio"].value;
+	var fecFin = document.forms["formulario"]["fecFin"].value;
+	if (esFechaValida(fecInicio) && esFechaValida(fecFin)) {
+		habilitarBotones();
+	}
+	else {
+		mensajeError("El formato de la fecha introducida no es válido.");
+	}
+}
+
+function esFechaValida(fecha) {
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(fecha)) {
+        return false;
+    }
+
+    var separacion = fecha.split("-");
+    var dia = parseInt(separacion[1], 10);
+    var mes = parseInt(separacion[0], 10);
+    var ano = parseInt(separacion[2], 10);
+
+    if(ano < 1000 || ano > 3000 || mes == 0 || mes > 12) {
+        return false;
+    }
+
+    var mesLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+
+    if(ano % 400 == 0 || (ano % 100 != 0 && ano % 4 == 0)) {
+        mesLength[1] = 29;
+    }
+
+    return true;
+};

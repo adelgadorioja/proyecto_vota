@@ -37,7 +37,7 @@ function mostrarConsulta(){
 	    form.appendChild(label2);
 
 	    var input2 = document.createElement("input");
-	    input2.setAttribute("type","date");
+	    input2.setAttribute("type","text");
 	    input2.setAttribute("name","fecInicio");
 	    input2.setAttribute("onblur","comprobarInputVacio(event)");
     	form.appendChild(input2);
@@ -48,7 +48,7 @@ function mostrarConsulta(){
 	    form.appendChild(label3);
 
 	    var input3 = document.createElement("input");
-	    input3.setAttribute("type","date");
+	    input3.setAttribute("type","text");
 	    input3.setAttribute("name","fecFin");
 	    input3.setAttribute("onblur","comprobarInputVacio(event)");
     	form.appendChild(input3);
@@ -94,40 +94,6 @@ function botonesRespuestas(form){
     input.setAttribute("onclick","comprobarCampos()");
     input.setAttribute("class","botonRespuesta");
     form.appendChild(input);
-}
-function habilitarBotones(){
-	var botones = document.getElementsByTagName("button");
-	for (var i = 1; i < botones.length-1; i++) {
-		if(botones[i].disabled == true){
-			botones[i].disabled = false;
-		}else{
-			botones[i].disabled = true;
-		}
-	}
-}
-function validacionFechas1(){
-	var hoy = new Date();
-	var dia = hoy.getDate();
-	var mes = hoy.getMonth() + 1;
-	var año = hoy.getFullYear();
-	hoy = año + "-" + mes + "-" + dia;
-
-	var fech_inicio = document.forms["formulario"]["fecInicio"].value;
-
-	if (hoy>=fech_inicio){
-		mensajeError("La fecha inicial debe ser mayor a la fecha actual!");
-	}else{
-		validacionFechas2();
-	}
-}
-function validacionFechas2() {
-	var fecInicio = document.forms["formulario"]["fecInicio"].value;
-	var fecFin = document.forms["formulario"]["fecFin"].value;
-	if (fecInicio>=fecFin) {
-		mensajeError("La fecha final debe ser posterior a la fecha inicial y tener una separación mínima de un día!");
-	} else {
-		validacionFechas3();
-	}
 }
 function anadirRespuesta(form){
 	numRes++;
@@ -225,37 +191,87 @@ function comprobarCampos(){
 		document.forms["formulario"].submit();
 	}
 }
-
-function validacionFechas3() {
-	var fecInicio = document.forms["formulario"]["fecInicio"].value;
-	var fecFin = document.forms["formulario"]["fecFin"].value;
-	if (esFechaValida(fecInicio) && esFechaValida(fecFin)) {
-		habilitarBotones();
-	}
-	else {
-		mensajeError("El formato de la fecha introducida no es válido.");
+function habilitarBotones(){
+	var botones = document.getElementsByTagName("button");
+	for (var i = 1; i < botones.length-1; i++) {
+		if(botones[i].disabled == true){
+			botones[i].disabled = false;
+		}else{
+			botones[i].disabled = true;
+		}
 	}
 }
+function deshabilitarPrimerosInputs(){
+	var consulta = document.forms["formulario"]["consulta"];
+	var fecInicio = document.forms["formulario"]["fecInicio"];
+	var fecFin = document.forms["formulario"]["fecFin"];
+	consulta.setAttribute("readonly","true");
+	fecInicio.setAttribute("readonly","true");
+	fecFin.setAttribute("readonly","true");
+}
+function validacionFechas1(){
+	var hoy = new Date();
+	var dia = hoy.getDate();
+	var mes = hoy.getMonth() + 1;
+	var año = hoy.getFullYear();
+	hoy = año + "-" + mes + "-" + dia;
 
+	var fecInicio = document.forms["formulario"]["fecInicio"].value;
+	var fecFin = document.forms["formulario"]["fecFin"].value;
+
+	if (esFechaValida(fecInicio) && esFechaValida(fecFin)){
+		mensajeError("El formato de la fecha introducida no es válido.");
+	}else if(hoy>=fecInicio){
+		mensajeError("La fecha inicial debe ser mayor a la fecha actual!");
+	}else if (validacionFechas2()){
+		mensajeError("La fecha final debe ser posterior a la fecha inicial y tener una separación mínima de un día!");
+	}else{
+		deshabilitarPrimerosInputs();
+		habilitarBotones();
+	}
+}
+function validacionFechas2() {
+	var fecInicio = document.forms["formulario"]["fecInicio"].value;
+	var fecFin = document.forms["formulario"]["fecFin"].value;
+	if (fecInicio>=fecFin) {
+		return true;
+	} else {
+		return false;
+	}
+}
 function esFechaValida(fecha) {
-    if(!/^\d{4}-\d{2}-\d{2}$/.test(fecha)) {
+    var expRegFecha = new RegExp(/(\d{4})-(\d{2})-(\d{2})/);
+    if(expRegFecha.test(fecha)) {
+    	alert("en teoria es valido");
         return false;
     }
-
     var separacion = fecha.split("-");
     var dia = parseInt(separacion[1], 10);
     var mes = parseInt(separacion[0], 10);
     var ano = parseInt(separacion[2], 10);
+    var mesLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
 
     if(ano < 1000 || ano > 3000 || mes == 0 || mes > 12) {
-        return false;
+        return true;
     }
-
-    var mesLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
 
     if(ano % 400 == 0 || (ano % 100 != 0 && ano % 4 == 0)) {
         mesLength[1] = 29;
     }
 
-    return true;
-};
+    return false;
+}
+function debesVotar() {
+	var opciones = document.getElementsByName("opcion");
+	var condicion = false;
+	for (var i = 0; i < opciones.length; i++) {
+		if (opciones[i].checked) {
+			condicion = true;
+		}
+	}
+	if (condicion) {
+		document.forms[0].submit();
+	}else{
+		mensajeError("Debes escoger una opción!");
+	}
+}

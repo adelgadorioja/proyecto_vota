@@ -36,6 +36,7 @@
 		</div>
 		<div id="contenido" class="caja">
 			<h2>Realizar votación</h2>
+			<div id="mensajeDialog"></div>
 			<form method="POST" action="votacionRealizada.php">
 				<?php
 					$consulta = obtenerConsulta($_GET['idConsulta']);
@@ -48,7 +49,7 @@
 						echo "\t\t\t\t".$opciones[$i][0]."</label>\n";
 					}
 				?>
-				<input type="submit" name="aceptar" value="aceptar">
+				<input type="button" name="aceptar" value="aceptar" onclick="debesVotar()">
 				</div>
 			</form>
 		</div>

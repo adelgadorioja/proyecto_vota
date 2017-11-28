@@ -10,6 +10,14 @@
 </head>
 <body>
 
+	<div class="tpl-snow">
+    <?php
+    	for ($i=0; $i < 48; $i++) { 
+    		echo "<div></div>";
+    	}
+    ?>
+</div>
+
 	<div id="contenedorIndex">
 		<h1>¡vota!</h1>
 		<h2>aseguramos tu anonimato</h2>

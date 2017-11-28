@@ -218,13 +218,9 @@ function validacionFechas1(){
 
 	var fecInicio = document.forms["formulario"]["fecInicio"].value;
 	var fecFin = document.forms["formulario"]["fecFin"].value;
-	var fecInicioSeparada = fecInicio.split("-");
-	var fecFinSeparada = fecFin.split("-");
 
-	if (!esFechaValida(fecInicio) || !esFechaValida(fecFin)){
+	if (esFechaValida(fecInicio) && esFechaValida(fecFin)){
 		mensajeError("El formato de la fecha introducida no es válido.");
-	}else if(!esFechaValida2(fecInicioSeparada) || !esFechaValida2(fecFinSeparada)){
-		mensajeError("La fecha introducida no existe en el calendario.");
 	}else if(hoy>=fecInicio){
 		mensajeError("La fecha inicial debe ser mayor a la fecha actual!");
 	}else if (validacionFechas2()){
@@ -246,24 +242,24 @@ function validacionFechas2() {
 function esFechaValida(fecha) {
     var expRegFecha = new RegExp(/(\d{4})-(\d{2})-(\d{2})/);
     if(expRegFecha.test(fecha)) {
-        return true;
-    }else{
-    	return false;
+    	alert("en teoria es valido");
+        return false;
     }
-}
-function esFechaValida2(fechaSeparada){
-	var meses = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-	fechaSeparada[1] = Number(fechaSeparada[1])-1;
-	if ((!(fechaSeparada[0] % 4) && fechaSeparada[0] % 100) || !(fechaSeparada[0] % 400)) {
-    	meses[1] = 29;
-  	}
-	if (fechaSeparada[1]>11){
-		return false;
-	}else if(fechaSeparada[2]>meses[fechaSeparada[1]]){
-		return false;
-	}else{
-		return true;
-	}
+    var separacion = fecha.split("-");
+    var dia = parseInt(separacion[1], 10);
+    var mes = parseInt(separacion[0], 10);
+    var ano = parseInt(separacion[2], 10);
+    var mesLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+
+    if(ano < 1000 || ano > 3000 || mes == 0 || mes > 12) {
+        return true;
+    }
+
+    if(ano % 400 == 0 || (ano % 100 != 0 && ano % 4 == 0)) {
+        mesLength[1] = 29;
+    }
+
+    return false;
 }
 function debesVotar() {
 	var opciones = document.getElementsByName("opcion");

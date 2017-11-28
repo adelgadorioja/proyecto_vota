@@ -34,6 +34,11 @@
 				<p id="nombre"><?php echo $_SESSION['usuario']; ?></p>
 				<p id="tipoUsuario"><?php echo $_SESSION['tipoUsuario']; ?></p>
 			</div>
+			<div id="publicidad" class="caja">
+				<h3>Publicidad</h3>
+				<div id="banner" class="caja">
+				</div>
+			</div>
 		</div>
 		<div id="contenido" class="caja">
 			<h2>Crear consulta</h2>

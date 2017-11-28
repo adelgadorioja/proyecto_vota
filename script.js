@@ -50,7 +50,7 @@ function mostrarConsulta(){
 
 	    var input2 = document.createElement("input");
 	    // tipo fecha porque es el input de la fecha de inicio de la consulta
-	    input2.setAttribute("type","text");
+	    input2.setAttribute("type","date");
 	    input2.setAttribute("name","fecInicio");
 	    //llamo a la funcion que comprueba que no esté vacío el input, y en caso afirmativo lo pone en rojo
 	    input2.setAttribute("onblur","comprobarInputVacio(event)");

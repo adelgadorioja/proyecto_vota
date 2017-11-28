@@ -8,8 +8,10 @@
 </head>
 <body onload="setTimeout('mostrarRespuestas()', 2000);">
 	<?php
+		// Import del archivo funciones.php
 		include 'funcionesPHP.php';
 		if (!comprobarSesionIniciada()) {
+			// Redirigimos al usuario que no haya iniciado sesión antes
 			header('Location: ../index.php');
 		}
 	?>
@@ -44,11 +46,15 @@
 			<div id="mensajeDialog"></div>
 			<form method="POST" action="votacionRealizada.php">
 				<?php
+					// Obtenemos la consulta de la BBDD buscandola por ID
 					$consulta = obtenerConsulta($_GET['idConsulta']);
+					// Printamos la consulta por pantalla
 					echo "<label class='pregunta'>$consulta</label>\n";
+					// Obtenemos las opciones de la consulta de la BBDD buscandola por ID de la consulta
 					$opciones = obtenerOpciones($_GET['idConsulta']);
 					echo "<div id='respuestas'>";
 					for ($i=0; $i < sizeof($opciones); $i++) {
+						// Printamos las opciones por pantalla
 						echo "\t\t\t\t<label class='respuesta'>";
 						echo "\t\t\t\t<input type='radio' value='".$opciones[$i][1]."' name='opcion'/>\n";
 						echo "\t\t\t\t".$opciones[$i][0]."</label>\n";

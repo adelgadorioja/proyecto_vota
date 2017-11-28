@@ -10,8 +10,10 @@
 <body>
 	
 	<?php
+		// Import del archivo funciones.php
 		include 'funcionesPHP.php';
 		if (!comprobarSesionIniciada()) {
+			// Redirigimos al usuario que no haya iniciado sesión antes
 			header('Location: ../index.php');
 		}
 	?>
@@ -48,5 +50,6 @@
 </html>
 
 <?php
+	// Llamada a la función que inserta la votación en BBDD
 	realizarVotacion($_SESSION['usuario'], $_POST['opcion']);
 ?>

@@ -9,9 +9,10 @@
 </head>
 <body>
 	<?php
+		// Import del archivo funciones.php
 		include 'funcionesPHP.php';
-
-		if (!comprobarSesionIniciada()){
+		if (!comprobarSesionIniciada()) {
+			// Redirigimos al usuario que no haya iniciado sesión antes
 			header('Location: ../index.php');
 		}
 	?>
@@ -55,6 +56,7 @@
 	$usuario = $_SESSION['usuario'];
 	$fecInicio = $_POST['fecInicio'];
 	$fecFin = $_POST['fecFin'];
+	// Inserta la consulta en BBDD
 	crearConsulta($consulta, $usuario, $fecInicio, $fecFin);
 	$arrayRespuestas = cojerRespuestas($_POST);
 	anadirOpciones($arrayRespuestas,$consulta);

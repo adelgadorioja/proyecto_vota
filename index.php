@@ -12,6 +12,7 @@
 
 	<div class="tpl-snow">
     <?php
+    	// Creación de 48 divs para la animación (cada div es una bolita)
     	for ($i=0; $i < 48; $i++) { 
     		echo "<div></div>";
     	}

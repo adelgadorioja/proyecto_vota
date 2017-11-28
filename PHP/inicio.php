@@ -9,8 +9,10 @@
 </head>
 <body>
 	<?php
+		// Import del archivo funciones.php
 		include 'funcionesPHP.php';
 		if (!comprobarSesionIniciada()) {
+			// Redirigimos al usuario que no haya iniciado sesión antes
 			header('Location: ../index.php');
 		}
 	?>
@@ -47,8 +49,10 @@
 				<th>Fecha inicio</th>
 				<th class="redondeado">Fecha fin</th>
 				<?php
+					// Obtenemos todas las consultas de la BBDD
 					$consultas = obtenerTodasConsultas();
 					for ($i=0; $i < sizeof($consultas); $i++) { 
+						// Las printamos por pantalla
 						echo "<tr onclick='redirigirConsulta(".$consultas[$i][4].")'>";
 						echo "<td>".$consultas[$i][0]."</td>";
 						echo "<td>".$consultas[$i][1]."</td>";

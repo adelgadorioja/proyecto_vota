@@ -50,7 +50,7 @@ function mostrarConsulta(){
 
 	    var input2 = document.createElement("input");
 	    // tipo fecha porque es el input de la fecha de inicio de la consulta
-	    input2.setAttribute("type","date");
+	    input2.setAttribute("type","text");
 	    input2.setAttribute("name","fecInicio");
 	    //llamo a la funcion que comprueba que no esté vacío el input, y en caso afirmativo lo pone en rojo
 	    input2.setAttribute("onblur","comprobarInputVacio(event)");
@@ -322,9 +322,9 @@ function esFechaValida(fecha) {
 // ej: 2017-02-30 --> febrero nunca tendrá 30 dias || 2017-20-10 --> el mes 20 no existe
 function esFechaValida2(fechaSeparada){
 	var meses = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-	//convierto el mes, año y dia de string a numero y le resto 1 al mes para que concuerde con el array
+	//convierto el mes, año y dia de string a numero
 	fechaSeparada[0] = Number(fechaSeparada[0]);
-	fechaSeparada[1] = Number(fechaSeparada[1])-1;
+	fechaSeparada[1] = Number(fechaSeparada[1]);
 	fechaSeparada[2] = Number(fechaSeparada[2]);
 	// si el año es bisiesto febrero tiene 29 dias
 	if ((!(fechaSeparada[0] % 4) && fechaSeparada[0] % 100) || !(fechaSeparada[0] % 400)) {
@@ -334,7 +334,7 @@ function esFechaValida2(fechaSeparada){
 	if (fechaSeparada[1]>meses.length || fechaSeparada[1] < 0){
 		return false;
 	//compruebo que no introduzcas dias que no existen en ese mes
-	}else if(fechaSeparada[2]>meses[fechaSeparada[1]] || fechaSeparada[2]<1) {
+	}else if(fechaSeparada[2]>meses[fechaSeparada[1]-1] || fechaSeparada[2]<1) {
 		return false;
 	}else{
 		return true;

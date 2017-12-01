@@ -13,6 +13,18 @@
     unset($GLOBALS['conn']);
   }
 
+  function intentarLogin($usuario, $contrasena) {
+    conectarBD();
+    $query = $GLOBALS['conn']->prepare('SELECT * FROM usuarios WHERE id_usuario = :usuario AND contrasena = :contrasena');
+    $query->bindParam(':usuario', $_POST['usuario']);
+    $query->bindParam(':contrasena', $_POST['contrasena']);
+    $query->execute();
+    if($query->rowCount() != 0) {
+      return $query->fetch();
+    }
+    return null;
+  }
+
   function realizarConsulta($query) {
     // Realiza la conexión y prepara la query pasada como parámetro
     conectarBD();
@@ -25,7 +37,6 @@
       echo "Fallo al realizar la consulta: " . $e->getMessage() . "\n";
       desconectarBD();
     }
-    desconectarBD();
   }
 
   function insertarElemento($query) {

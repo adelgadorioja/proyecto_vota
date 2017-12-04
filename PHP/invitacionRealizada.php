@@ -15,8 +15,8 @@
 		}
 
 		$destinatario = $_POST['email'];
-		$asunto = "Invitación a una consulta";
-		$cuerpo = "sdgs";
+		$asunto = "Has sido invitado a votar!";
+		$cuerpo = "Hola, has sido invitado a votar en una consulta.\nSi estas interesado entra en el enlace proporcionado a continuación:\nhttps://www.marcguerra.ga/proyecto_vota/index.php";
 
 		mail($destinatario, $asunto, $cuerpo);
 	?>

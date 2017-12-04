@@ -287,17 +287,35 @@ function validacionFechas1(){
 	}else if(!esFechaValida2(fecInicioSeparada) || !esFechaValida2(fecFinSeparada)){
 		mensajeError("La fecha introducida no existe en el calendario.");
 	//a continuacion compruebo que la fecha de inicio de la consulta sea mayor o igual a la actual
-	}else if(hoy>=fecInicio){
+	}else if(validacionFechas2(año,mes,dia,fecInicioSeparada)){
 		mensajeError("La fecha inicial debe ser mayor a la fecha actual!");
-	}else if (validacionFechas2()){
+	}else if (validacionFechas3()){
 		mensajeError("La fecha final debe ser posterior a la fecha inicial y tener una separación mínima de un día!");
 	}else{
 		deshabilitarPrimerosInputs();
 		habilitarBotones();
 	}
 }
+//esta validacion comprueba que la fecha de inicio de la consulta sea mayor a la actual
+function validacionFechas2(añoActual,mesActual,diaActual,fecInicioSeparada){
+	//Lo que hago es comprobar uno a uno, si el año actual es menor o mayor al introducido,
+	//el mes actual es menor o mayor al introducido, o el dia actual es mayor o igual o menor al introducido
+	if (añoActual<fecInicioSeparada[0]){
+		return false;
+	}else if(añoActual>fecInicioSeparada[0]){
+		return true;
+	}else if(mesActual<fecInicioSeparada[1]){
+		return false;
+	}else if(mesActual>fecInicioSeparada[1]){
+		return true;
+	}else if(diaActual<fecInicioSeparada[2]){
+		return false;
+	}else if(diaActual>=fecInicioSeparada[2]){
+		return true;
+	}
+}
 //esta validacion comprueba que la fecha de inicio de la consulta sea menor a la de fin
-function validacionFechas2() {
+function validacionFechas3() {
 	//cojo los dos inputs
 	var fecInicio = document.forms["formulario"]["fecInicio"].value;
 	var fecFin = document.forms["formulario"]["fecFin"].value;

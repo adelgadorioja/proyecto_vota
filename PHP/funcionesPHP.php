@@ -89,10 +89,10 @@
     return $consulta['des_pregunta'];
   }
 
-  function obtenerTodasConsultas() {
+  function obtenerTodasConsultas($usuario) {
     // Obtiene todas las consultas de la BDD y las devuelve en una array
     $consultas = [];
-    $obtenerTodasConsultas = realizarConsulta("SELECT * from consultas");
+    $obtenerTodasConsultas = realizarConsulta("SELECT * from consultas where id_usuario = '$usuario'");
     $consulta = $obtenerTodasConsultas->fetch();
     while ($consulta) {
       $consulta = [0=> $consulta['des_pregunta'], 1=>$consulta['id_usuario'], 2=>$consulta['fecha_inicio'], 3=>$consulta['fecha_final'], 4=>$consulta['id_consulta']];
@@ -123,21 +123,21 @@
 
   function cojerRespuestas($array){
     // Extrae las respuestas de la array pasada (todos los inputs)
-  	$arrayRespuestas = array();
-  	foreach ($array as $llave => $valor) {
-  	    if (strpos($llave, 'respuesta') !== false) {
-      		$arrayRespuestas[] = $valor;
-  		}
-  	}
-  	return ($arrayRespuestas);
+    $arrayRespuestas = array();
+    foreach ($array as $llave => $valor) {
+        if (strpos($llave, 'respuesta') !== false) {
+          $arrayRespuestas[] = $valor;
+      }
+    }
+    return ($arrayRespuestas);
   }
 
   function anadirOpciones($arrayOpciones, $des_consulta){
     // Obtiene el ID de la consulta por la descripción de la consulta
-  	$idConsulta = realizarConsulta("SELECT id_consulta from consultas WHERE des_pregunta ='".$des_consulta."'");
+    $idConsulta = realizarConsulta("SELECT id_consulta from consultas WHERE des_pregunta ='".$des_consulta."'");
     $idConsulta = $idConsulta->fetch();
     $idConsulta = $idConsulta['id_consulta'];
-  	for ($i=0; $i < sizeof($arrayOpciones); $i++) { 
+    for ($i=0; $i < sizeof($arrayOpciones); $i++) { 
       // Inserta tantas opciones como haya creado el usuario en BBDD
       $anadirOpciones = "INSERT INTO opciones VALUES(NULL, '$idConsulta', '".$arrayOpciones[$i]."')";
       insertarElemento($anadirOpciones);

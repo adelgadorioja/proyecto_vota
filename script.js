@@ -1,7 +1,7 @@
 var numRes = 0;
 //con esta funcion obtengo el id de la consulta que se ha clicado y redirigo la pagina a la de votacion, pasandole el id de la consulta
 function redirigirConsulta(idConsulta) {
-	location.href ="realizarVotacion.php?idConsulta="+idConsulta;
+	location.href ="realizarInvitacion.php?idConsulta="+idConsulta;
 }
 // Viendo que necessitamos insertar varios elementos, hemos creado esta funcion llamada cada vez que añadimos un nuevo elemento.
 // Más adelante vimos que solo necesitabamos insertar el formulario pero aun asi creemos 
@@ -361,4 +361,9 @@ function debesVotar() {
 		//en caso contrario mostramos un mensaje de aviso
 		mensajeError("Debes escoger una opción!");
 	}
+}
+
+function comprobarEmail() {
+	formulario = document.getElementById("formularioInvitacion");
+	formulario.submit();
 }

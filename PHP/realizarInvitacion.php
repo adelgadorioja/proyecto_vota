@@ -4,6 +4,7 @@
 	<title>Votaciones VOTA</title>
 	<link rel="stylesheet" type="text/css" href="../reset.css">
 	<link rel="stylesheet" type="text/css" href="../style.css">
+	<script type="text/javascript" src="../script.js"></script>
 </head>
 <body>
 	<?php
@@ -13,6 +14,8 @@
 			// Redirigimos al usuario que no haya iniciado sesión antes
 			header('Location: ../index.php');
 		}
+
+		$consulta = $_GET['idConsulta'];
 	?>
 	
 	<header>
@@ -42,6 +45,11 @@
 		</div>
 		<div id="contenido" class="caja">
 			<h2>Realizar invitación</h2>
+			<form id="formularioInvitacion" method="POST" action="invitacionRealizada.php">
+			<label>Email invitado</label>
+				<input type="text" name="email">
+				<input type="button" name="enviar" value="Enviar" onclick="comprobarEmail()">
+			</form>
 		</div>
 	</div>
 

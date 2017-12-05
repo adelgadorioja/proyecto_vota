@@ -49,6 +49,7 @@
 			<form id="formularioInvitacion" method="POST" action="invitacionRealizada.php">
 			<label>Email invitado</label>
 				<input type="text" name="email">
+				<input type="hidden" name="idConsulta" value='<?php echo "$consulta";?>'/>
 				<input type="button" name="enviar" value="Enviar" onclick="comprobarEmail()">
 			</form>
 		</div>

@@ -105,7 +105,7 @@
   function obtenerOpciones($idConsulta) {
     // Obtiene las opciones de una consulta de la BBDD buscándola por ID de consulta y las devuelve en una array
     $listaOpciones = [];
-    $obtenerOpciones = realizarConsulta("SELECT id_opcion, des_opcion from opciones WHERE id_consulta =".$idConsulta);
+    $obtenerOpciones = realizarConsulta("SELECT id_opcion, des_opcion FROM opciones WHERE id_consulta =".$idConsulta);
     $opcion = $obtenerOpciones->fetch();
     while ($opcion) {
       $opcion = [0=> $opcion['des_opcion'], 1=>$opcion['id_opcion']];

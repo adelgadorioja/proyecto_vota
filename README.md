@@ -1,10 +1,10 @@
 Aplicación web pensada para realizar consultas, todavía en desarollo!
 
-Equip: Alvaro Delgado i Marc Guerra
+Equipo: Alvaro Delgado y Marc Guerra
 
-URL del projecte (web): https://marcguerra.ga/proyecto_vota/
+URL del proyecto (web): https://marcguerra.ga/proyecto_vota/
 
-URL del projecte (github): https://github.com/adelgadorioja/proyecto_vota
+URL del proyecto (github): https://github.com/adelgadorioja/proyecto_vota
 
 URL memory Marc Guerra: https://marcguerra.ga/memory.html
 

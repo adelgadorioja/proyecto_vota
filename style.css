@@ -73,9 +73,8 @@ header {
 	color: #25a9b1;
 }
 .nav-link:hover, .active {
-	padding-bottom: 0;
-	transition: 0.2s;
-	border-bottom: 3px solid #25a9b1;
+	transition: 0.5s;
+	color: #25a9b1!important;
 }
 .caja {
 	background-color: #fff;

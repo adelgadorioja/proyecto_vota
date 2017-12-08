@@ -73,8 +73,10 @@ header {
 	color: #25a9b1;
 }
 .nav-link:hover, .active {
-	transition: 0.5s;
 	color: #25a9b1!important;
+}
+.active {
+	font-weight: bold;
 }
 .caja {
 	background-color: #fff;

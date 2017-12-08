@@ -8,4 +8,4 @@ URL del projecte (github): https://github.com/adelgadorioja/proyecto_vota
 
 URL memory Marc Guerra: https://marcguerra.ga/memory.html
 
-URL memory Alvaro Delgado:
+URL memory Alvaro Delgado: https://github.com/adelgadorioja/memory

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 04-12-2017 a las 19:25:09
+-- Tiempo de generación: 11-12-2017 a las 19:24:09
 -- Versión del servidor: 5.7.20-0ubuntu0.16.04.1
 -- Versión de PHP: 7.0.22-0ubuntu0.16.04.1
 
@@ -34,15 +34,6 @@ CREATE TABLE `consultas` (
   `fecha_final` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `consultas`
---
-
-INSERT INTO `consultas` (`id_consulta`, `des_pregunta`, `id_usuario`, `fecha_inicio`, `fecha_final`) VALUES
-(1, '¿Chocolate: blanco o negro?', 'adelgado', '2017-12-03', '2017-12-30'),
-(2, '¿Qué lenguaje prefieres?', 'adelgado', '2017-12-10', '2017-12-20'),
-(3, '¿Qué país te gustaría visitar?', 'marcguerra', '2017-12-12', '2017-12-31');
-
 -- --------------------------------------------------------
 
 --
@@ -52,7 +43,8 @@ INSERT INTO `consultas` (`id_consulta`, `des_pregunta`, `id_usuario`, `fecha_ini
 CREATE TABLE `invitaciones` (
   `id_invitacion` int(11) NOT NULL,
   `id_consulta` int(11) NOT NULL,
-  `email_invitado` varchar(40) NOT NULL
+  `email_invitado` varchar(40) NOT NULL,
+  `pendiente` varchar(1) NOT NULL DEFAULT 'T'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -67,18 +59,6 @@ CREATE TABLE `opciones` (
   `des_opcion` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `opciones`
---
-
-INSERT INTO `opciones` (`id_opcion`, `id_consulta`, `des_opcion`) VALUES
-(1, 1, 'Blanco'),
-(2, 1, 'Negro'),
-(3, 2, 'Java'),
-(4, 2, 'PHP'),
-(5, 2, 'Python'),
-(6, 2, 'C++');
-
 -- --------------------------------------------------------
 
 --
@@ -92,13 +72,6 @@ CREATE TABLE `usuarios` (
   `permisos` varchar(1) DEFAULT 'U'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `usuarios`
---
-
-INSERT INTO `usuarios` (`id_usuario`, `contrasena`, `email`, `permisos`) VALUES
-('adelgado', '123456', 'adelgado.sab@gmail.com', 'A');
-
 -- --------------------------------------------------------
 
 --
@@ -108,17 +81,17 @@ INSERT INTO `usuarios` (`id_usuario`, `contrasena`, `email`, `permisos`) VALUES
 CREATE TABLE `votos` (
   `id_voto` int(11) NOT NULL,
   `id_opcion` int(11) NOT NULL,
-  `id_usuario` varchar(16) NOT NULL
+  `id_usuario` varchar(16) NOT NULL,
+  `id_consulta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `votos`
+-- Disparadores `votos`
 --
-
-INSERT INTO `votos` (`id_voto`, `id_opcion`, `id_usuario`) VALUES
-(4, 2, 'adelgado'),
-(5, 1, 'adelgado'),
-(6, 2, 'adelgado');
+DELIMITER $$
+CREATE TRIGGER `trigger_voto` AFTER INSERT ON `votos` FOR EACH ROW UPDATE invitaciones inv SET pendiente = "F" WHERE inv.id_consulta = (Select id_consulta from votos order by id_voto desc limit 1)
+$$
+DELIMITER ;
 
 --
 -- Índices para tablas volcadas
@@ -162,7 +135,7 @@ ALTER TABLE `votos`
 -- AUTO_INCREMENT de la tabla `consultas`
 --
 ALTER TABLE `consultas`
-  MODIFY `id_consulta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_consulta` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `invitaciones`
 --
@@ -172,12 +145,12 @@ ALTER TABLE `invitaciones`
 -- AUTO_INCREMENT de la tabla `opciones`
 --
 ALTER TABLE `opciones`
-  MODIFY `id_opcion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_opcion` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `votos`
 --
 ALTER TABLE `votos`
-  MODIFY `id_voto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_voto` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

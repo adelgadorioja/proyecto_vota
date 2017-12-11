@@ -102,6 +102,32 @@
     return $consultas;
   }
 
+  function obtenerConsultasPendientes($usuario) {
+    // Obtiene todas las consultas pendientes para el usuario
+    $consultas = [];
+    $obtenerConsultasPendientes = realizarConsulta("SELECT * from consultas cons JOIN invitaciones inv ON cons.id_consulta = inv.id_consulta WHERE inv.email_invitado = (SELECT email FROM usuarios WHERE id_usuario = '$usuario') AND inv.pendiente = 'T';");
+    $consulta = $obtenerConsultasPendientes->fetch();
+    while ($consulta) {
+      $consulta = [0=> $consulta['des_pregunta'], 1=>$consulta['id_usuario'], 2=>$consulta['fecha_inicio'], 3=>$consulta['fecha_final'], 4=>$consulta['id_consulta']];
+      array_push($consultas, $consulta);
+      $consulta = $obtenerConsultasPendientes->fetch();
+    }
+    return $consultas;
+  }
+
+  function obtenerConsultasVotadas($usuario) {
+    // Obtiene todas las consultas pendientes para el usuario
+    $consultas = [];
+    $obtenerConsultasPendientes = realizarConsulta("SELECT * from consultas cons JOIN invitaciones inv ON cons.id_consulta = inv.id_consulta WHERE inv.email_invitado = (SELECT email FROM usuarios WHERE id_usuario = '$usuario') AND inv.pendiente = 'F';");
+    $consulta = $obtenerConsultasPendientes->fetch();
+    while ($consulta) {
+      $consulta = [0=> $consulta['des_pregunta'], 1=>$consulta['id_usuario'], 2=>$consulta['fecha_inicio'], 3=>$consulta['fecha_final'], 4=>$consulta['id_consulta']];
+      array_push($consultas, $consulta);
+      $consulta = $obtenerConsultasPendientes->fetch();
+    }
+    return $consultas;
+  }
+
   function obtenerOpciones($idConsulta) {
     // Obtiene las opciones de una consulta de la BBDD buscándola por ID de consulta y las devuelve en una array
     $listaOpciones = [];
@@ -115,9 +141,9 @@
     return $listaOpciones;
   }
 
-  function realizarVotacion($usuario, $idOpcion) {
+  function realizarVotacion($usuario, $idOpcion, $idConsulta) {
     // Inserta una votación en BBDD
-    $realizarVotacion = "INSERT INTO votos VALUES(NULL, '$idOpcion', '$usuario')";
+    $realizarVotacion = "INSERT INTO votos VALUES(NULL, '$idOpcion', '$usuario', '$idConsulta')";
     insertarElemento($realizarVotacion);
   }
 

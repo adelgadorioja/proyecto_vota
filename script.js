@@ -3,6 +3,10 @@ var numRes = 0;
 function redirigirConsulta(idConsulta) {
 	location.href ="realizarInvitacion.php?idConsulta="+idConsulta;
 }
+
+function redirigirConsultaVotacion(idConsulta) {
+	location.href ="realizarVotacion.php?idConsulta="+idConsulta;
+}
 // Viendo que necessitamos insertar varios elementos, hemos creado esta funcion llamada cada vez que añadimos un nuevo elemento.
 // Más adelante vimos que solo necesitabamos insertar el formulario pero aun asi creemos 
 //que esta bien tener esta funcion separada para un posible uso futuro.

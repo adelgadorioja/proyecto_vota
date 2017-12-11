@@ -14,7 +14,7 @@
 	<?php
 		// Import del archivo funciones.php
 		include 'funcionesPHP.php';
-		if (!comprobarSesionIniciada()) {
+		if (!comprobarSesionIniciada() || $_SESSION['tipoUsuario'] != "usuario") {
 			// Redirigimos al usuario que no haya iniciado sesión antes
 			header('Location: ../index.php');
 		}
@@ -29,10 +29,7 @@
 			<div class="collapse navbar-collapse" id="navegacion">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item">
-						<a class="nav-link" href="inicio.php">inicio</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="creacionConsulta.php">crear consulta</a>
+						<a class="nav-link" href="inicioInvitado.php">inicio</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="cerrarSesion.php">cerrar sesión</a>
@@ -76,6 +73,10 @@
 		</div>
 	</div>
 
+	<?php 
+	echo ($_SESSION['usuario']. $_POST['opcion']. $_POST['idConsulta']);
+	?>
+
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
@@ -84,5 +85,5 @@
 
 <?php
 	// Llamada a la función que inserta la votación en BBDD
-	realizarVotacion($_SESSION['usuario'], $_POST['opcion']);
+	realizarVotacion($_SESSION['usuario'], $_POST['opcion'], $_POST['idConsulta']);
 ?>

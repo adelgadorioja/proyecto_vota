@@ -14,7 +14,7 @@
 	<?php
 		// Import del archivo funciones.php
 	include 'funcionesPHP.php';
-	if (!comprobarSesionIniciada() || $_SESSION['tipoUsuario'] != "administrador") {
+	if (!comprobarSesionIniciada() || $_SESSION['tipoUsuario'] != "usuario") {
 			// Redirigimos al usuario que no haya iniciado sesión antes
 		header('Location: ../index.php');
 	}
@@ -22,17 +22,14 @@
 	
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container">
-			<a class="navbar-brand" href="inicio.php">proyecto<span>vota</span></a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navegacion" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+				<a class="navbar-brand" href="inicio.php">proyecto<span>vota</span></a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navegacion" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
 			<div class="collapse navbar-collapse" id="navegacion">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item">
-						<a class="nav-link" href="inicio.php">inicio</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="creacionConsulta.php">crear consulta</a>
+						<a class="nav-link active" href="inicio.php">inicio</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="cerrarSesion.php">cerrar sesión</a>
@@ -65,19 +62,52 @@
 			<div class="col-md-12 col-lg-9">
 				<div class="caja">
 					<div class="page-header">
-						<h2>Realizar invitación</h2>
+						<h2>Consultas pendientes</h2>
 					</div>
-					<form id="formularioInvitacion" method="POST" action="invitacionRealizada.php">
+					<table class="table table-striped table-hover table-responsive-sm">
+						<th scope="col">Pregunta</th>
+						<th scope="col">Usuario creador</th>
+						<th scope="col">Fecha inicio</th>
+						<th scope="col">Fecha fin</th>
+						<?php
+							// Obtenemos todas las consultas de la BBDD
+						$consultas = obtenerConsultasPendientes($_SESSION['usuario']);
+						for ($i=0; $i < sizeof($consultas); $i++) { 
+								// Las printamos por pantalla
+							echo "<tr onclick='redirigirConsultaVotacion(".$consultas[$i][4].")'>";
+							echo "<td>".$consultas[$i][0]."</td>";
+							echo "<td>".$consultas[$i][1]."</td>";
+							echo "<td>".$consultas[$i][2]."</td>";
+							echo "<td>".$consultas[$i][3]."</td>";
+							echo "</tr>";
+						}
+						?>
+					</table>
+				</div>
 
-						<div class="form-group">
-							<label>Emails de los invitados</label>
-							<input type="hidden" name="idConsulta" value='<?php echo "$consulta";?>'/>
-							<textarea name="email" class="form-control" aria-describedby="emailHelp" placeholder="invitado1@gmail.com, invitado2@gmail.com..."></textarea>
-							<small class="form-text text-muted">Los invitados recibirán un enlace directo a la consulta seleccionada</small>
-						</div>
-
-						<input type="button" class="btn col-md-12" name="enviar" value="Enviar" onclick="comprobarEmail()">
-					</form>
+				<div class="caja">
+					<div class="page-header">
+						<h2>Consultas votadas</h2>
+					</div>
+					<table class="table table-striped table-hover table-responsive-sm">
+						<th scope="col">Pregunta</th>
+						<th scope="col">Usuario creador</th>
+						<th scope="col">Fecha inicio</th>
+						<th scope="col">Fecha fin</th>
+						<?php
+							// Obtenemos todas las consultas de la BBDD
+						$consultas = obtenerConsultasVotadas($_SESSION['usuario']);
+						for ($i=0; $i < sizeof($consultas); $i++) { 
+								// Las printamos por pantalla
+							echo "<tr onclick='redirigirConsultaVotacion(".$consultas[$i][4].")'>";
+							echo "<td>".$consultas[$i][0]."</td>";
+							echo "<td>".$consultas[$i][1]."</td>";
+							echo "<td>".$consultas[$i][2]."</td>";
+							echo "<td>".$consultas[$i][3]."</td>";
+							echo "</tr>";
+						}
+						?>
+					</table>
 				</div>
 
 			</div>

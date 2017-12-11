@@ -12,13 +12,13 @@
 <body>
 
 	<div class="tpl-snow">
-    <?php
-    	// Creación de 48 divs para la animación (cada div es una bolita)
-    	for ($i=0; $i < 48; $i++) { 
-    		echo "<div></div>";
-    	}
+	    <?php
+	    	// Creación de 48 divs para la animación (cada div es una bolita)
+	    	for ($i=0; $i < 48; $i++) { 
+	    		echo "<div></div>";
+	    	}
     ?>
-</div>
+	</div>
 	<div class="row">
 		<div class="vertical-center col-md-6">
 				<h1 class="text-center title">¡vota!</h1>

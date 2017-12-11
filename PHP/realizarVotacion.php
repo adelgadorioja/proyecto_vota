@@ -14,7 +14,7 @@
 	<?php
 		// Import del archivo funciones.php
 	include 'funcionesPHP.php';
-	if (!comprobarSesionIniciada()) {
+	if (!comprobarSesionIniciada() || $_SESSION['tipoUsuario'] != "usuario") {
 			// Redirigimos al usuario que no haya iniciado sesión antes
 		header('Location: ../index.php');
 	}
@@ -29,10 +29,7 @@
 			<div class="collapse navbar-collapse" id="navegacion">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item">
-						<a class="nav-link" href="inicio.php">inicio</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="creacionConsulta.php">crear consulta</a>
+						<a class="nav-link" href="inicioInvitado.php">inicio</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="cerrarSesion.php">cerrar sesión</a>
@@ -91,6 +88,7 @@
 							echo "\t\t\t\t</div>";
 						}
 						?>
+						<input type="text" name="idConsulta" class="d-none" value="<?php echo ($_GET['idConsulta']); ?>">
 
 						<input type="button" class="btn mg-top col-md-12" name="aceptar" value="aceptar" onclick="debesVotar()">
 					</div>

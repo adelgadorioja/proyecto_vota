@@ -11,11 +11,11 @@
 		header('Location: ../index.php');
 	}else{
 		$usuario = $usuario['id_usuario'];
-		$tipoUsuario = $usuario['permisos'] == "a"? "administrador" : "usuario";
+		$tipoUsuario = $usuario['permisos'] != "U"? "administrador" : "usuario";
 		// El usuario inicia sesión y es redirigido a la página de inicio
 		iniciarSesion($usuario, $tipoUsuario);
 		if ($tipoUsuario == "administrador") {
-			header('Location: inicio.php');
+			header('Location: inicio.php?');
 		} else {
 			header('Location: inicioInvitado.php');
 		}

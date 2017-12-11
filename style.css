@@ -16,11 +16,8 @@ body {
 	border-bottom: 5px solid #25a9b1;
 	margin-bottom: 1em;
 }
-.vertical-center {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+.center {
+	margin: 0 auto;
 }
 .jumbotron {
 	background-color: white;
@@ -126,6 +123,12 @@ td:hover {
 	overflow: hidden;
 	transition: 1s;
 	margin-top: 1em;
+}
+
+/* LOGIN */
+
+#landPage h5 {
+	margin-top: -1.5em;
 }
 
 /* EFECTO ANIMADO */

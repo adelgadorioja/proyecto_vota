@@ -72,7 +72,7 @@
 						<div class="form-group">
 							<label>Emails de los invitados</label>
 							<input type="hidden" name="idConsulta" value='<?php echo "$consulta";?>'/>
-							<textarea name="email" class="form-control" aria-describedby="emailHelp" placeholder="invitado1@gmail.com, invitado2@gmail.com..."></textarea>
+							<textarea name="email" class="form-control" aria-describedby="emailHelp" placeholder="invitado1@gmail.com,invitado2@hotmail.com..."></textarea>
 							<small class="form-text text-muted">Los invitados recibirán un enlace directo a la consulta seleccionada</small>
 						</div>
 

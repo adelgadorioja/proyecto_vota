@@ -13,11 +13,12 @@
 
 	<?php
 		// Import del archivo funciones.php
-	include 'funcionesPHP.php';
-	if (!comprobarSesionIniciada() || $_SESSION['tipoUsuario'] != "administrador") {
-			// Redirigimos al usuario que no haya iniciado sesión antes
-		header('Location: ../index.php');
-	}
+		include 'funcionesPHP.php';
+		if (!comprobarSesionIniciada() || $_SESSION['tipoUsuario'] != "administrador") {
+				// Redirigimos al usuario que no haya iniciado sesión antes
+			header('Location: ../index.php');
+		}
+		$consulta = $_GET['idConsulta'];
 	?>
 	
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -65,6 +66,30 @@
 			<div class="col-md-12 col-lg-9">
 				<div class="caja">
 					<div class="page-header">
+						<h2>Resultados provisionales</h2>
+					</div>
+					<table class="table table-striped table-hover table-responsive-sm">
+						<th scope="col">Respuesta</th>
+						<th scope="col">Votos</th>
+					<?php 
+						$consulta = obtenerConsulta($_GET['idConsulta']);
+						$opciones = obtenerOpciones($_GET['idConsulta']);
+					?>
+					<h4 class='pregunta'> <?php echo "$consulta"; ?> </h4>
+					<?php
+						for ($i=0; $i < sizeof($opciones); $i++) {
+							$contadorVotos = contarVotos($opciones[$i][1]);
+							echo "<tr>";
+							echo "<td>".$opciones[$i][0]."</td>";
+							echo "<td>".$contadorVotos[0]."</td>";
+							echo "</tr>";
+						}
+					?>
+					</table>
+				</div>
+
+				<div class="caja">
+					<div class="page-header">
 						<h2>Realizar invitación</h2>
 					</div>
 					<form id="formularioInvitacion" method="POST" action="invitacionRealizada.php">
@@ -79,7 +104,6 @@
 						<input type="button" class="btn col-md-12" name="enviar" value="Enviar" onclick="comprobarEmail()">
 					</form>
 				</div>
-
 			</div>
 		</div>
 	</div>

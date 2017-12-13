@@ -14,31 +14,31 @@
 <body>
 
     <?php
-		// Import del archivo funciones.php
-		include 'funcionesPHP.php';
-		if (!comprobarSesionIniciada() || $_SESSION['tipoUsuario'] != "administrador") {
-			// Redirigimos al usuario que no haya iniciado sesión antes
-		header('Location: ../index.php');
-	}
+        // Import del archivo funciones.php
+        include 'funcionesPHP.php';
+        if (!comprobarSesionIniciada() || $_SESSION['tipoUsuario'] != "administrador") {
+            // Redirigimos al usuario que no haya iniciado sesión antes
+        header('Location: ../index.php');
+    }
         //elementos del correo
         $destinatario = $_POST['email'];
         $idConsulta = $_POST['idConsulta'];
-		$asunto = "Has sido invitado a votar!";
-		$cuerpo = "Hola, has sido invitado a votar en una consulta.\nSi estas interesado entra en el enlace proporcionado:\n\nhttps://www.marcguerra.ga/proyecto_vota/registro.php\n\nEsperamos haber sido de su ayuda.\n\nCopyright © 2017 by proyectoVota";
-		$remitente = "From: webmaster@proyectovota.com\r\n";
+        $asunto = "Has sido invitado a votar!";
+        $cuerpo = "Hola, has sido invitado a votar en una consulta.\nSi estas interesado entra en el enlace proporcionado:\n\nhttps://www.marcguerra.ga/proyecto_vota/registro.php\n\nEsperamos haber sido de su ayuda.\n\nCopyright © 2017 by proyectoVota";
+        $remitente = "From: webmaster@proyectovota.com\r\n";
         $destinatario = explode(",", $destinatario);
         for ($i=0; $i < ; $i++) {
             mail($destinatario[$i], $asunto, $cuerpo, $remitente);
             insertarElemento("INSERT INTO invitaciones VALUES (NULL,'$idConsulta','$destinatario[$i]',NULL)");
         }
-	?>
+    ?>
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
                 <a class="navbar-brand" href="inicio.php">proyecto<span>vota</span></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navegacion" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+                <span class="navbar-toggler-icon"></span>
+            </button>
                 <div class="collapse navbar-collapse" id="navegacion">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">

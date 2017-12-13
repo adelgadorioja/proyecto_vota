@@ -25,10 +25,10 @@
 		$destinatario = $_POST['email'];
 		$asunto = "Has sido invitado a votar!";
 		$cuerpo = "Hola, has sido invitado a votar en una consulta.\nSi estas interesado entra en el enlace proporcionado:\n\nhttps://www.marcguerra.ga/proyecto_vota/registro.php\n\nEsperamos haber sido de su ayuda.\n\nCopyright © 2017 by proyectoVota";
-        $from = "From: webmaster@proyectoVota.com\r\n";
+        $remitente = "From: webmaster@proyectovota.com\r\n";
 
 		insertarElemento("INSERT INTO invitaciones VALUES (NULL,'$idConsulta','$destinatario')");
-		mail($destinatario, $asunto, $cuerpo, $from);
+		mail($destinatario, $asunto, $cuerpo, $remitente);
 	?>
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">

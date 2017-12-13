@@ -128,6 +128,11 @@
     return $consultas;
   }
 
+  function contarVotos($idOpcion) {
+    $contadorVotos = realizarConsulta("SELECT count(*) FROM votos WHERE id_opcion=".$idOpcion);
+    return $contadorVotos->fetch();
+  }
+
   function obtenerOpciones($idConsulta) {
     // Obtiene las opciones de una consulta de la BBDD buscándola por ID de consulta y las devuelve en una array
     $listaOpciones = [];

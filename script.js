@@ -60,66 +60,66 @@ function mostrarConsulta() {
     //creo los labels y cajas de texto para añadir el titulo de la consulta y la fecha de inicio y fin,
     //ademas de añadirles los atributos necesarios
 
-	    var label = document.createElement("label");
-	    var textoLabel = document.createTextNode("Consulta");
-	    //todos los .appendChild() añaden un elemento dentro de otro (tag dentro de tag o texto dentro de tag)
-	    label.appendChild(textoLabel);
+        var label = document.createElement("label");
+        var textoLabel = document.createTextNode("Consulta");
+        //todos los .appendChild() añaden un elemento dentro de otro (tag dentro de tag o texto dentro de tag)
+        label.appendChild(textoLabel);
 
-	    var input = document.createElement("input");
-	    input.setAttribute("type", "text");
-	    input.setAttribute("name", "consulta");
-	    //llamo a la funcion que comprueba que no esté vacío el input, y en caso afirmativo lo pone en rojo
-	    input.setAttribute("onblur", "comprobarInputVacio(event)");
+        var input = document.createElement("input");
+        input.setAttribute("type", "text");
+        input.setAttribute("name", "consulta");
+        //llamo a la funcion que comprueba que no esté vacío el input, y en caso afirmativo lo pone en rojo
+        input.setAttribute("onblur", "comprobarInputVacio(event)");
 
-	    grupoFormulario = crearFormGroup(label, input, 12);
-	    row = crearRow([grupoFormulario]);
-	    form.appendChild(row);
+        grupoFormulario = crearFormGroup(label, input, 12);
+        row = crearRow([grupoFormulario]);
+        form.appendChild(row);
 
-	    label = document.createElement("label");
-	    textoLabel = document.createTextNode("Fecha de inicio");
-	    label.appendChild(textoLabel);
+        label = document.createElement("label");
+        textoLabel = document.createTextNode("Fecha de inicio");
+        label.appendChild(textoLabel);
 
-	    input = document.createElement("input");
-	    // tipo fecha porque es el input de la fecha de inicio de la consulta
-	    input.setAttribute("type", "datetime");
-	    input.setAttribute("name", "fecInicio");
-	    input.setAttribute("placeholder","yyyy-mm-dd-hh");
-	    //llamo a la funcion que comprueba que no esté vacío el input, y en caso afirmativo lo pone en rojo
-	    input.setAttribute("onblur", "comprobarInputVacio(event)");
+        input = document.createElement("input");
+        // tipo fecha porque es el input de la fecha de inicio de la consulta
+        input.setAttribute("type", "datetime");
+        input.setAttribute("name", "fecInicio");
+        input.setAttribute("placeholder","yyyy-mm-dd-hh");
+        //llamo a la funcion que comprueba que no esté vacío el input, y en caso afirmativo lo pone en rojo
+        input.setAttribute("onblur", "comprobarInputVacio(event)");
 
-	    grupoFormulario = crearFormGroup(label, input, 6);
+        grupoFormulario = crearFormGroup(label, input, 6);
 
-	    label = document.createElement("label");
-	    textoLabel = document.createTextNode("Fecha de expiración");
-	    label.appendChild(textoLabel);
+        label = document.createElement("label");
+        textoLabel = document.createTextNode("Fecha de expiración");
+        label.appendChild(textoLabel);
 
-	    input = document.createElement("input");
-	    // tipo fecha porque es el input de la fecha de fin de la consulta
-	    input.setAttribute("type", "datetime");
-	    input.setAttribute("name", "fecFin");
-	    input.setAttribute("placeholder","yyyy-mm-dd-hh");
-	    //llamo a la funcion que comprueba que no esté vacío el input, y en caso afirmativo lo pone en rojo
-	    input.setAttribute("onblur", "comprobarInputVacio(event)");
+        input = document.createElement("input");
+        // tipo fecha porque es el input de la fecha de fin de la consulta
+        input.setAttribute("type", "datetime");
+        input.setAttribute("name", "fecFin");
+        input.setAttribute("placeholder","yyyy-mm-dd-hh");
+        //llamo a la funcion que comprueba que no esté vacío el input, y en caso afirmativo lo pone en rojo
+        input.setAttribute("onblur", "comprobarInputVacio(event)");
 
-	    grupoFormulario2 = crearFormGroup(label, input, 6);
-	    row = crearRow([grupoFormulario, grupoFormulario2]);
-	    form.appendChild(row);
+        grupoFormulario2 = crearFormGroup(label, input, 6);
+        row = crearRow([grupoFormulario, grupoFormulario2]);
+        form.appendChild(row);
 
-	    var button = document.createElement("button");
-	    var textoButton = document.createTextNode("Añadir respuestas");
-	    // establezco el "type" a "button" porque sino se envia el formulario automáticamente
-	    button.setAttribute("type", "button");
-	    button.setAttribute("id", "botonSiguiente");
-	    button.setAttribute("class", "btn mg-bottom col-md-12");
-	    button.appendChild(textoButton);
-	    //llamo a la funcion que comprueba que todo esté rellenado y sea válido
-	    // en caso afirmativo habilito el apartado para añadir las respuestas de la consulta
-	    button.setAttribute("onclick", "comprobarCampos()")
-	    form.appendChild(button);
+        var button = document.createElement("button");
+        var textoButton = document.createTextNode("Añadir respuestas");
+        // establezco el "type" a "button" porque sino se envia el formulario automáticamente
+        button.setAttribute("type", "button");
+        button.setAttribute("id", "botonSiguiente");
+        button.setAttribute("class", "btn mg-bottom col-md-12");
+        button.appendChild(textoButton);
+        //llamo a la funcion que comprueba que todo esté rellenado y sea válido
+        // en caso afirmativo habilito el apartado para añadir las respuestas de la consulta
+        button.setAttribute("onclick", "comprobarCampos()")
+        form.appendChild(button);
 
-	    //llamo a la funcion que crea los botones para añadir/borrar respuestas
-	    //es una funcion aparte porque los botones forman parte de la siguiente seccion del formulario
-	    botonesRespuestas(form);
+        //llamo a la funcion que crea los botones para añadir/borrar respuestas
+        //es una funcion aparte porque los botones forman parte de la siguiente seccion del formulario
+        botonesRespuestas(form);
     //finalmente llamo a la funcion que inserta el formulario en la página
     insertarElemento(form, hermano);
 }
@@ -258,13 +258,13 @@ function mostrarRespuestas() {
     respuestas.style.maxHeight = respuestas.scrollHeight + "px";
 }
 /*funciones pensadas para mas adelante
-	function comprobarCorreo(event){
-		comprobarInputVacio(event);
-	}
-	function comprobarPassword(event){
-		comprobarInputVacio(event);
-	}
-	*/
+    function comprobarCorreo(event){
+        comprobarInputVacio(event);
+    }
+    function comprobarPassword(event){
+        comprobarInputVacio(event);
+    }
+    */
 //funcion llamada en el onblur de cada input del form, para que aparezca el input en rojo y un mensaje de alerta
 function comprobarInputVacio(event) {
     //cojo el input 
@@ -365,7 +365,7 @@ function validacionFechas1() {
     if (!esFechaValida(fecInicio)) {
         mensajeError("El formato de la fecha de inicio no es válido.");
     }else if(!esFechaValida(fecFin)){
-    	mensajeError("El formato de la fecha de expiración no es válido");
+        mensajeError("El formato de la fecha de expiración no es válido");
     }else if(!esFechaValida2(fecInicioSeparada) || !esFechaValida2(fecFinSeparada)) {
         mensajeError("La fecha introducida no existe en el calendario.");
     //a continuacion compruebo que la fecha de inicio de la consulta sea mayor o igual a la actual
@@ -403,21 +403,21 @@ function validacionFechas2(anoActual, mesActual, diaActual, horaActual,fecInicio
 //esta validacion comprueba que la fecha de inicio de la consulta sea menor a la de fin
 function validacionFechas3(fecInicioSeparada,fecFinSeparada) {
     if (fecInicioSeparada[0]<fecFinSeparada[0]) {
-    	return false;
+        return false;
     } else if(fecInicioSeparada[0]>fecFinSeparada[0]){
-    	return true;
+        return true;
     } else if(fecInicioSeparada[1]<fecFinSeparada[1]){
-    	return false;
+        return false;
     } else if(fecInicioSeparada[1]>fecFinSeparada[1]){
-    	return true;
+        return true;
     } else if(fecInicioSeparada[2]<fecFinSeparada[2]){
-    	return false;
+        return false;
     } else if(fecInicioSeparada[2]>fecFinSeparada[2]){
-    	return true;
+        return true;
     } else if(fecInicioSeparada[3]>(fecFinSeparada[3]-4)){
-    	return true;
+        return true;
     }else{
-    	return false;
+        return false;
     }
 }
 //esta funcion comprueba que la fecha introducida sea en el formato (yyyy-mm-dd-hh) y que no sean letras

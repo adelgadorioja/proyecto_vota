@@ -81,7 +81,7 @@ function mostrarConsulta() {
 
 	    input = document.createElement("input");
 	    // tipo fecha porque es el input de la fecha de inicio de la consulta
-	    input.setAttribute("type", "text");
+	    input.setAttribute("type", "datetime");
 	    input.setAttribute("name", "fecInicio");
 	    input.setAttribute("placeholder","yyyy-mm-dd-hh");
 	    //llamo a la funcion que comprueba que no esté vacío el input, y en caso afirmativo lo pone en rojo
@@ -95,7 +95,7 @@ function mostrarConsulta() {
 
 	    input = document.createElement("input");
 	    // tipo fecha porque es el input de la fecha de fin de la consulta
-	    input.setAttribute("type", "text");
+	    input.setAttribute("type", "datetime");
 	    input.setAttribute("name", "fecFin");
 	    input.setAttribute("placeholder","yyyy-mm-dd-hh");
 	    //llamo a la funcion que comprueba que no esté vacío el input, y en caso afirmativo lo pone en rojo

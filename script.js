@@ -1,5 +1,4 @@
 var numRes = 0;
-var primeraVez = true;
 //con esta funcion obtengo el id de la consulta que se ha clicado y redirigo la pagina a la de votacion, pasandole el id de la consulta
 function redirigirConsulta(idConsulta) {
     location.href = "realizarInvitacion.php?idConsulta=" + idConsulta;
@@ -85,7 +84,6 @@ function mostrarConsulta() {
 	    input.setAttribute("type", "text");
 	    input.setAttribute("name", "fecInicio");
 	    input.setAttribute("placeholder","yyyy-mm-dd-hh");
-	    input.setAttribute("min",ahora());
 	    //llamo a la funcion que comprueba que no esté vacío el input, y en caso afirmativo lo pone en rojo
 	    input.setAttribute("onblur", "comprobarInputVacio(event)");
 
@@ -100,7 +98,6 @@ function mostrarConsulta() {
 	    input.setAttribute("type", "text");
 	    input.setAttribute("name", "fecFin");
 	    input.setAttribute("placeholder","yyyy-mm-dd-hh");
-	    input.setAttribute("min",ahora());
 	    //llamo a la funcion que comprueba que no esté vacío el input, y en caso afirmativo lo pone en rojo
 	    input.setAttribute("onblur", "comprobarInputVacio(event)");
 
@@ -480,19 +477,4 @@ function debesVotar() {
 function comprobarEmail() {
     formulario = document.getElementById("formularioInvitacion");
     formulario.submit();
-}
-function ahora(){
-	var hoy = new Date();
-    var dia = hoy.getDate();
-    var mes = hoy.getMonth() + 1;
-    var ano = hoy.getFullYear();
-    var hora = hoy.getHours();
-	if (primeraVez) {
-		primeraVez = false;
-	    hoy = ano + "-" + mes + "-" + dia + "-" + hora;
-	    return hoy;
-	} else {
-	    hoy = ano + "-" + mes + "-" + dia + "-" + (hora+4);
-	    return hoy;
-	}    
 }

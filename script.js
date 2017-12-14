@@ -261,14 +261,6 @@ function mostrarRespuestas() {
     var respuestas = document.getElementById("respuestas");
     respuestas.style.maxHeight = respuestas.scrollHeight + "px";
 }
-/*funciones pensadas para mas adelante
-    function comprobarCorreo(event){
-        comprobarInputVacio(event);
-    }
-    function comprobarPassword(event){
-        comprobarInputVacio(event);
-    }
-    */
 //funcion llamada en el onblur de cada input del form, para que aparezca el input en rojo y un mensaje de alerta
 function comprobarInputVacio(event) {
     //cojo el input 
@@ -482,3 +474,11 @@ function comprobarEmail() {
     formulario = document.getElementById("formularioInvitacion");
     formulario.submit();
 }
+/*funciones pensadas para mas adelante
+    function comprobarCorreo(event){
+        comprobarInputVacio(event);
+    }
+    function comprobarPassword(event){
+        comprobarInputVacio(event);
+    }
+*/

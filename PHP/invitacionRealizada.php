@@ -31,7 +31,7 @@
         //bucle para enviar todos los correos y insertarlos en la bd
         for ($i=0; $i < ; $i++) {
             mail($destinatario[$i], $asunto, $cuerpo, $remitente);
-            insertarElemento("INSERT INTO invitaciones VALUES (NULL,'$idConsulta','$destinatario[$i]',NULL)");
+            insertarElemento("INSERT INTO invitaciones ('id_consulta','email_invitado') VALUES ('$idConsulta','$destinatario[$i]')");
         }
     ?>
 

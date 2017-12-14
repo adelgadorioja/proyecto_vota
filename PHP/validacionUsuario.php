@@ -10,10 +10,10 @@
 		cerrarSesion();
 		header('Location: ../index.php');
 	}else{
-		$usuario = $usuario['id_usuario'];
+		$idUsuario = $usuario['id_usuario'];
 		$tipoUsuario = $usuario['permisos'] != "U"? "administrador" : "usuario";
 		// El usuario inicia sesión y es redirigido a la página de inicio
-		iniciarSesion($usuario, $tipoUsuario);
+		iniciarSesion($idUsuario, $tipoUsuario);
 		if ($tipoUsuario == "administrador") {
 			header('Location: inicio.php?');
 		} else {

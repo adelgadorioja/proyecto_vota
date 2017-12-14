@@ -18,7 +18,7 @@
 				// Redirigimos al usuario que no haya iniciado sesión antes
 			header('Location: ../index.php');
 		}
-		$consulta = $_GET['idConsulta'];
+		$idConsulta = $_GET['idConsulta'];
 	?>
 	
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -68,12 +68,12 @@
 					<div class="page-header">
 						<h2>Resultados provisionales</h2>
 					</div>
-					<table class="table table-striped table-hover table-responsive-sm">
+					<table class="table table-striped table-hover table-responsive-xs">
 						<th scope="col">Respuesta</th>
 						<th scope="col">Votos</th>
 					<?php 
-						$consulta = obtenerConsulta($_GET['idConsulta']);
-						$opciones = obtenerOpciones($_GET['idConsulta']);
+						$consulta = obtenerConsulta($idConsulta);
+						$opciones = obtenerOpciones($idConsulta);
 					?>
 					<h4 class='pregunta'> <?php echo "$consulta"; ?> </h4>
 					<?php
@@ -96,7 +96,7 @@
 
 						<div class="form-group">
 							<label>Emails de los invitados</label>
-							<input type="hidden" name="idConsulta" value='<?php echo "$consulta";?>'/>
+							<input type="hidden" name="idConsulta" value='<?php echo "$idConsulta";?>'/>
 							<textarea name="email" class="form-control" aria-describedby="emailHelp" placeholder="invitado1@gmail.com,invitado2@hotmail.com..."></textarea>
 							<small class="form-text text-muted">Los invitados recibirán un enlace directo a la consulta seleccionada</small>
 						</div>

@@ -265,32 +265,6 @@ function borrarTodasRespuestas() {
 }
 //coloco bien las respuestas despues de borrar una en concreto
 function recolocarRespuestas(posterior){	
-    var containers = document.querySelectorAll(".respuesta");
-
-var response2Container = Array.prototype.find.call(containers, function (container) {
-  return container.querySelector("input[name='respuesta2']") !== null;
-});
-
-
-function applyAfterElement(elems, afterElem, fn) {
-  var after = false;
-  for (let i = 0; i < elems.length; i++) {
-    let elem = elems[i];
-    if (after) {
-      fn(elem, i);
-    }
-    else if (elem === afterElem) {
-      after = true;
-    }
-  }
-}
-
-applyAfterElement(containers, response2Container, function (elem, orgIndex) {
-  var label = elem.querySelector("label");
-  var input = elem.querySelector("input");
-  label.innerText = "Updated Respuesta Label:";
-  input.setAttribute("name", "updated" + input.name);
-});
     do {
     	if(posterior.nodeName == "INPUT") {
     		break;
@@ -517,4 +491,23 @@ function debesVotar() {
 function comprobarEmail() {
     formulario = document.getElementById("formularioInvitacion");
     formulario.submit();
+}
+function validarFormularioRegistro() {
+    var formulario = document.querySelector("#formularioRegistro");
+    var usuario = document.querySelector("#usuarioRegistro").value;
+    var email = document.querySelector("#emailRegistro").value;
+    var password1 = document.querySelector("#pass1Registro").value;
+    var password2 = document.querySelector("#pass2Registro").value;
+    var error = false;
+    if (usuario == "" || email == "" || password1 == "" || password2 == "") {
+        mensajeError("Todos los campos son obligatorios.");
+        error = true;
+    }
+    if (password1 != password2) {
+        mensajeError("Ambas contraseñas deben ser iguales.");
+        error = true;
+    }
+    if (!error) {
+        formulario.submit();
+    }
 }

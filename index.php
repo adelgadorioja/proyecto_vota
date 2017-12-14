@@ -22,7 +22,7 @@
 		</div>
 		<div class="row">
 			<div id="landPage" class="center col-md-6">
-					<h1 class="text-center title">¡vota!</h1>
+					<h2 class="text-center title">¡vota!</h2>
 					<h5 class="text-center">aseguramos tu anonimato</h2>
 					<form class="jumbotron box-shadow" id="formularioLogin" action="PHP/validacionUsuario.php" method="POST">
 						<div class="row">

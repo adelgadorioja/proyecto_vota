@@ -76,6 +76,22 @@
     return false;
   }
 
+  function obtenerUsuarioPorEmail($email) {
+    $obtenerUsuario = realizarConsulta("SELECT * from usuarios WHERE email = '$email'");
+    if($obtenerUsuario->rowCount() != 0) {
+      return $obtenerUsuario->fetch();
+    }
+    return null;
+  }
+
+  function obtenerUsuarioPorId($idUsuario) {
+    $obtenerUsuario = realizarConsulta("SELECT * from usuarios WHERE id_usuario = '$idUsuario'");
+    if($obtenerUsuario->rowCount() != 0) {
+      return $obtenerUsuario->fetch();
+    }
+    return null;
+  }
+
   function crearConsulta($consulta, $usuario, $fechaInicio, $fechaExpiracion){
     // Inserta una consulta en BBDD
     $crearConsulta = "INSERT INTO consultas VALUES (NULL,'$consulta','$usuario', '$fechaInicio', '$fechaExpiracion')";
@@ -173,5 +189,9 @@
       $anadirOpciones = "INSERT INTO opciones VALUES(NULL, '$idConsulta', '".$arrayOpciones[$i]."')";
       insertarElemento($anadirOpciones);
     }
+  }
+
+  function registrarUsuario($usuario, $email, $contrasena) {
+    insertarElemento("INSERT INTO usuarios (id_usuario, email, contrasena) VALUES ('$usuario', '$email', $contrasena)");
   }
 ?>

@@ -68,7 +68,7 @@
 					<div class="page-header">
 						<h2>Resultados provisionales</h2>
 					</div>
-					<table class="table table-striped table-hover table-responsive-sm">
+					<table class="table table-striped table-hover table-responsive-xs">
 						<th scope="col">Respuesta</th>
 						<th scope="col">Votos</th>
 					<?php 

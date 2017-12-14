@@ -18,15 +18,17 @@
         include 'funcionesPHP.php';
         if (!comprobarSesionIniciada() || $_SESSION['tipoUsuario'] != "administrador") {
             // Redirigimos al usuario que no haya iniciado sesión antes
-        header('Location: ../index.php');
-    }
+            header('Location: ../index.php');
+        }
         //elementos del correo
         $destinatario = $_POST['email'];
         $idConsulta = $_POST['idConsulta'];
         $asunto = "Has sido invitado a votar!";
         $cuerpo = "Hola, has sido invitado a votar en una consulta.\nSi estas interesado entra en el enlace proporcionado:\n\nhttps://www.marcguerra.ga/proyecto_vota/registro.php\n\nEsperamos haber sido de su ayuda.\n\nCopyright © 2017 by proyectoVota";
         $remitente = "From: webmaster@proyectovota.com\r\n";
+        //creamos un array con los correos
         $destinatario = explode(",", $destinatario);
+        //bucle para enviar todos los correos y insertarlos en la bd
         for ($i=0; $i < ; $i++) {
             mail($destinatario[$i], $asunto, $cuerpo, $remitente);
             insertarElemento("INSERT INTO invitaciones VALUES (NULL,'$idConsulta','$destinatario[$i]',NULL)");

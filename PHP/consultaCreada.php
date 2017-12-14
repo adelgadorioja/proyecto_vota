@@ -15,7 +15,7 @@
 		// Import del archivo funciones.php
 	include 'funcionesPHP.php';
 	if (!comprobarSesionIniciada() || $_SESSION['tipoUsuario'] != "administrador") {
-			// Redirigimos al usuario que no haya iniciado sesión antes
+		// Redirigimos al usuario que no haya iniciado sesión antes
 		header('Location: ../index.php');
 	}
 	?>

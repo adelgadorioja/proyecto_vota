@@ -114,7 +114,7 @@ function mostrarConsulta() {
         button.appendChild(textoButton);
         //llamo a la funcion que comprueba que todo esté rellenado y sea válido
         // en caso afirmativo habilito el apartado para añadir las respuestas de la consulta
-        button.setAttribute("onclick", "habilitarBotones()");
+        button.setAttribute("onclick", "comprobarCampos()");
         form.appendChild(button);
 
         //llamo a la funcion que crea los botones para añadir/borrar respuestas
@@ -170,23 +170,27 @@ function botonesRespuestas(form) {
 }
 
 function crearBotonInput(urlIcono) {
-    var elementoEliminar = document.createElement("span");
-    elementoEliminar.setAttribute("class", "input-group-btn");
-    var botonEliminar = document.createElement("button");
-    botonEliminar.setAttribute("type", "button");
+    var elemento = document.createElement("span");
+    elemento.setAttribute("class", "input-group-btn");
+    var boton = document.createElement("button");
+    boton.setAttribute("type", "button");
     if (urlIcono == "../IMG/x.svg") {
-        botonEliminar.setAttribute("class", "bg-333 btn btn-secondary");
-        botonEliminar.setAttribute("onclick","borrarUnaRespuesta(event)");
-    } else {
-        botonEliminar.setAttribute("class", "btn btn-secondary");
+        boton.setAttribute("class", "bg-333 btn btn-secondary");
+        boton.setAttribute("onclick","borrarUnaRespuesta(event)");
+    }else if(urlIcono == "../IMG/chevron-bottom.svg"){
+        boton.setAttribute("class", "btn btn-secondary");
+        boton.setAttribute("onclick","");
+    }else{
+    	boton.setAttribute("class", "btn btn-secondary");
+    	boton.setAttribute("onclick","");
     }
-    var iconoEliminar = document.createElement("img");
-    iconoEliminar.setAttribute("src", urlIcono);
-    iconoEliminar.setAttribute("class", "img-fluid");
-    iconoEliminar.setAttribute("alt", "Responsive image");
-    botonEliminar.appendChild(iconoEliminar);
-    elementoEliminar.appendChild(botonEliminar);
-    return elementoEliminar;
+    var icono = document.createElement("img");
+    icono.setAttribute("src", urlIcono);
+    icono.setAttribute("class", "img-fluid");
+    icono.setAttribute("alt", "Responsive image");
+    boton.appendChild(icono);
+    elemento.appendChild(boton);
+    return elemento;
 }
 
 function anadirRespuesta(form) {
@@ -234,8 +238,11 @@ function anadirRespuesta(form) {
     }
 }
 function borrarUnaRespuesta(event){
+	numRes = 0;
 	var aBorrar = event.currentTarget.parentNode.parentNode.parentNode.parentNode;
+	var posterior = aBorrar.nextSibling;
 	aBorrar.parentNode.removeChild(aBorrar);
+	recolocarRespuestas(posterior);
 }
 function borrarTodasRespuestas() {
     // reseteo el contador con el numero de respuestas a 0 para que la siguiente respuesta que se añada sea la 1
@@ -255,6 +262,43 @@ function borrarTodasRespuestas() {
     //inhabilito el boton que borra las respuestas
     var borrarRespuestas = document.querySelector("button[name='borrarRespuestas']");
     borrarRespuestas.disabled = true;
+}
+//coloco bien las respuestas despues de borrar una en concreto
+function recolocarRespuestas(posterior){	
+    var containers = document.querySelectorAll(".respuesta");
+
+var response2Container = Array.prototype.find.call(containers, function (container) {
+  return container.querySelector("input[name='respuesta2']") !== null;
+});
+
+
+function applyAfterElement(elems, afterElem, fn) {
+  var after = false;
+  for (let i = 0; i < elems.length; i++) {
+    let elem = elems[i];
+    if (after) {
+      fn(elem, i);
+    }
+    else if (elem === afterElem) {
+      after = true;
+    }
+  }
+}
+
+applyAfterElement(containers, response2Container, function (elem, orgIndex) {
+  var label = elem.querySelector("label");
+  var input = elem.querySelector("input");
+  label.innerText = "Updated Respuesta Label:";
+  input.setAttribute("name", "updated" + input.name);
+});
+    do {
+    	if(posterior.nodeName == "INPUT") {
+    		break;
+    	}else {
+    		
+    	}
+	}
+	while (true);
 }
 // muestro las respuestas en la página para votar
 function mostrarRespuestas() {
@@ -474,11 +518,3 @@ function comprobarEmail() {
     formulario = document.getElementById("formularioInvitacion");
     formulario.submit();
 }
-/*funciones pensadas para mas adelante
-    function comprobarCorreo(event){
-        comprobarInputVacio(event);
-    }
-    function comprobarPassword(event){
-        comprobarInputVacio(event);
-    }
-*/

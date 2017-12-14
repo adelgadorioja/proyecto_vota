@@ -73,15 +73,15 @@
 						<th scope="col">Fecha inicio</th>
 						<th scope="col">Fecha fin</th>
 						<?php
-							// Obtenemos todas las consultas de la BBDD
+						// Obtenemos todas las consultas de la BBDD
 						$consultas = obtenerTodasConsultas($_SESSION['usuario']);
 						for ($i=0; $i < sizeof($consultas); $i++) { 
-								// Las printamos por pantalla
+							// Las printamos por pantalla
 							echo "<tr onclick='redirigirConsulta(".$consultas[$i][4].")'>";
 							echo "<td>".$consultas[$i][0]."</td>";
 							echo "<td>".$consultas[$i][1]."</td>";
-							echo "<td>".$consultas[$i][2]."</td>";
-							echo "<td>".$consultas[$i][3]."</td>";
+							echo "<td>".str_replace(":00:00", "h", $consultas[$i][2])."</td>";
+							echo "<td>".str_replace(":00:00", "h", $consultas[$i][3])."</td>";
 							echo "</tr>";
 						}
 						?>

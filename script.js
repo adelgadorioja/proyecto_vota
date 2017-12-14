@@ -114,7 +114,7 @@ function mostrarConsulta() {
         button.appendChild(textoButton);
         //llamo a la funcion que comprueba que todo esté rellenado y sea válido
         // en caso afirmativo habilito el apartado para añadir las respuestas de la consulta
-        button.setAttribute("onclick", "comprobarCampos()");
+        button.setAttribute("onclick", "habilitarBotones()");
         form.appendChild(button);
 
         //llamo a la funcion que crea los botones para añadir/borrar respuestas
@@ -234,7 +234,8 @@ function anadirRespuesta(form) {
     }
 }
 function borrarUnaRespuesta(event){
-	event.currentTarget.parentNode.previousSibling.previousSibling.previousSibling.value = "";
+	var aBorrar = event.currentTarget.parentNode.parentNode.parentNode.parentNode;
+	aBorrar.parentNode.removeChild(aBorrar);
 }
 function borrarTodasRespuestas() {
     // reseteo el contador con el numero de respuestas a 0 para que la siguiente respuesta que se añada sea la 1

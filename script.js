@@ -134,7 +134,7 @@ function botonesRespuestas(form) {
     // pongo el disabled a true para que el boton no sea accesible hasta que otra funcion comprueba que
     // los primeros inputs introducidos son válidos, entonces el disabled lo establezco a false
     button.disabled = true;
-    button.setAttribute("onclick", "anadirRespuesta(form)");
+    button.setAttribute("onclick", "anadirRespuesta()");
     button.setAttribute("class", "btn mg-bottom disabled-nd col-md-12");
 
     button = prepararBoton(button, 6);
@@ -179,10 +179,10 @@ function crearBotonInput(urlIcono) {
         boton.setAttribute("onclick","borrarUnaRespuesta(event)");
     }else if(urlIcono == "../IMG/chevron-bottom.svg"){
         boton.setAttribute("class", "btn btn-secondary");
-        boton.setAttribute("onclick","");
+        boton.setAttribute("onclick","bajaRespuesta(event)");
     }else{
     	boton.setAttribute("class", "btn btn-secondary");
-    	boton.setAttribute("onclick","");
+    	boton.setAttribute("onclick","subeRespuesta(event)");
     }
     var icono = document.createElement("img");
     icono.setAttribute("src", urlIcono);
@@ -192,8 +192,7 @@ function crearBotonInput(urlIcono) {
     elemento.appendChild(boton);
     return elemento;
 }
-
-function anadirRespuesta(form) {
+function anadirRespuesta() {
     //variable global para controlar el numero de respuestas
     numRes++;
     //cojo todos los inputs para luego filtrar y tener solo el ultimo
@@ -237,6 +236,56 @@ function anadirRespuesta(form) {
         inputFinal.disabled = false;
     }
 }
+function anadirRespuesta2(){
+	//variable global para controlar el numero de respuestas
+    numRes++;
+    //cojo el input final para deshabilitarlo
+    var inputFinal = document.querySelector("#formularioCrearConsulta > input");
+    //cojo la primera respuesta
+    var primeraRespuesta = document.querySelector("#formularioCrearConsulta > div:nth-child(5)");
+    //cojo el formulario para hacer la inserción
+    var form = document.querySelector("#formularioCrearConsulta");
+    //creo el label de la respuesta
+    var label = document.createElement("label");
+    // el label contiene el string "respuesta" y la variable numRes que suma 1 a cada respuesta creada
+    textoLabel = document.createTextNode("Respuesta " + numRes + ":");
+    label.appendChild(textoLabel);
+    //creo el input para escribir la respuesta
+    var input = document.createElement("input");
+    input.setAttribute("type", "text");
+    // cada respuesta tendrá un nombre diferente para poder coger cada respuesta por separado más fácilmente más adelante
+    input.setAttribute("name", "respuesta" + numRes);
+    input.setAttribute("onblur", "comprobarInputVacio(event)");
+    input.setAttribute("class", "form-control");
+
+    var botonAbajo = crearBotonInput("../IMG/chevron-bottom.svg");
+    var botonArriba = crearBotonInput("../IMG/chevron-top.svg");
+    var botonEliminar = crearBotonInput("../IMG/x.svg");
+
+    var grupoInput = document.createElement("div");
+    grupoInput.appendChild(input);
+    grupoInput.appendChild(botonAbajo);
+    grupoInput.appendChild(botonArriba);
+    grupoInput.appendChild(botonEliminar);
+
+    grupoFormulario = crearFormGroup(label, grupoInput, 12);
+    grupoInput.removeAttribute("class", "form-control");
+    grupoInput.setAttribute("class", "input-group");
+    row = crearRow([grupoFormulario]);
+    row.classList.add("respuesta");
+    form.insertBefore(row, form.childNodes[4]);
+
+    //cojo el boton para borrar respuestas y lo habilito, ya que en este momento se que existira alguna respuesta
+    var borrarRespuestas = document.querySelector("button[name='borrarRespuestas']");
+    borrarRespuestas.disabled = false;
+    //cuando existan dos respuestas como minimo, se habilitia el boton que envia el formulario
+    if (numRes >= 2) {
+        inputFinal.disabled = false;
+    }
+
+    var primeraRespuesta = document.querySelector("#formularioCrearConsulta > div:nth-child(5)");
+    recolocarRespuestas(primeraRespuesta,"Respuesta 1:","respuesta1")
+}
 function borrarTodasRespuestas() {
     // reseteo el contador con el numero de respuestas a 0 para que la siguiente respuesta que se añada sea la 1
     numRes = 0;
@@ -253,22 +302,28 @@ function borrarUnaRespuesta(event){
 	var aBorrar = event.currentTarget.parentNode.parentNode.parentNode.parentNode;
 	var proximoLabel = aBorrar.firstChild.firstChild.textContent;
 	var proximoNameAtt = aBorrar.firstChild.firstChild.nextSibling.firstChild.getAttribute("name");
-	var elementoPosterior = aBorrar.nextSibling;
+	var elementoActual = aBorrar.nextSibling;
 	aBorrar.parentNode.removeChild(aBorrar);
-	recolocarRespuestas(elementoPosterior,proximoLabel,proximoNameAtt);
+	recolocarRespuestas(elementoActual,proximoLabel,proximoNameAtt);
 }
 //coloco bien las respuestas despues de borrar una en concreto
-function recolocarRespuestas(elementoPosterior,proximoLabel,proximoNameAtt){
+function recolocarRespuestas(elementoActual,proximoLabel,proximoNameAtt){
     var anteriorLabel = "";
     var anteriorNameAtt = "";
-    while(elementoPosterior.nodeName != "INPUT"){
-    	anteriorLabel = elementoPosterior.firstChild.firstChild.textContent;
-    	elementoPosterior.firstChild.firstChild.textContent = proximoLabel;
-    	anteriorNameAtt = elementoPosterior.firstChild.firstChild.nextSibling.firstChild.getAttribute("name");
-    	elementoPosterior.firstChild.firstChild.nextSibling.firstChild.setAttribute("name",proximoNameAtt);
-    	proximoNameAtt = anteriorNameAtt;
-    	proximoLabel = anteriorLabel;
-    	elementoPosterior = elementoPosterior.nextSibling;
+    if (elementoActual.nodeName != "INPUT"){
+    	anteriorLabel = elementoActual.firstChild.firstChild.textContent;
+    	anteriorNameAtt = elementoActual.firstChild.firstChild.nextSibling.firstChild.getAttribute("name");
+    }
+    while(elementoActual.nextSibling.nodeName != "INPUT"){
+    	elementoActual.firstChild.firstChild.textContent = proximoLabel;
+    	elementoActual.firstChild.firstChild.nextSibling.firstChild.setAttribute("name",proximoNameAtt);
+    	elementoActual = elementoActual.nextSibling;
+    	proximoLabel = elementoActual.nextSibling.firstChild.firstChild.textContent;
+    	proximoNameAtt = elementoActual.nextSibling.firstChild.firstChild.nextSibling.firstChild.getAttribute("name");
+    }
+    if (elementoActual.nextSibling.nodeName == "INPUT") {
+    	elementoActual.firstChild.firstChild.textContent = anteriorLabel;
+    	elementoActual.firstChild.firstChild.nextSibling.firstChild.setAttribute("name",anteriorNameAtt);
     }
     checkNumRespuestas();
 }
@@ -287,6 +342,30 @@ function checkNumRespuestas(){
     	var inputFinal = inputs[inputs.length - 1];
     	inputFinal.disabled = true;
 	}
+}
+function bajaRespuesta(event){
+	var valorActual = event.currentTarget.parentNode.previousSibling;
+	var respuestActual = event.currentTarget.parentNode.parentNode.parentNode.parentNode;
+	if(respuestActual.nextSibling.nodeName == "INPUT"){
+		alert("Se añadirá una nueva respuesta.");
+		anadirRespuesta();
+	}
+	var valorProximo = respuestActual.nextSibling.firstChild.firstChild.nextSibling.firstChild;
+	var valor2 = valorProximo.value;
+	valorProximo.value = valorActual.value;
+	valorActual.value = valor2; 
+}
+function subeRespuesta(event){
+	var valorActual = event.currentTarget.parentNode.previousSibling.previousSibling;
+	var respuestActual = event.currentTarget.parentNode.parentNode.parentNode.parentNode;
+	if(respuestActual.previousSibling.firstChild.firstChild.nodeName == "BUTTON"){
+		alert("Se añadirá una nueva respuesta.");
+		anadirRespuesta2();
+	}
+	var valorAnterior = respuestActual.previousSibling.firstChild.firstChild.nextSibling.firstChild;
+	var valor2 = valorAnterior.value;
+	valorAnterior.value = valorActual.value;
+	valorActual.value = valor2; 
 }
 // muestro las respuestas en la página para votar
 function mostrarRespuestas() {
@@ -512,16 +591,11 @@ function validarFormularioRegistro() {
     var email = document.querySelector("#emailRegistro").value;
     var password1 = document.querySelector("#pass1Registro").value;
     var password2 = document.querySelector("#pass2Registro").value;
-    var error = false;
     if (usuario == "" || email == "" || password1 == "" || password2 == "") {
         mensajeError("Todos los campos son obligatorios.");
-        error = true;
-    }
-    if (password1 != password2) {
+    }else if(password1 != password2){
         mensajeError("Ambas contraseñas deben ser iguales.");
-        error = true;
-    }
-    if (!error) {
+    }else{
         formulario.submit();
     }
 }

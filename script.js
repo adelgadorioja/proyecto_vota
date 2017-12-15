@@ -114,7 +114,7 @@ function mostrarConsulta() {
         button.appendChild(textoButton);
         //llamo a la funcion que comprueba que todo esté rellenado y sea válido
         // en caso afirmativo habilito el apartado para añadir las respuestas de la consulta
-        button.setAttribute("onclick", "comprobarCampos()");
+        button.setAttribute("onclick", "habilitarBotones()");
         form.appendChild(button);
 
         //llamo a la funcion que crea los botones para añadir/borrar respuestas
@@ -237,42 +237,56 @@ function anadirRespuesta(form) {
         inputFinal.disabled = false;
     }
 }
-function borrarUnaRespuesta(event){
-	numRes = 0;
-	var aBorrar = event.currentTarget.parentNode.parentNode.parentNode.parentNode;
-	var posterior = aBorrar.nextSibling;
-	aBorrar.parentNode.removeChild(aBorrar);
-	recolocarRespuestas(posterior);
-}
 function borrarTodasRespuestas() {
     // reseteo el contador con el numero de respuestas a 0 para que la siguiente respuesta que se añada sea la 1
     numRes = 0;
-
     //cojo las respuestas y las borro 
     var respuestas = document.getElementsByClassName("respuesta");
     for (var i = respuestas.length - 1; i >= 0; i--) {
         // con éste workaround no necesitas saber el padre ya que el .parentNode te lo da automáticamente
         respuestas[i].parentNode.removeChild(respuestas[i]);
     }
-    //cojo los inputs, lo filtro para tener el ultimo (el boton finalizar), y lo inhabilito ya que 
-    //en este momento se que no existe ninguna respuesta
-    var inputs = document.getElementsByTagName("input");
-    var inputFinal = inputs[inputs.length - 1];
-    inputFinal.disabled = true;
-    //inhabilito el boton que borra las respuestas
-    var borrarRespuestas = document.querySelector("button[name='borrarRespuestas']");
-    borrarRespuestas.disabled = true;
+    checkNumRespuestas();
+}
+function borrarUnaRespuesta(event){
+	numRes--;
+	var aBorrar = event.currentTarget.parentNode.parentNode.parentNode.parentNode;
+	var proximoLabel = aBorrar.firstChild.firstChild.textContent;
+	var proximoNameAtt = aBorrar.firstChild.firstChild.nextSibling.firstChild.getAttribute("name");
+	var elementoPosterior = aBorrar.nextSibling;
+	aBorrar.parentNode.removeChild(aBorrar);
+	recolocarRespuestas(elementoPosterior,proximoLabel,proximoNameAtt);
 }
 //coloco bien las respuestas despues de borrar una en concreto
-function recolocarRespuestas(posterior){	
-    do {
-    	if(posterior.nodeName == "INPUT") {
-    		break;
-    	}else {
-    		
-    	}
+function recolocarRespuestas(elementoPosterior,proximoLabel,proximoNameAtt){
+    var anteriorLabel = "";
+    var anteriorNameAtt = "";
+    while(elementoPosterior.nodeName != "INPUT"){
+    	anteriorLabel = elementoPosterior.firstChild.firstChild.textContent;
+    	elementoPosterior.firstChild.firstChild.textContent = proximoLabel;
+    	anteriorNameAtt = elementoPosterior.firstChild.firstChild.nextSibling.firstChild.getAttribute("name");
+    	elementoPosterior.firstChild.firstChild.nextSibling.firstChild.setAttribute("name",proximoNameAtt);
+    	proximoNameAtt = anteriorNameAtt;
+    	proximoLabel = anteriorLabel;
+    	elementoPosterior = elementoPosterior.nextSibling;
+    }
+    checkNumRespuestas();
+}
+function checkNumRespuestas(){
+	if (numRes<1) {
+    	//inhabilito el boton que borra las respuestas
+    	var borrarRespuestas = document.querySelector("button[name='borrarRespuestas']");
+    	borrarRespuestas.disabled = true;
+    	//cojo los inputs, lo filtro para tener el ultimo (el boton finalizar)
+    	var inputs = document.getElementsByTagName("input");
+    	var inputFinal = inputs[inputs.length - 1];
+    	inputFinal.disabled = true;
+    }else if (numRes<2) {
+	    //cojo los inputs, lo filtro para tener el ultimo (el boton finalizar)
+    	var inputs = document.getElementsByTagName("input");
+    	var inputFinal = inputs[inputs.length - 1];
+    	inputFinal.disabled = true;
 	}
-	while (true);
 }
 // muestro las respuestas en la página para votar
 function mostrarRespuestas() {

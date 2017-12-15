@@ -236,56 +236,6 @@ function anadirRespuesta() {
         inputFinal.disabled = false;
     }
 }
-function anadirRespuesta2(){
-	//variable global para controlar el numero de respuestas
-    numRes++;
-    //cojo el input final para deshabilitarlo
-    var inputFinal = document.querySelector("#formularioCrearConsulta > input");
-    //cojo la primera respuesta
-    var primeraRespuesta = document.querySelector("#formularioCrearConsulta > div:nth-child(5)");
-    //cojo el formulario para hacer la inserción
-    var form = document.querySelector("#formularioCrearConsulta");
-    //creo el label de la respuesta
-    var label = document.createElement("label");
-    // el label contiene el string "respuesta" y la variable numRes que suma 1 a cada respuesta creada
-    textoLabel = document.createTextNode("Respuesta " + numRes + ":");
-    label.appendChild(textoLabel);
-    //creo el input para escribir la respuesta
-    var input = document.createElement("input");
-    input.setAttribute("type", "text");
-    // cada respuesta tendrá un nombre diferente para poder coger cada respuesta por separado más fácilmente más adelante
-    input.setAttribute("name", "respuesta" + numRes);
-    input.setAttribute("onblur", "comprobarInputVacio(event)");
-    input.setAttribute("class", "form-control");
-
-    var botonAbajo = crearBotonInput("../IMG/chevron-bottom.svg");
-    var botonArriba = crearBotonInput("../IMG/chevron-top.svg");
-    var botonEliminar = crearBotonInput("../IMG/x.svg");
-
-    var grupoInput = document.createElement("div");
-    grupoInput.appendChild(input);
-    grupoInput.appendChild(botonAbajo);
-    grupoInput.appendChild(botonArriba);
-    grupoInput.appendChild(botonEliminar);
-
-    grupoFormulario = crearFormGroup(label, grupoInput, 12);
-    grupoInput.removeAttribute("class", "form-control");
-    grupoInput.setAttribute("class", "input-group");
-    row = crearRow([grupoFormulario]);
-    row.classList.add("respuesta");
-    form.insertBefore(row, form.childNodes[4]);
-
-    //cojo el boton para borrar respuestas y lo habilito, ya que en este momento se que existira alguna respuesta
-    var borrarRespuestas = document.querySelector("button[name='borrarRespuestas']");
-    borrarRespuestas.disabled = false;
-    //cuando existan dos respuestas como minimo, se habilitia el boton que envia el formulario
-    if (numRes >= 2) {
-        inputFinal.disabled = false;
-    }
-
-    var primeraRespuesta = document.querySelector("#formularioCrearConsulta > div:nth-child(5)");
-    recolocarRespuestas2(primeraRespuesta,"Respuesta 1:","respuesta1")
-}
 function borrarTodasRespuestas() {
     // reseteo el contador con el numero de respuestas a 0 para que la siguiente respuesta que se añada sea la 1
     numRes = 0;
@@ -310,37 +260,15 @@ function borrarUnaRespuesta(event){
 function recolocarRespuestas(elementoActual,proximoLabel,proximoNameAtt){
     var anteriorLabel = "";
     var anteriorNameAtt = "";
-    while(elementoActual.nextSibling.nodeName != "INPUT"){
+    while(elementoActual.nodeName != "INPUT"){
     	anteriorLabel = elementoActual.firstChild.firstChild.textContent;
     	anteriorNameAtt = elementoActual.firstChild.firstChild.nextSibling.firstChild.getAttribute("name");
     	elementoActual.firstChild.firstChild.textContent = proximoLabel;
     	elementoActual.firstChild.firstChild.nextSibling.firstChild.setAttribute("name",proximoNameAtt);
     	elementoActual = elementoActual.nextSibling;
-    	proximoLabel = elementoActual.nextSibling.firstChild.firstChild.textContent;
-    	proximoNameAtt = elementoActual.nextSibling.firstChild.firstChild.nextSibling.firstChild.getAttribute("name");
+    	proximoLabel = anteriorLabel;
+    	proximoNameAtt = anteriorNameAtt;
     }
-    checkNumRespuestas();
-}
-function recolocarRespuestas2(elementoActual,proximoLabel,proximoNameAtt){
-    var anteriorLabel = "";
-    var anteriorNameAtt = "";
-    if (elementoActual.nodeName != "INPUT"){
-    	anteriorLabel = elementoActual.firstChild.firstChild.textContent;
-    	anteriorNameAtt = elementoActual.firstChild.firstChild.nextSibling.firstChild.getAttribute("name");
-    }
-    while(true){
-    	elementoActual.firstChild.firstChild.textContent = proximoLabel;
-    	elementoActual.firstChild.firstChild.nextSibling.firstChild.setAttribute("name",proximoNameAtt);
-    	elementoActual = elementoActual.nextSibling;
-    	if(elementoActual.nextSibling.nodeName == "INPUT"){
-    		elementoActual.firstChild.firstChild.textContent = anteriorLabel;
-    		elementoActual.firstChild.firstChild.nextSibling.firstChild.setAttribute("name",anteriorNameAtt);
-    		break;
-    	}
-    	proximoLabel = elementoActual.nextSibling.firstChild.firstChild.textContent;
-    	proximoNameAtt = elementoActual.nextSibling.firstChild.firstChild.nextSibling.firstChild.getAttribute("name");
-    }
-    
     checkNumRespuestas();
 }
 function checkNumRespuestas(){
@@ -363,8 +291,7 @@ function bajaRespuesta(event){
 	var valorActual = event.currentTarget.parentNode.previousSibling;
 	var respuestActual = event.currentTarget.parentNode.parentNode.parentNode.parentNode;
 	if(respuestActual.nextSibling.nodeName == "INPUT"){
-		alert("Se añadirá una nueva respuesta.");
-		anadirRespuesta();
+		mensajeError("No se puede bajar esta respuesta.")
 	}
 	var valorProximo = respuestActual.nextSibling.firstChild.firstChild.nextSibling.firstChild;
 	var valor2 = valorProximo.value;
@@ -375,8 +302,7 @@ function subeRespuesta(event){
 	var valorActual = event.currentTarget.parentNode.previousSibling.previousSibling;
 	var respuestActual = event.currentTarget.parentNode.parentNode.parentNode.parentNode;
 	if(respuestActual.previousSibling.firstChild.firstChild.nodeName == "BUTTON"){
-		alert("Se añadirá una nueva respuesta.");
-		anadirRespuesta2();
+		mensajeError("No se puede subir esta respuesta.");
 	}
 	var valorAnterior = respuestActual.previousSibling.firstChild.firstChild.nextSibling.firstChild;
 	var valor2 = valorAnterior.value;

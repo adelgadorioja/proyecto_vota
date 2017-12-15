@@ -284,7 +284,7 @@ function anadirRespuesta2(){
     }
 
     var primeraRespuesta = document.querySelector("#formularioCrearConsulta > div:nth-child(5)");
-    recolocarRespuestas(primeraRespuesta,"Respuesta 1:","respuesta1")
+    recolocarRespuestas2(primeraRespuesta,"Respuesta 1:","respuesta1")
 }
 function borrarTodasRespuestas() {
     // reseteo el contador con el numero de respuestas a 0 para que la siguiente respuesta que se añada sea la 1
@@ -310,21 +310,37 @@ function borrarUnaRespuesta(event){
 function recolocarRespuestas(elementoActual,proximoLabel,proximoNameAtt){
     var anteriorLabel = "";
     var anteriorNameAtt = "";
-    if (elementoActual.nodeName != "INPUT"){
+    while(elementoActual.nextSibling.nodeName != "INPUT"){
     	anteriorLabel = elementoActual.firstChild.firstChild.textContent;
     	anteriorNameAtt = elementoActual.firstChild.firstChild.nextSibling.firstChild.getAttribute("name");
-    }
-    while(elementoActual.nextSibling.nodeName != "INPUT"){
     	elementoActual.firstChild.firstChild.textContent = proximoLabel;
     	elementoActual.firstChild.firstChild.nextSibling.firstChild.setAttribute("name",proximoNameAtt);
     	elementoActual = elementoActual.nextSibling;
     	proximoLabel = elementoActual.nextSibling.firstChild.firstChild.textContent;
     	proximoNameAtt = elementoActual.nextSibling.firstChild.firstChild.nextSibling.firstChild.getAttribute("name");
     }
-    if (elementoActual.nextSibling.nodeName == "INPUT") {
-    	elementoActual.firstChild.firstChild.textContent = anteriorLabel;
-    	elementoActual.firstChild.firstChild.nextSibling.firstChild.setAttribute("name",anteriorNameAtt);
+    checkNumRespuestas();
+}
+function recolocarRespuestas2(elementoActual,proximoLabel,proximoNameAtt){
+    var anteriorLabel = "";
+    var anteriorNameAtt = "";
+    if (elementoActual.nodeName != "INPUT"){
+    	anteriorLabel = elementoActual.firstChild.firstChild.textContent;
+    	anteriorNameAtt = elementoActual.firstChild.firstChild.nextSibling.firstChild.getAttribute("name");
     }
+    while(true){
+    	elementoActual.firstChild.firstChild.textContent = proximoLabel;
+    	elementoActual.firstChild.firstChild.nextSibling.firstChild.setAttribute("name",proximoNameAtt);
+    	elementoActual = elementoActual.nextSibling;
+    	if(elementoActual.nextSibling.nodeName == "INPUT"){
+    		elementoActual.firstChild.firstChild.textContent = anteriorLabel;
+    		elementoActual.firstChild.firstChild.nextSibling.firstChild.setAttribute("name",anteriorNameAtt);
+    		break;
+    	}
+    	proximoLabel = elementoActual.nextSibling.firstChild.firstChild.textContent;
+    	proximoNameAtt = elementoActual.nextSibling.firstChild.firstChild.nextSibling.firstChild.getAttribute("name");
+    }
+    
     checkNumRespuestas();
 }
 function checkNumRespuestas(){

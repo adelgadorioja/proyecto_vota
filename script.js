@@ -134,7 +134,7 @@ function botonesRespuestas(form) {
     // pongo el disabled a true para que el boton no sea accesible hasta que otra funcion comprueba que
     // los primeros inputs introducidos son válidos, entonces el disabled lo establezco a false
     button.disabled = true;
-    button.setAttribute("onclick", "anadirRespuesta(form)");
+    button.setAttribute("onclick", "anadirRespuesta()");
     button.setAttribute("class", "btn mg-bottom disabled-nd col-md-12");
 
     button = prepararBoton(button, 6);
@@ -170,26 +170,29 @@ function botonesRespuestas(form) {
 }
 
 function crearBotonInput(urlIcono) {
-    var elementoEliminar = document.createElement("span");
-    elementoEliminar.setAttribute("class", "input-group-btn");
-    var botonEliminar = document.createElement("button");
-    botonEliminar.setAttribute("type", "button");
+    var elemento = document.createElement("span");
+    elemento.setAttribute("class", "input-group-btn");
+    var boton = document.createElement("button");
+    boton.setAttribute("type", "button");
     if (urlIcono == "../IMG/x.svg") {
-        botonEliminar.setAttribute("class", "bg-333 btn btn-secondary");
-        botonEliminar.setAttribute("onclick","borrarUnaRespuesta(event)");
-    } else {
-        botonEliminar.setAttribute("class", "btn btn-secondary");
+        boton.setAttribute("class", "bg-333 btn btn-secondary");
+        boton.setAttribute("onclick","borrarUnaRespuesta(event)");
+    }else if(urlIcono == "../IMG/chevron-bottom.svg"){
+        boton.setAttribute("class", "btn btn-secondary");
+        boton.setAttribute("onclick","bajaRespuesta(event)");
+    }else{
+    	boton.setAttribute("class", "btn btn-secondary");
+    	boton.setAttribute("onclick","subeRespuesta(event)");
     }
-    var iconoEliminar = document.createElement("img");
-    iconoEliminar.setAttribute("src", urlIcono);
-    iconoEliminar.setAttribute("class", "img-fluid");
-    iconoEliminar.setAttribute("alt", "Responsive image");
-    botonEliminar.appendChild(iconoEliminar);
-    elementoEliminar.appendChild(botonEliminar);
-    return elementoEliminar;
+    var icono = document.createElement("img");
+    icono.setAttribute("src", urlIcono);
+    icono.setAttribute("class", "img-fluid");
+    icono.setAttribute("alt", "Responsive image");
+    boton.appendChild(icono);
+    elemento.appendChild(boton);
+    return elemento;
 }
-
-function anadirRespuesta(form) {
+function anadirRespuesta() {
     //variable global para controlar el numero de respuestas
     numRes++;
     //cojo todos los inputs para luego filtrar y tener solo el ultimo
@@ -233,28 +236,78 @@ function anadirRespuesta(form) {
         inputFinal.disabled = false;
     }
 }
-function borrarUnaRespuesta(event){
-	var aBorrar = event.currentTarget.parentNode.parentNode.parentNode.parentNode;
-	aBorrar.parentNode.removeChild(aBorrar);
-}
 function borrarTodasRespuestas() {
     // reseteo el contador con el numero de respuestas a 0 para que la siguiente respuesta que se añada sea la 1
     numRes = 0;
-
     //cojo las respuestas y las borro 
     var respuestas = document.getElementsByClassName("respuesta");
     for (var i = respuestas.length - 1; i >= 0; i--) {
         // con éste workaround no necesitas saber el padre ya que el .parentNode te lo da automáticamente
         respuestas[i].parentNode.removeChild(respuestas[i]);
     }
-    //cojo los inputs, lo filtro para tener el ultimo (el boton finalizar), y lo inhabilito ya que 
-    //en este momento se que no existe ninguna respuesta
-    var inputs = document.getElementsByTagName("input");
-    var inputFinal = inputs[inputs.length - 1];
-    inputFinal.disabled = true;
-    //inhabilito el boton que borra las respuestas
-    var borrarRespuestas = document.querySelector("button[name='borrarRespuestas']");
-    borrarRespuestas.disabled = true;
+    checkNumRespuestas();
+}
+function borrarUnaRespuesta(event){
+	numRes--;
+	var aBorrar = event.currentTarget.parentNode.parentNode.parentNode.parentNode;
+	var proximoLabel = aBorrar.firstChild.firstChild.textContent;
+	var proximoNameAtt = aBorrar.firstChild.firstChild.nextSibling.firstChild.getAttribute("name");
+	var elementoActual = aBorrar.nextSibling;
+	aBorrar.parentNode.removeChild(aBorrar);
+	recolocarRespuestas(elementoActual,proximoLabel,proximoNameAtt);
+}
+//coloco bien las respuestas despues de borrar una en concreto
+function recolocarRespuestas(elementoActual,proximoLabel,proximoNameAtt){
+    var anteriorLabel = "";
+    var anteriorNameAtt = "";
+    while(elementoActual.nodeName != "INPUT"){
+    	anteriorLabel = elementoActual.firstChild.firstChild.textContent;
+    	anteriorNameAtt = elementoActual.firstChild.firstChild.nextSibling.firstChild.getAttribute("name");
+    	elementoActual.firstChild.firstChild.textContent = proximoLabel;
+    	elementoActual.firstChild.firstChild.nextSibling.firstChild.setAttribute("name",proximoNameAtt);
+    	elementoActual = elementoActual.nextSibling;
+    	proximoLabel = anteriorLabel;
+    	proximoNameAtt = anteriorNameAtt;
+    }
+    checkNumRespuestas();
+}
+function checkNumRespuestas(){
+	if (numRes<1) {
+    	//inhabilito el boton que borra las respuestas
+    	var borrarRespuestas = document.querySelector("button[name='borrarRespuestas']");
+    	borrarRespuestas.disabled = true;
+    	//cojo los inputs, lo filtro para tener el ultimo (el boton finalizar)
+    	var inputs = document.getElementsByTagName("input");
+    	var inputFinal = inputs[inputs.length - 1];
+    	inputFinal.disabled = true;
+    }else if (numRes<2) {
+	    //cojo los inputs, lo filtro para tener el ultimo (el boton finalizar)
+    	var inputs = document.getElementsByTagName("input");
+    	var inputFinal = inputs[inputs.length - 1];
+    	inputFinal.disabled = true;
+	}
+}
+function bajaRespuesta(event){
+	var valorActual = event.currentTarget.parentNode.previousSibling;
+	var respuestActual = event.currentTarget.parentNode.parentNode.parentNode.parentNode;
+	if(respuestActual.nextSibling.nodeName == "INPUT"){
+		mensajeError("No se puede bajar esta respuesta.")
+	}
+	var valorProximo = respuestActual.nextSibling.firstChild.firstChild.nextSibling.firstChild;
+	var valor2 = valorProximo.value;
+	valorProximo.value = valorActual.value;
+	valorActual.value = valor2; 
+}
+function subeRespuesta(event){
+	var valorActual = event.currentTarget.parentNode.previousSibling.previousSibling;
+	var respuestActual = event.currentTarget.parentNode.parentNode.parentNode.parentNode;
+	if(respuestActual.previousSibling.firstChild.firstChild.nodeName == "BUTTON"){
+		mensajeError("No se puede subir esta respuesta.");
+	}
+	var valorAnterior = respuestActual.previousSibling.firstChild.firstChild.nextSibling.firstChild;
+	var valor2 = valorAnterior.value;
+	valorAnterior.value = valorActual.value;
+	valorActual.value = valor2; 
 }
 // muestro las respuestas en la página para votar
 function mostrarRespuestas() {

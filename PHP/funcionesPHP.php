@@ -15,9 +15,10 @@
 
   function intentarLogin($usuario, $contrasena) {
     conectarBD();
+    $contrasenaEncriptada = hash('sha256', $contrasena);
     $query = $GLOBALS['conn']->prepare('SELECT * FROM usuarios WHERE id_usuario = :usuario AND contrasena = :contrasena');
-    $query->bindParam(':usuario', $_POST['usuario']);
-    $query->bindParam(':contrasena', $_POST['contrasena']);
+    $query->bindParam(':usuario', $usuario);
+    $query->bindParam(':contrasena', $contrasenaEncriptada);
     $query->execute();
     if($query->rowCount() != 0) {
       return $query->fetch();
@@ -53,11 +54,13 @@
     desconectarBD();
   }
 
-  function iniciarSesion($usuario, $tipoUsuario) {
+  function iniciarSesion($usuario, $tipoUsuario, $contrasena) {
     // Guarda las variables del usuario en variables SESSION
     session_start();
+    $contrasenaEncriptada = hash('sha256', $contrasena);
     $_SESSION['usuario'] = $usuario;
     $_SESSION['tipoUsuario'] = $tipoUsuario;
+    $_SESSION['contrasena'] = $contrasenaEncriptada;
   }
 
   function cerrarSesion() {
@@ -74,6 +77,22 @@
       return true;
     }
     return false;
+  }
+
+  function obtenerUsuarioPorEmail($email) {
+    $obtenerUsuario = realizarConsulta("SELECT * from usuarios WHERE email = '$email'");
+    if($obtenerUsuario->rowCount() != 0) {
+      return $obtenerUsuario->fetch();
+    }
+    return null;
+  }
+
+  function obtenerUsuarioPorId($idUsuario) {
+    $obtenerUsuario = realizarConsulta("SELECT * from usuarios WHERE id_usuario = '$idUsuario'");
+    if($obtenerUsuario->rowCount() != 0) {
+      return $obtenerUsuario->fetch();
+    }
+    return null;
   }
 
   function crearConsulta($consulta, $usuario, $fechaInicio, $fechaExpiracion){
@@ -115,6 +134,23 @@
     return $consultas;
   }
 
+  function comprobarConsultaPendiente($usuario, $idConsulta) {
+    $consulta = realizarConsulta("SELECT pendiente FROM invitaciones WHERE id_consulta = '$idConsulta' AND email_invitado = (SELECT email FROM usuarios WHERE id_usuario = '$usuario')");
+    if($consulta->rowCount() != 0) {
+      $consulta->fetch()
+      if ($consulta[0] == "T") {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function recuperarVotoRealizado($usuario, $idConsulta, $contrasena) {
+    $opcionEscogida = realizarConsulta("SELECT AES_DECRYPT(id_opcion, '$contrasena') FROM votos WHERE id_consulta = '$idConsulta' AND id_usuario = '$usuario'");
+    $opcionEscogida->fetch();
+    return $opcionEscogida['id_opcion'];
+  }
+
   function obtenerConsultasVotadas($usuario) {
     // Obtiene todas las consultas pendientes para el usuario
     $consultas = [];
@@ -148,7 +184,8 @@
 
   function realizarVotacion($usuario, $idOpcion, $idConsulta) {
     // Inserta una votación en BBDD
-    $realizarVotacion = "INSERT INTO votos VALUES(NULL, '$idOpcion', '$usuario', '$idConsulta')";
+    session_start();
+    $realizarVotacion = "INSERT INTO votos VALUES(NULL, AES_ENCRYPT('$idOpcion', '".$_SESSION['contrasena']."'), '$usuario', '$idConsulta')";
     insertarElemento($realizarVotacion);
   }
 
@@ -173,5 +210,10 @@
       $anadirOpciones = "INSERT INTO opciones VALUES(NULL, '$idConsulta', '".$arrayOpciones[$i]."')";
       insertarElemento($anadirOpciones);
     }
+  }
+
+  function registrarUsuario($usuario, $email, $contrasena) {
+    $contrasenaEncriptada = hash('sha256', $contrasena);
+    insertarElemento("INSERT INTO usuarios (id_usuario, email, contrasena) VALUES ('$usuario', '$email', '$contrasenaEncriptada')");
   }
 ?>

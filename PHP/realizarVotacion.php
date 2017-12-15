@@ -18,6 +18,9 @@
 			// Redirigimos al usuario que no haya iniciado sesión antes
 		header('Location: ../index.php');
 	}
+	if (!comprobarConsultaPendiente($_SESSION['usuario'], $_GET['idConsulta'])) {
+		
+	}
 	?>
 	
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">

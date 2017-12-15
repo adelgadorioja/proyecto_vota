@@ -112,7 +112,7 @@ td:hover {
 
 /* LOGIN */
 
-#formularioLogin {
+#formularioLogin, #formularioRegistro {
 	margin-top: 3em;
 }
 
@@ -128,7 +128,12 @@ td:hover {
 /* LOGIN */
 
 #landPage h5 {
-	margin-top: -1.5em;
+	margin-top: -2em;
+	margin-bottom: -1em;
+}
+
+#landPage h2 {
+	margin-top: -0.1em;
 }
 
 /* EFECTO ANIMADO */

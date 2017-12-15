@@ -13,9 +13,9 @@
 		$idUsuario = $usuario['id_usuario'];
 		$tipoUsuario = $usuario['permisos'] != "U"? "administrador" : "usuario";
 		// El usuario inicia sesión y es redirigido a la página de inicio
-		iniciarSesion($idUsuario, $tipoUsuario);
+		iniciarSesion($idUsuario, $tipoUsuario, $contrasena);
 		if ($tipoUsuario == "administrador") {
-			header('Location: inicio.php?');
+			header('Location: inicio.php');
 		} else {
 			header('Location: inicioInvitado.php');
 		}

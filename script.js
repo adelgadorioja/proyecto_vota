@@ -474,11 +474,22 @@ function comprobarEmail() {
     formulario = document.getElementById("formularioInvitacion");
     formulario.submit();
 }
-/*funciones pensadas para mas adelante
-    function comprobarCorreo(event){
-        comprobarInputVacio(event);
+function validarFormularioRegistro() {
+    var formulario = document.querySelector("#formularioRegistro");
+    var usuario = document.querySelector("#usuarioRegistro").value;
+    var email = document.querySelector("#emailRegistro").value;
+    var password1 = document.querySelector("#pass1Registro").value;
+    var password2 = document.querySelector("#pass2Registro").value;
+    var error = false;
+    if (usuario == "" || email == "" || password1 == "" || password2 == "") {
+        mensajeError("Todos los campos son obligatorios.");
+        error = true;
     }
-    function comprobarPassword(event){
-        comprobarInputVacio(event);
+    if (password1 != password2) {
+        mensajeError("Ambas contraseñas deben ser iguales.");
+        error = true;
     }
-*/
+    if (!error) {
+        formulario.submit();
+    }
+}

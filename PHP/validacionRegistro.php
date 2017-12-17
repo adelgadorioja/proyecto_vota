@@ -10,7 +10,7 @@
 		header('Location: registro.php?error=true');
 	}else{
 		registrarUsuario($usuario, $email, $contrasena);
-		iniciarSesion($usuario, "usuario");
+		iniciarSesion($usuario, "usuario", $contrasena);
 		header('Location: inicioInvitado.php');
 	}
 ?>

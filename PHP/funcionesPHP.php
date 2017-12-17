@@ -137,7 +137,7 @@
   function comprobarConsultaPendiente($usuario, $idConsulta) {
     $consulta = realizarConsulta("SELECT pendiente FROM invitaciones WHERE id_consulta = '$idConsulta' AND email_invitado = (SELECT email FROM usuarios WHERE id_usuario = '$usuario')");
     if($consulta->rowCount() != 0) {
-      $consulta->fetch()
+      $consulta->fetch();
       if ($consulta[0] == "T") {
         return true;
       }

@@ -24,12 +24,12 @@
         $destinatario = $_POST['email'];
         $idConsulta = $_POST['idConsulta'];
         $asunto = "Has sido invitado a votar!";
-        $remitente = "From: webmaster@proyectovota.com\r\n";
+        $remitente = "From: proyectoVota@proyectovota.com\r\n";
         //creamos un array con los correos
         $destinatario = explode(",", $destinatario);
         //bucle para enviar todos los correos y insertarlos en la bd
         for ($i=0; $i < sizeof($destinatario); $i++) {
-            $cuerpo = "Hola, has sido invitado a votar en una consulta.\nSi estas interesado entra en el enlace proporcionado:\n\nhttps://www.marcguerra.ga/proyecto_vota/invitacion.php?email=".$destinatario[$i]."\n\nEsperamos haber sido de su ayuda.\n\nCopyright © 2017 by proyectoVota";
+            $cuerpo = "Hola, has sido invitado a votar en una consulta.\nSi estas interesado entra en el enlace proporcionado:\n\nhttps://www.marcge.site/proyecto_vota/invitacion.php?email=".$destinatario[$i]."\n\nEsperamos haber sido de su ayuda.\n\nCopyright © 2017 by proyectoVota";
             mail($destinatario[$i], $asunto, $cuerpo, $remitente);
             insertarElemento("INSERT INTO invitaciones (id_consulta,email_invitado) VALUES ('$idConsulta','$destinatario[$i]')");
         }

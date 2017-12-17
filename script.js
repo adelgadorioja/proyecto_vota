@@ -114,7 +114,7 @@ function mostrarConsulta() {
         button.appendChild(textoButton);
         //llamo a la funcion que comprueba que todo esté rellenado y sea válido
         // en caso afirmativo habilito el apartado para añadir las respuestas de la consulta
-        button.setAttribute("onclick", "habilitarBotones()");
+        button.setAttribute("onclick", "comprobarCampos()");
         form.appendChild(button);
 
         //llamo a la funcion que crea los botones para añadir/borrar respuestas

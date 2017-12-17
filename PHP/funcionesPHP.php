@@ -15,7 +15,7 @@
 
   function intentarLogin($usuario, $contrasena) {
     conectarBD();
-    $contrasenaEncriptada = hash('sha256', $contrasena);
+    $contrasenaEncriptada = hash('sha256', hash('sha256', $contrasena));
     $query = $GLOBALS['conn']->prepare('SELECT * FROM usuarios WHERE id_usuario = :usuario AND contrasena = :contrasena');
     $query->bindParam(':usuario', $usuario);
     $query->bindParam(':contrasena', $contrasenaEncriptada);
@@ -138,7 +138,7 @@
     $consulta = realizarConsulta("SELECT pendiente FROM invitaciones WHERE id_consulta = '$idConsulta' AND email_invitado = (SELECT email FROM usuarios WHERE id_usuario = '$usuario')");
     if($consulta->rowCount() != 0) {
       $consulta->fetch();
-      if ($consulta[0] == "T") {
+      if ($consulta == "T") {
         return true;
       }
     }
@@ -146,9 +146,10 @@
   }
 
   function recuperarVotoRealizado($usuario, $idConsulta, $contrasena) {
-    $opcionEscogida = realizarConsulta("SELECT AES_DECRYPT(id_opcion, '$contrasena') FROM votos WHERE id_consulta = '$idConsulta' AND id_usuario = '$usuario'");
-    $opcionEscogida->fetch();
-    return $opcionEscogida['id_opcion'];
+    $contrasena = hash('sha256', $contrasena);
+    $opcionEscogida = realizarConsulta("SELECT AES_DECRYPT(id_opcion, '$contrasena') 'id_opcion' FROM votos WHERE id_consulta = '$idConsulta' AND id_usuario = '$usuario' ORDER BY id_voto DESC");
+    $resultado = $opcionEscogida->fetch();
+    return $resultado['id_opcion'];
   }
 
   function obtenerConsultasVotadas($usuario) {
@@ -165,8 +166,10 @@
   }
 
   function contarVotos($idOpcion) {
-    $contadorVotos = realizarConsulta("SELECT count(*) FROM votos WHERE id_opcion=".$idOpcion);
+    $contadorVotos = realizarConsulta("SELECT count(*) FROM votos v WHERE AES_DECRYPT(id_opcion, (SELECT CONTRASENA FROM usuarios u WHERE u.id_usuario = v.id_usuario))=".$idOpcion);
     return $contadorVotos->fetch();
+
+
   }
 
   function obtenerOpciones($idConsulta) {
@@ -184,8 +187,8 @@
 
   function realizarVotacion($usuario, $idOpcion, $idConsulta) {
     // Inserta una votación en BBDD
-    session_start();
-    $realizarVotacion = "INSERT INTO votos VALUES(NULL, AES_ENCRYPT('$idOpcion', '".$_SESSION['contrasena']."'), '$usuario', '$idConsulta')";
+    $contrasena = hash('sha256', $_SESSION['contrasena']);
+    $realizarVotacion = "INSERT INTO votos VALUES(NULL, AES_ENCRYPT('$idOpcion', '".$contrasena."'), '$usuario', '$idConsulta')";
     insertarElemento($realizarVotacion);
   }
 
@@ -213,7 +216,7 @@
   }
 
   function registrarUsuario($usuario, $email, $contrasena) {
-    $contrasenaEncriptada = hash('sha256', $contrasena);
+    $contrasenaEncriptada = hash('sha256', hash('sha256', $contrasena));
     insertarElemento("INSERT INTO usuarios (id_usuario, email, contrasena) VALUES ('$usuario', '$email', '$contrasenaEncriptada')");
   }
 ?>

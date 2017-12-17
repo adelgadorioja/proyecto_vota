@@ -18,9 +18,6 @@
 			// Redirigimos al usuario que no haya iniciado sesión antes
 		header('Location: ../index.php');
 	}
-	if (!comprobarConsultaPendiente($_SESSION['usuario'], $_GET['idConsulta'])) {
-		
-	}
 	?>
 	
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -77,6 +74,9 @@
 						<?php
 					// Obtenemos la consulta de la BBDD buscandola por ID
 						$consulta = obtenerConsulta($_GET['idConsulta']);
+					if (!comprobarConsultaPendiente($_SESSION['usuario'], $_GET['idConsulta'])) {
+						$opcion = recuperarVotoRealizado($_SESSION['usuario'], $_GET['idConsulta'], $_SESSION['contrasena']);
+					}
 					// Printamos la consulta por pantalla
 						echo "<h4 class='pregunta'>$consulta</h4>\n";
 					// Obtenemos las opciones de la consulta de la BBDD buscandola por ID de la consulta
@@ -86,7 +86,15 @@
 						// Printamos las opciones por pantalla
 							echo "\t\t\t\t\t<div class='form-check'>";
 							echo "\t\t\t\t\t<label class='form-check-label'>";
-							echo "\t\t\t\t\t<input class='form-check-input' type='radio' value='".$opciones[$i][1]."' name='opcion'/>\n";
+							$checked = "";
+							if (isset($opcion)) {
+								if ($opcion == $opciones[$i][1]) {
+									$checked = "checked";
+								} else {
+									$checked = "";
+								}
+							}
+							echo "\t\t\t\t\t<input class='form-check-input' $checked type='radio' value='".$opciones[$i][1]."' name='opcion'/>\n";
 							echo "\t\t\t\t\t".$opciones[$i][0]."</label>\n";
 							echo "\t\t\t\t</div>";
 						}

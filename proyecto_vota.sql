@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 04-12-2017 a las 19:25:09
--- Versión del servidor: 5.7.20-0ubuntu0.16.04.1
--- Versión de PHP: 7.0.22-0ubuntu0.16.04.1
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 17-12-2017 a las 19:35:04
+-- Versión del servidor: 10.1.28-MariaDB
+-- Versión de PHP: 7.1.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -41,7 +43,8 @@ CREATE TABLE `consultas` (
 INSERT INTO `consultas` (`id_consulta`, `des_pregunta`, `id_usuario`, `fecha_inicio`, `fecha_final`) VALUES
 (1, '¿Chocolate: blanco o negro?', 'adelgado', '2017-12-03', '2017-12-30'),
 (2, '¿Qué lenguaje prefieres?', 'adelgado', '2017-12-10', '2017-12-20'),
-(3, '¿Qué país te gustaría visitar?', 'marcguerra', '2017-12-12', '2017-12-31');
+(3, '¿Qué país te gustaría visitar?', 'marcguerra', '2017-12-12', '2017-12-31'),
+(4, 'Yazmina o Aldara?', 'adelgado', '2017-12-29', '2017-12-31');
 
 -- --------------------------------------------------------
 
@@ -77,7 +80,10 @@ INSERT INTO `opciones` (`id_opcion`, `id_consulta`, `des_opcion`) VALUES
 (3, 2, 'Java'),
 (4, 2, 'PHP'),
 (5, 2, 'Python'),
-(6, 2, 'C++');
+(6, 2, 'C++'),
+(7, 4, 'Aldara'),
+(8, 4, 'Yazmina'),
+(9, 4, 'Ninguna');
 
 -- --------------------------------------------------------
 
@@ -87,7 +93,7 @@ INSERT INTO `opciones` (`id_opcion`, `id_consulta`, `des_opcion`) VALUES
 
 CREATE TABLE `usuarios` (
   `id_usuario` varchar(16) NOT NULL,
-  `contrasena` varchar(16) NOT NULL,
+  `contrasena` varchar(256) NOT NULL,
   `email` varchar(40) NOT NULL,
   `permisos` varchar(1) DEFAULT 'U'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -97,7 +103,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `contrasena`, `email`, `permisos`) VALUES
-('adelgado', '123456', 'adelgado.sab@gmail.com', 'A');
+('admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'admin@gmail.com', 'A'),
+('alumne', '3dfe56c8d9ec06273119fbbb5c3e095a15524a125d130ca950b942712ef1dacd', 'alumne@gmail.com', 'U');
 
 -- --------------------------------------------------------
 
@@ -162,22 +169,27 @@ ALTER TABLE `votos`
 -- AUTO_INCREMENT de la tabla `consultas`
 --
 ALTER TABLE `consultas`
-  MODIFY `id_consulta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_consulta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT de la tabla `invitaciones`
 --
 ALTER TABLE `invitaciones`
   MODIFY `id_invitacion` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `opciones`
 --
 ALTER TABLE `opciones`
-  MODIFY `id_opcion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_opcion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT de la tabla `votos`
 --
 ALTER TABLE `votos`
   MODIFY `id_voto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

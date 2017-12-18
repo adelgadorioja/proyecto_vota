@@ -1,3 +1,12 @@
+<!-- 
+
+    Nombre fichero: index.php
+    Creador: Álvaro
+    Fecha creación: 11/12/2017
+    Funcionalidad: Permite al usuario introducir sus datos de conexión a la aplicación.
+
+-->
+
 <!DOCTYPE html>
 <html>
 <head>

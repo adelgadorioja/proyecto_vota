@@ -1,3 +1,12 @@
+<!-- 
+
+	Nombre fichero: creacionConsulta.php
+	Creador: Álvaro
+	Fecha creación: 29/11/2017
+	Funcionalidad: Despliegue del formulario para crear una consulta.
+
+-->
+
 <!DOCTYPE html>
 <html>
 <head>

@@ -1,3 +1,12 @@
+<!-- 
+
+	Nombre fichero: inicio.php
+	Creador: Álvaro
+	Fecha creación: 28/11/2017
+	Funcionalidad: Página de inicio para los usuarios administradores.
+
+-->
+
 <!DOCTYPE html>
 <html>
 <head>

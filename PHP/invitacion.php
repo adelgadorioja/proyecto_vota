@@ -1,3 +1,12 @@
+<!-- 
+
+	Nombre fichero: invitacion.php
+	Creador: Álvaro
+	Fecha creación: 11/12/2017
+	Funcionalidad: Redirige al usuario en función de la existencia de su email en la BBDD.
+
+-->
+
 <?php
 
     include 'funcionesPHP.php';

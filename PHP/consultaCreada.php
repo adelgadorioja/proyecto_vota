@@ -1,3 +1,12 @@
+<!-- 
+
+	Nombre fichero: consultaCreada.php
+	Creador: Álvaro
+	Fecha creación: 29/11/2017
+	Funcionalidad: Inserta la consulta con sus respectivas opciones en BBDD.
+
+-->
+
 <!DOCTYPE html>
 <html>
 <head>

@@ -1,3 +1,12 @@
+<!-- 
+
+    Nombre fichero: realizarInvitacion.php
+    Creador: Álvaro
+    Fecha creación: 07/12/2017
+    Funcionalidad: Muestra las opciones con sus respectivos votos y permite al administrador realizar invitaciones.
+
+-->
+
 <!DOCTYPE html>
 <html>
 <head>

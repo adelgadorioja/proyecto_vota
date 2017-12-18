@@ -1,3 +1,12 @@
+<!-- 
+
+	Nombre fichero: inicioInvitado.php
+	Creador: Álvaro
+	Fecha creación: 11/12/2017
+	Funcionalidad: Página de inicio para los usuarios invitados.
+
+-->
+
 <!DOCTYPE html>
 <html>
 <head>

@@ -1,3 +1,12 @@
+<!-- 
+
+    Nombre fichero: registro.php
+    Creador: Álvaro
+    Fecha creación: 13/12/2017
+    Funcionalidad: Permite al usuario que haya sido invitado por primera vez registrarse en nuestra aplicación.
+
+-->
+
 <!DOCTYPE html>
 <html>
 <head>

@@ -1,3 +1,12 @@
+<!-- 
+
+    Nombre fichero: validacionRegistro.php
+    Creador: Álvaro
+    Fecha creación: 13/12/2017
+    Funcionalidad: Comprueba que tanto el identificador como el email del usuario que se está intentado registrar no existan en la BBDD.
+
+-->
+
 <?php
 	include 'funcionesPHP.php';
 	$usuario = $_POST['usuario'];

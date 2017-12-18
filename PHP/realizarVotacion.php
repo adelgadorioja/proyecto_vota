@@ -1,3 +1,12 @@
+<!-- 
+
+    Nombre fichero: realizarVotacion.php
+    Creador: Álvaro
+    Fecha creación: 29/11/2017
+    Funcionalidad: Muestra la consulta y sus respectivas respuestas para brindar al usuario la posibilidad de votar.
+
+-->
+
 <!DOCTYPE html>
 <html>
 <head>

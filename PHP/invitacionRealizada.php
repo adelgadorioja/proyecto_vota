@@ -1,3 +1,12 @@
+<!-- 
+
+    Nombre fichero: invitacionRealizada.php
+    Creador: Álvaro
+    Fecha creación: 11/12/2017
+    Funcionalidad: Envía los emails a los destinatarios seleccionados para que reciban el enlace a nuestra aplicación.
+
+-->
+
 <!DOCTYPE html>
 <html>
 

@@ -1,3 +1,12 @@
+<!-- 
+
+    Nombre fichero: invitacionRealizada.php
+    Creador: Álvaro
+    Fecha creación: 07/12/2017
+    Funcionalidad: Inserta la votación en BBDD.
+
+-->
+
 <!DOCTYPE html>
 <html>
 <head>

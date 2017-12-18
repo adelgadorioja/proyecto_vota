@@ -1,6 +1,6 @@
 <!-- 
 
-    Nombre fichero: invitacionRealizada.php
+    Nombre fichero: votacionRealizada.php
     Creador: Álvaro
     Fecha creación: 07/12/2017
     Funcionalidad: Inserta la votación en BBDD.

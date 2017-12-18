@@ -1,3 +1,12 @@
+/*
+
+    Nombre fichero: script.js
+    Creador: Marc Guerra
+    Fecha creación: 28/11/2017
+    Funcionalidad: Controlar todas las funcionalidades hechas en JS. 
+    	 		   Validación de campos y creación de formulario son las funciones que ocupan la gran parte del fichero.
+
+*/
 var numRes = 0;
 //con esta funcion obtengo el id de la consulta que se ha clicado y redirigo la pagina a la de votacion, pasandole el id de la consulta
 function redirigirConsulta(idConsulta) {
@@ -429,7 +438,8 @@ function validacionFechas1() {
 //esta validacion comprueba que la fecha de inicio de la consulta sea mayor a la actual
 function validacionFechas2(anoActual, mesActual, diaActual, horaActual,fecInicioSeparada) {
     //Lo que hago es comprobar uno a uno, si el año actual es menor o mayor al introducido,
-    //el mes actual es menor o mayor al introducido, o el dia actual es mayor o igual o menor al introducido
+    //el mes actual es menor o mayor al introducido, el dia actual es mayor o menor al introducido, y si el
+    //dia actual es mayor, menor, o igual al introducido
     if (anoActual < fecInicioSeparada[0]) {
         return false;
     } else if (anoActual > fecInicioSeparada[0]) {
@@ -451,24 +461,26 @@ function validacionFechas2(anoActual, mesActual, diaActual, horaActual,fecInicio
 //esta validacion comprueba que la fecha de inicio de la consulta sea menor a la de fin
 function validacionFechas3(fecInicioSeparada,fecFinSeparada) {
     if (fecInicioSeparada[0]<fecFinSeparada[0]) {
-        return false;
+        if (fecInicioSeparada[0] == (fecFinSeparada[0]-1)) {
+    		if (fecInicioSeparada[1] == 12 && fecFinSeparada[1] == 1) {
+    			if (fecFinSeparada[2] == 1 && fecInicioSeparada[2] == ultimoDiaMensual(fecInicioSeparada[1],fecInicioSeparada[0])) {
+    				return minimo4EntreDias(fecInicioSeparada[3],fecFinSeparada[3]);
+    			}
+    		}
+    	}
     } else if(fecInicioSeparada[0]>fecFinSeparada[0]){
         return true;
     } else if(fecInicioSeparada[1]<fecFinSeparada[1]){
-        return false;
+    	if (fecInicioSeparada[1] == (fecFinSeparada[1]-1)) {
+    		if (fecFinSeparada[2] == 1 && fecInicioSeparada[2] == ultimoDiaMensual(fecInicioSeparada[1],fecInicioSeparada[0])) {
+    			return minimo4EntreDias(fecInicioSeparada[3],fecFinSeparada[3]);
+    		}
+    	}
     } else if(fecInicioSeparada[1]>fecFinSeparada[1]){
         return true;
     } else if(fecInicioSeparada[2]<fecFinSeparada[2]){
     	if ((fecFinSeparada[2]-1) == fecInicioSeparada[2]){
-    		if (fecInicioSeparada[3] == 21 && fecFinSeparada[3] < 1 ){
-    			return true;
-    		}else if (fecInicioSeparada[3] == 22 && fecFinSeparada[3] < 2){
-    			return true;
-    		}else if(fecInicioSeparada[3] == 23 && fecFinSeparada[3] < 3){
-    			return true;
-    		}else{
-    			return false;
-    		}
+    		return minimo4EntreDias(fecInicioSeparada[3],fecFinSeparada[3]);
     	}else{
     		return false;
     	}
@@ -514,6 +526,24 @@ function esFechaValida2(fechaSeparada) {
     }else {
         return true;
     }
+}
+function minimo4EntreDias(horaInicio,horaFin){
+	if (horaInicio == 21 && horaFin < 1 ){
+    	return true;
+    }else if (horaInicio == 22 && horaFin < 2){
+    	return true;
+    }else if(horaInicio == 23 && horaFin < 3){
+    	return true;
+    }else{
+    	return false;
+    }
+}
+function ultimoDiaMensual(mes,año){
+	var meses = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+	if ((!(año % 4) && año % 100) || !(año % 400)) {
+        meses[1] = 29;
+    }
+    return meses[mes-1];
 }
 //esta funcion comprueba que hayas escogido alguna opcion en la pagina de votacion
 //la hemos hecho para evitar que siempre se envie el formulario y salte error al no votar

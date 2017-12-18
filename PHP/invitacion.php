@@ -7,7 +7,7 @@
 	$emailInvitado = $_GET['email'];
 	$usuarioExistente = obtenerUsuarioPorEmail($emailInvitado);
 	if ($usuarioExistente == null) {
-		header('Location: registro.php');
+		header('Location: registro.php?email='.$emailInvitado.'');
 	} else {
 		header('Location: ../index.php');
 	}

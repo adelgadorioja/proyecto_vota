@@ -30,7 +30,8 @@
 									if(isset($_GET["error"])) {
 										echo "Ha ocurrido un error.";
 									}
-								?>
+									$mail = $_GET["email"];
+							?>
 							</div>
 						</div>
 						<div class="row">
@@ -40,7 +41,7 @@
 							<input class="form-control text-center col-md-12" onblur="comprobarInputVacio(event)" type="text" placeholder="usuario" id="usuarioRegistro" name="usuario">
 						</div>
 						<div class="form-group row">
-							<input class="form-control text-center col-md-12" onblur="comprobarInputVacio(event)" type="text" placeholder="email" id="emailRegistro" name="email">
+							<input class="form-control text-center col-md-12" onblur="comprobarInputVacio(event)" type="text" placeholder="email" id="emailRegistro" name="email" value='<?php echo '$mail';?>'>
 						</div>
 						<div class="form-group row">
 							<input class="form-control text-center col-md-12" onblur="comprobarInputVacio(event)" type="password" placeholder="contraseña" id="pass1Registro" name="contrasena">

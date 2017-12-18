@@ -16,7 +16,7 @@
   */
   function conectarBD(){
     try {
-      $GLOBALS['conn'] = new PDO ("mysql:host=localhost;dbname=proyecto_vota;charset=utf8","root","123abc123");
+      $GLOBALS['conn'] = new PDO ("mysql:host=127.0.0.1;dbname=proyecto_vota;charset=utf8","root","123abc123");
     } catch(PDOException $e) {
       echo "Fallo en la conexión: " . $e->getMessage() . "\n";
     }

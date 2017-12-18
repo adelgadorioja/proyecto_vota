@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-12-2017 a las 21:50:06
--- Versión del servidor: 10.1.28-MariaDB
--- Versión de PHP: 7.1.11
+-- Temps de generació: 18-12-2017 a les 23:15:32
+-- Versió del servidor: 10.1.26-MariaDB
+-- Versió de PHP: 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,40 +19,36 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `proyecto_vota`
+-- Base de dades: `proyecto_vota`
 --
-CREATE DATABASE IF NOT EXISTS `proyecto_vota` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `proyecto_vota`;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `consultas`
+-- Estructura de la taula `consultas`
 --
 
-DROP TABLE IF EXISTS `consultas`;
 CREATE TABLE `consultas` (
   `id_consulta` int(11) NOT NULL,
-  `des_pregunta` varchar(60) CHARACTER SET latin1 NOT NULL,
+  `des_pregunta` varchar(255) CHARACTER SET latin1 NOT NULL,
   `id_usuario` varchar(16) CHARACTER SET latin1 NOT NULL,
-  `fecha_inicio` date NOT NULL,
-  `fecha_final` date NOT NULL
+  `fecha_inicio` datetime NOT NULL,
+  `fecha_final` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `consultas`
+-- Bolcant dades de la taula `consultas`
 --
 
 INSERT INTO `consultas` (`id_consulta`, `des_pregunta`, `id_usuario`, `fecha_inicio`, `fecha_final`) VALUES
-(1, '¿Perros o gatos?', 'admin', '2017-12-20', '2017-12-20');
+(1, 'El mundo es redondo y lo llaman planeta. Si fuese plano, ¿lo llamarian redondeta?', 'admin', '2017-12-19 09:00:00', '2017-12-25 12:00:00');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `invitaciones`
+-- Estructura de la taula `invitaciones`
 --
 
-DROP TABLE IF EXISTS `invitaciones`;
 CREATE TABLE `invitaciones` (
   `id_invitacion` int(11) NOT NULL,
   `id_consulta` int(11) NOT NULL,
@@ -61,19 +57,18 @@ CREATE TABLE `invitaciones` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `invitaciones`
+-- Bolcant dades de la taula `invitaciones`
 --
 
 INSERT INTO `invitaciones` (`id_invitacion`, `id_consulta`, `email_invitado`, `pendiente`) VALUES
-(1, 1, 'alumne@gmail.com', 'F');
+(1, 1, 'alumne@gmail.com', 'T');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `opciones`
+-- Estructura de la taula `opciones`
 --
 
-DROP TABLE IF EXISTS `opciones`;
 CREATE TABLE `opciones` (
   `id_opcion` int(11) NOT NULL,
   `id_consulta` int(11) NOT NULL,
@@ -81,20 +76,19 @@ CREATE TABLE `opciones` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `opciones`
+-- Bolcant dades de la taula `opciones`
 --
 
 INSERT INTO `opciones` (`id_opcion`, `id_consulta`, `des_opcion`) VALUES
-(1, 1, 'Perros'),
-(2, 1, 'Gatos');
+(1, 1, 'Sí'),
+(2, 1, 'No');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuarios`
+-- Estructura de la taula `usuarios`
 --
 
-DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE `usuarios` (
   `id_usuario` varchar(16) NOT NULL,
   `contrasena` varchar(256) NOT NULL,
@@ -103,7 +97,7 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `usuarios`
+-- Bolcant dades de la taula `usuarios`
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `contrasena`, `email`, `permisos`) VALUES
@@ -113,10 +107,9 @@ INSERT INTO `usuarios` (`id_usuario`, `contrasena`, `email`, `permisos`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `votos`
+-- Estructura de la taula `votos`
 --
 
-DROP TABLE IF EXISTS `votos`;
 CREATE TABLE `votos` (
   `id_voto` int(11) NOT NULL,
   `id_opcion` varchar(256) NOT NULL,
@@ -125,83 +118,74 @@ CREATE TABLE `votos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `votos`
+-- Disparadors `votos`
 --
-
-INSERT INTO `votos` (`id_voto`, `id_opcion`, `id_usuario`, `id_consulta`) VALUES
-(1, 'N3£> ¯ŠVØœñ×›DE', 'alumne', 1),
-(2, 'Íq¸¿Ý×fŠ‰IRpÑ:', 'alumne', 1);
-
---
--- Disparadores `votos`
---
-DROP TRIGGER IF EXISTS `trigger_votos`;
 DELIMITER $$
 CREATE TRIGGER `trigger_votos` BEFORE INSERT ON `votos` FOR EACH ROW UPDATE invitaciones SET pendiente='F' WHERE id_consulta = NEW.id_consulta AND email_invitado = (SELECT email FROM usuarios WHERE id_usuario = NEW.id_usuario)
 $$
 DELIMITER ;
 
 --
--- Índices para tablas volcadas
+-- Indexos per taules bolcades
 --
 
 --
--- Indices de la tabla `consultas`
+-- Index de la taula `consultas`
 --
 ALTER TABLE `consultas`
   ADD PRIMARY KEY (`id_consulta`);
 
 --
--- Indices de la tabla `invitaciones`
+-- Index de la taula `invitaciones`
 --
 ALTER TABLE `invitaciones`
   ADD PRIMARY KEY (`id_invitacion`);
 
 --
--- Indices de la tabla `opciones`
+-- Index de la taula `opciones`
 --
 ALTER TABLE `opciones`
   ADD PRIMARY KEY (`id_opcion`);
 
 --
--- Indices de la tabla `usuarios`
+-- Index de la taula `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id_usuario`);
 
 --
--- Indices de la tabla `votos`
+-- Index de la taula `votos`
 --
 ALTER TABLE `votos`
   ADD PRIMARY KEY (`id_voto`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT per les taules bolcades
 --
 
 --
--- AUTO_INCREMENT de la tabla `consultas`
+-- AUTO_INCREMENT per la taula `consultas`
 --
 ALTER TABLE `consultas`
   MODIFY `id_consulta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de la tabla `invitaciones`
+-- AUTO_INCREMENT per la taula `invitaciones`
 --
 ALTER TABLE `invitaciones`
   MODIFY `id_invitacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de la tabla `opciones`
+-- AUTO_INCREMENT per la taula `opciones`
 --
 ALTER TABLE `opciones`
   MODIFY `id_opcion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `votos`
+-- AUTO_INCREMENT per la taula `votos`
 --
 ALTER TABLE `votos`
-  MODIFY `id_voto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_voto` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

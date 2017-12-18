@@ -127,13 +127,14 @@ td:hover {
 
 /* LOGIN */
 
-#landPage h5 {
+#landPage h6 {
 	margin-top: -2em;
 	margin-bottom: -1em;
 }
 
-#landPage h2 {
+#landPage h4 {
 	margin-top: -0.1em;
+	font-size: 7em;
 }
 
 /* EFECTO ANIMADO */

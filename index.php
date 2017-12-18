@@ -31,8 +31,8 @@
 		</div>
 		<div class="row">
 			<div id="landPage" class="center col-md-6">
-					<h2 class="text-center title">¡vota!</h2>
-					<h5 class="text-center">aseguramos tu anonimato</h2>
+					<h4 class="text-center title">¡vota!</h2>
+					<h6 class="text-center">aseguramos tu anonimato</h2>
 					<form class="jumbotron box-shadow" id="formularioLogin" action="PHP/validacionUsuario.php" method="POST">
 						<div class="row">
 							<div class="alert alert-danger d-none alert-dismissable col-md-12" id="mensajeDialog" role="alert">

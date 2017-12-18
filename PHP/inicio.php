@@ -76,7 +76,7 @@
 					<div class="page-header">
 						<h2>Mis consultas</h2>
 					</div>
-					<table class="table table-striped table-hover table-responsive-xs">
+					<table class="table table-striped table-hover table-responsive-sm">
 						<th scope="col">Pregunta</th>
 						<th scope="col">Usuario creador</th>
 						<th scope="col">Fecha inicio</th>

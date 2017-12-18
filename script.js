@@ -403,7 +403,6 @@ function validacionFechas1() {
     var mes = hoy.getMonth() + 1;
     var ano = hoy.getFullYear();
     var hora = hoy.getHours();
-    hoy = ano + "-" + mes + "-" + dia;
     //cojemos la fecha de inicio y de fin y las separamos para evaluar cada unidad por separado
     var fecInicio = document.forms["formulario"]["fecInicio"].value;
     var fecFin = document.forms["formulario"]["fecFin"].value;
@@ -415,7 +414,7 @@ function validacionFechas1() {
         mensajeError("El formato de la fecha de inicio no es válido.");
     }else if(!esFechaValida(fecFin)){
         mensajeError("El formato de la fecha de expiración no es válido");
-    }else if(!esFechaValida2(fecInicioSeparada) || !esFechaValida2(fecFinSeparada)) {
+    }else if(!esFechaValida2(fecInicioSeparada) || !esFechaValida2(fecFinSeparada)){
         mensajeError("La fecha introducida no existe en el calendario.");
     //a continuacion compruebo que la fecha de inicio de la consulta sea mayor o igual a la actual
     }else if (validacionFechas2(ano, mes, dia, hora,fecInicioSeparada)) {
@@ -460,7 +459,19 @@ function validacionFechas3(fecInicioSeparada,fecFinSeparada) {
     } else if(fecInicioSeparada[1]>fecFinSeparada[1]){
         return true;
     } else if(fecInicioSeparada[2]<fecFinSeparada[2]){
-        return false;
+    	if ((fecFinSeparada[2]-1) == fecInicioSeparada[2]){
+    		if (fecInicioSeparada[3] == 21 && fecFinSeparada[3] < 1 ){
+    			return true;
+    		}else if (fecInicioSeparada[3] == 22 && fecFinSeparada[3] < 2){
+    			return true;
+    		}else if(fecInicioSeparada[3] == 23 && fecFinSeparada[3] < 3){
+    			return true;
+    		}else{
+    			return false;
+    		}
+    	}else{
+    		return false;
+    	}
     } else if(fecInicioSeparada[2]>fecFinSeparada[2]){
         return true;
     } else if(fecInicioSeparada[3]>(fecFinSeparada[3]-4)){
@@ -483,21 +494,24 @@ function esFechaValida(fecha) {
 // ej: 2017-02-30 --> febrero nunca tendrá 30 dias || 2017-20-10 --> el mes 20 no existe
 function esFechaValida2(fechaSeparada) {
     var meses = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    //convierto el mes, ano y dia de string a numero
+    //convierto el mes, ano, dia y hora de string a numero
     fechaSeparada[0] = Number(fechaSeparada[0]);
     fechaSeparada[1] = Number(fechaSeparada[1]);
     fechaSeparada[2] = Number(fechaSeparada[2]);
+    fechaSeparada[3] = Number(fechaSeparada[3]);
     // si el ano es bisiesto febrero tiene 29 dias
     if ((!(fechaSeparada[0] % 4) && fechaSeparada[0] % 100) || !(fechaSeparada[0] % 400)) {
         meses[1] = 29;
     }
     //compruebo que el mes exista
-    if (fechaSeparada[1] > meses.length || fechaSeparada[1] < 0) {
+    if (fechaSeparada[1] > meses.length || fechaSeparada[1] < 1) {
         return false;
         //compruebo que no introduzcas dias que no existen en ese mes
     } else if (fechaSeparada[2] > meses[fechaSeparada[1] - 1] || fechaSeparada[2] < 1) {
         return false;
-    } else {
+    } else if(fechaSeparada[3]>23){
+    	return false;
+    }else {
         return true;
     }
 }

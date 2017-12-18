@@ -86,8 +86,8 @@
 							echo "<tr onclick='redirigirConsultaVotacion(".$consultas[$i][4].")'>";
 							echo "<td>".$consultas[$i][0]."</td>";
 							echo "<td>".$consultas[$i][1]."</td>";
-							echo "<td>".$consultas[$i][2]."</td>";
-							echo "<td>".$consultas[$i][3]."</td>";
+							echo "<td>".str_replace(":00:00", "h", $consultas[$i][2])."</td>";
+							echo "<td>".str_replace(":00:00", "h", $consultas[$i][3])."</td>";
 							echo "</tr>";
 						}
 						?>
@@ -111,8 +111,8 @@
 							echo "<tr onclick='redirigirConsultaVotacion(".$consultas[$i][4].")'>";
 							echo "<td>".$consultas[$i][0]."</td>";
 							echo "<td>".$consultas[$i][1]."</td>";
-							echo "<td>".$consultas[$i][2]."</td>";
-							echo "<td>".$consultas[$i][3]."</td>";
+							echo "<td>".str_replace(":00:00", "h", $consultas[$i][2])."</td>";
+							echo "<td>".str_replace(":00:00", "h", $consultas[$i][3])."</td>";
 							echo "</tr>";
 						}
 						?>

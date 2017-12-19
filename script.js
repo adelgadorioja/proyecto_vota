@@ -8,24 +8,43 @@
 
 */
 var numRes = 0;
-//con esta funcion obtengo el id de la consulta que se ha clicado y redirigo la pagina a la de votacion, pasandole el id de la consulta
+/*
+ - Descripcion: con esta funcion obtengo el id de la consulta que se ha clicado y redirigo la pagina a la de invitacion, pasandole el id de la consulta
+ - Parametros: idConsulta, number, no opcional
+ - Return: null
+ */
 function redirigirConsulta(idConsulta) {
     location.href = "realizarInvitacion.php?idConsulta=" + idConsulta;
 }
-
+/*
+ - Descripcion: con esta funcion obtengo el id de la consulta que se ha clicado y redirigo la pagina a la de votacion, pasandole el id de la consulta
+ - Parametros: idConsulta, number, no opcional
+ - Return: null
+ */
 function redirigirConsultaVotacion(idConsulta) {
     location.href = "realizarVotacion.php?idConsulta=" + idConsulta;
 }
-// Viendo que necessitamos insertar varios elementos, hemos creado esta funcion llamada cada vez que añadimos un nuevo elemento.
-// Más adelante vimos que solo necesitabamos insertar el formulario pero aun asi creemos 
-//que esta bien tener esta funcion separada para un posible uso futuro.
+// 
+/*
+ - Descripcion: Viendo que necessitamos insertar varios elementos, hemos creado esta funcion llamada cada vez que añadimos un nuevo elemento. 
+                Más adelante vimos que solo necesitabamos insertar el formulario pero aun asi creemos 
+                que esta bien tener esta funcion separada para un posible uso futuro.
+ - Parametros: tag, object, no opcional
+ 			   elemento, object, no opcional
+ - Return: null
+ */
 function insertarElemento(tag, elemento) {
     // lo que estoy haciendo es cojer el tag padre del hermano del elemento que queremos insertar, y estoy insertando el elemento a continuacion del hermano
     elemento.parentNode.insertBefore(tag, elemento.nextSibling);
 }
-// Crea un nuevo grupo de formulario (bootstrap)
-// Pasamos como parámetros el label, el input y el número de columnas deseado
-// Devuelve el div creado
+
+/*
+ - Descripcion: Crea un nuevo grupo de formulario (bootstrap)
+ - Parametros: label, object, no opcional
+ 			   input, object, no opcional
+ 			   columnas, object, no opcional
+ - Return: div creado
+ */
 function crearFormGroup(label, input, columnas) {
     var div = document.createElement("div");
     div.setAttribute("class", "form-group col-md-" + columnas);
@@ -34,14 +53,23 @@ function crearFormGroup(label, input, columnas) {
     div.appendChild(input);
     return div;
 }
-
+/*
+ - Descripcion: Crea un nuevo div (bootstrap)
+ - Parametros: boton, object, no opcional
+ 			   columnas, object, no opcional
+ - Return: div creado
+ */
 function prepararBoton(boton, columnas) {
     var div = document.createElement("div");
     div.setAttribute("class", "col-md-" + columnas);
     div.appendChild(boton);
     return div;
 }
-
+/*
+ - Descripcion: Crea un nuevo div (bootstrap)
+ - Parametros: elementos, object, no opcional
+ - Return: div creado
+ */
 function crearRow(elementos) {
     var row = document.createElement("div");
     row.setAttribute("class", "row");
@@ -50,9 +78,11 @@ function crearRow(elementos) {
     }
     return row;
 }
-
-// con esta funcion creo el formulario
-// esta funcion es llamada en el onclick de un boton
+/*
+ - Descripcion: con esta funcion creo el formulario para crear una nueva consulta. es llamada en el onclick de un boton
+ - Parametros: none
+ - Return: null
+ */
 function mostrarConsulta() {
     //cojo el botón que llama ésta funcion y lo desactivo para que solo se puedan crear dos consultas a la vez
     var hermano = document.getElementById("botonCrearConsulta");
@@ -132,7 +162,11 @@ function mostrarConsulta() {
     //finalmente llamo a la funcion que inserta el formulario en la página
     insertarElemento(form, hermano);
 }
-// creo los botones de añadir/borrar respuestas
+/*
+ - Descripcion: creo los botones de añadir/borrar respuestas
+ - Parametros: form, object, no opcional
+ - Return: null
+ */
 function botonesRespuestas(form) {
     //creo el boton de añadir respuesta
     var button = document.createElement("button");
@@ -177,7 +211,11 @@ function botonesRespuestas(form) {
     input.setAttribute("class", "btn disabled-nd col-md-12");
     form.appendChild(input);
 }
-
+/*
+ - Descripcion: creo los botones de subir/bajar/borrar respuesta
+ - Parametros: urlIcono, string, no opcional
+ - Return: el botón de subir/bajar/borrar respuesta, según el parametro de entrada
+ */
 function crearBotonInput(urlIcono) {
     var elemento = document.createElement("span");
     elemento.setAttribute("class", "input-group-btn");
@@ -201,6 +239,11 @@ function crearBotonInput(urlIcono) {
     elemento.appendChild(boton);
     return elemento;
 }
+/*
+ - Descripcion: creo el label y el input para añadir una respuesta
+ - Parametros: none
+ - Return: null
+ */
 function anadirRespuesta() {
     //variable global para controlar el numero de respuestas
     numRes++;
@@ -245,6 +288,11 @@ function anadirRespuesta() {
         inputFinal.disabled = false;
     }
 }
+/*
+ - Descripcion: borra todas las respuestas
+ - Parametros: none
+ - Return: null
+ */
 function borrarTodasRespuestas() {
     // reseteo el contador con el numero de respuestas a 0 para que la siguiente respuesta que se añada sea la 1
     numRes = 0;
@@ -256,6 +304,11 @@ function borrarTodasRespuestas() {
     }
     checkNumRespuestas();
 }
+/*
+ - Descripcion: borra una respuesta
+ - Parametros: event, evento, no opcional
+ - Return: null
+ */
 function borrarUnaRespuesta(event){
 	numRes--;
 	var aBorrar = event.currentTarget.parentNode.parentNode.parentNode.parentNode;
@@ -265,7 +318,13 @@ function borrarUnaRespuesta(event){
 	aBorrar.parentNode.removeChild(aBorrar);
 	recolocarRespuestas(elementoActual,proximoLabel,proximoNameAtt);
 }
-//coloco bien las respuestas despues de borrar una en concreto
+/*
+ - Descripcion: coloco bien las respuestas despues de borrar una en concreto
+ - Parametros: elementoActual, object, no opcional
+ 			   proximoLabel, string, no opcional
+ 			   proximoNameAtt,string,no opcional
+ - Return: null
+ */
 function recolocarRespuestas(elementoActual,proximoLabel,proximoNameAtt){
     var anteriorLabel = "";
     var anteriorNameAtt = "";
@@ -280,6 +339,11 @@ function recolocarRespuestas(elementoActual,proximoLabel,proximoNameAtt){
     }
     checkNumRespuestas();
 }
+/*
+ - Descripcion: compruebo cuantas respuestas (inputs) hay creados, y en funcion de las que hay deshabilito algunos botones
+ - Parametros: none
+ - Return: null
+ */
 function checkNumRespuestas(){
 	if (numRes<1) {
     	//inhabilito el boton que borra las respuestas
@@ -296,6 +360,11 @@ function checkNumRespuestas(){
     	inputFinal.disabled = true;
 	}
 }
+/*
+ - Descripcion: bajo la respuesta
+ - Parametros: event, evento, no opcional
+ - Return: null
+ */
 function bajaRespuesta(event){
 	var valorActual = event.currentTarget.parentNode.previousSibling;
 	var respuestActual = event.currentTarget.parentNode.parentNode.parentNode.parentNode;
@@ -307,6 +376,11 @@ function bajaRespuesta(event){
 	valorProximo.value = valorActual.value;
 	valorActual.value = valor2; 
 }
+/*
+ - Descripcion: subo la respuesta
+ - Parametros: event, evento, no opcional
+ - Return: null
+ */
 function subeRespuesta(event){
 	var valorActual = event.currentTarget.parentNode.previousSibling.previousSibling;
 	var respuestActual = event.currentTarget.parentNode.parentNode.parentNode.parentNode;
@@ -318,12 +392,20 @@ function subeRespuesta(event){
 	valorAnterior.value = valorActual.value;
 	valorActual.value = valor2; 
 }
-// muestro las respuestas en la página para votar
+/*
+ - Descripcion: muestro las respuestas en la página para votar
+ - Parametros: none
+ - Return: null
+ */
 function mostrarRespuestas() {
     var respuestas = document.getElementById("respuestas");
     respuestas.style.maxHeight = respuestas.scrollHeight + "px";
 }
-//funcion llamada en el onblur de cada input del form, para que aparezca el input en rojo y un mensaje de alerta
+/*
+ - Descripcion: funcion llamada en el onblur de cada input del form, para que aparezca el input en rojo y un mensaje de alerta
+ - Parametros: event, evento, no opcional
+ - Return: null
+ */
 function comprobarInputVacio(event) {
     //cojo el input 
     input = event.currentTarget;
@@ -343,7 +425,11 @@ function comprobarInputVacio(event) {
         input.style.border = "1px solid #333";
     }
 }
-//funcion llamada en muchas ocasiones (validacion de fechas, de inputs vacíos...)
+/*
+ - Descripcion: funcion llamada en muchas ocasiones (validacion de fechas, de inputs vacíos...), para mostrar mensaje de error
+ - Parametros: mensaje, string, no opcional
+ - Return: null
+ */
 function mensajeError(mensaje) {
     //cojo el texto que hay en el div que utilizamos para mostrar el mensaje de error y lo vacío
     dialog = document.getElementById("mensajeDialog");
@@ -356,7 +442,11 @@ function mensajeError(mensaje) {
     dialog.classList.remove("d-none");
     dialog.classList.add("d-block");
 }
-//funcion utilizada para comrobar que todos los campos tienen contenido
+/*
+ - Descripcion: funcion utilizada para comrobar que todos los campos tienen contenido
+ - Parametros: none
+ - Return: null
+ */
 function comprobarCampos() {
     //cojo los todos inputs y los inputs de las respuestas
     var campos = document.getElementsByTagName("input");
@@ -381,7 +471,11 @@ function comprobarCampos() {
         document.forms["formulario"].submit();
     }
 }
-//habilito la segunda parte del formulario
+/*
+ - Descripcion: habilito la segunda parte del formulario
+ - Parametros: none
+ - Return: null
+ */
 function habilitarBotones() {
     //cojo todos los botones
     var botones = document.getElementsByTagName("button");
@@ -394,7 +488,11 @@ function habilitarBotones() {
         }
     }
 }
-//una vez pasada a la parte de añadir respuestas inhabilito los primeros botones para que no se puedan modificarp
+/*
+ - Descripcion: una vez pasada a la parte de añadir respuestas inhabilito los primeros botones para que no se puedan modificar
+ - Parametros: none
+ - Return: null
+ */
 function deshabilitarPrimerosInputs() {
     var consulta = document.forms["formulario"]["consulta"];
     var fecInicio = document.forms["formulario"]["fecInicio"];
@@ -404,7 +502,11 @@ function deshabilitarPrimerosInputs() {
     fecInicio.setAttribute("readonly", "true");
     fecFin.setAttribute("readonly", "true");
 }
-//esta es la funcion principal de validacion de fechas, desde aquí llamamos a las  demás funciones que validan la fecha
+/*
+ - Descripcion: esta es la funcion principal de validacion de fechas, desde aquí llamamos a las  demás funciones que validan la fecha
+ - Parametros: none
+ - Return: null
+ */
 function validacionFechas1() {
     //cojemos la fecha de hoy para usarla mas adelante para comparar
     var hoy = new Date();
@@ -435,7 +537,15 @@ function validacionFechas1() {
         habilitarBotones();
     }
 }
-//esta validacion comprueba que la fecha de inicio de la consulta sea mayor a la actual
+/*
+ - Descripcion: esta validacion comprueba que la fecha de inicio de la consulta sea mayor a la actual
+ - Parametros: anoActual, string, no opcional
+ 			   mesActual, string, no opcional
+ 			   diaActual, string, no opcional
+ 			   horaActual, string, no opcional
+ 			   fecInicioSeparada, array, no opcional
+ - Return: boolean, en función de si la fecha es válida o no
+ */
 function validacionFechas2(anoActual, mesActual, diaActual, horaActual,fecInicioSeparada) {
     //Lo que hago es comprobar uno a uno, si el año actual es menor o mayor al introducido,
     //el mes actual es menor o mayor al introducido, el dia actual es mayor o menor al introducido, y si el
@@ -458,7 +568,12 @@ function validacionFechas2(anoActual, mesActual, diaActual, horaActual,fecInicio
         return true;
     }
 }
-//esta validacion comprueba que la fecha de inicio de la consulta sea menor a la de fin
+/*
+ - Descripcion: esta validacion comprueba que la fecha de inicio de la consulta sea menor a la de fin
+ - Parametros: fecFinSeparada, array, no opcional
+ 			   fecInicioSeparada, array, no opcional
+ - Return: boolean, en función de si la fecha es válida o no
+ */
 function validacionFechas3(fecInicioSeparada,fecFinSeparada) {
     if (fecInicioSeparada[0]<fecFinSeparada[0]) {
         if (fecInicioSeparada[0] == (fecFinSeparada[0]-1)) {
@@ -492,8 +607,11 @@ function validacionFechas3(fecInicioSeparada,fecFinSeparada) {
         return false;
     }
 }
-//esta funcion comprueba que la fecha introducida sea en el formato (yyyy-mm-dd-hh) y que no sean letras
-// o cualquier otro caracter distinto
+/*
+ - Descripcion: esta funcion comprueba que la fecha introducida sea en el formato (yyyy-mm-dd-hh) y que no sean letras o cualquier otro caracter distinto
+ - Parametros: fecha, string, no opcional
+ - Return: boolean, en función de si la fecha es válida o no
+ */
 function esFechaValida(fecha) {
     var expRegFecha = new RegExp(/(\d{4})-(\d{2})-(\d{2})-(\d{2})/);
     if (expRegFecha.test(fecha)) {
@@ -502,8 +620,12 @@ function esFechaValida(fecha) {
         return false;
     }
 }
-//aqui compruebo que la fecha introducida exista en el calendario y no sea invalida
-// ej: 2017-02-30 --> febrero nunca tendrá 30 dias || 2017-20-10 --> el mes 20 no existe
+/*
+ - Descripcion: aqui compruebo que la fecha introducida exista en el calendario y no sea invalida
+                ej: 2017-02-30 --> febrero nunca tendrá 30 dias || 2017-20-10 --> el mes 20 no existe
+ - Parametros: fechaSeparada, array, no opcional
+ - Return: boolean, en función de si la fecha es válida o no
+ */
 function esFechaValida2(fechaSeparada) {
     var meses = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     //convierto el mes, ano, dia y hora de string a numero
@@ -527,6 +649,12 @@ function esFechaValida2(fechaSeparada) {
         return true;
     }
 }
+/*
+ - Descripcion: compruebo que haya un mínimo de 4 horas entre el inicio y el fin de la consulta
+ - Parametros: horaInicio, string, no opcional
+ 			   horaFin, string, no opcional
+ - Return: boolean, en función de si la fecha es válida o no
+ */
 function minimo4EntreDias(horaInicio,horaFin){
 	if (horaInicio == 21 && horaFin < 1 ){
     	return true;
@@ -538,6 +666,12 @@ function minimo4EntreDias(horaInicio,horaFin){
     	return false;
     }
 }
+/*
+ - Descripcion: funcion que me devuelve el ultimo dia del mes del mes del año que le paso
+ - Parametros: mes, string, no opcional
+ 			   año, string, no opcional
+ - Return: number, ultimo dia del mes que le paso
+ */
 function ultimoDiaMensual(mes,año){
 	var meses = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 	if ((!(año % 4) && año % 100) || !(año % 400)) {
@@ -545,8 +679,12 @@ function ultimoDiaMensual(mes,año){
     }
     return meses[mes-1];
 }
-//esta funcion comprueba que hayas escogido alguna opcion en la pagina de votacion
-//la hemos hecho para evitar que siempre se envie el formulario y salte error al no votar
+/*
+ - Descripcion: esta funcion comprueba que hayas escogido alguna opcion en la pagina de votacion
+ 			    la hemos hecho para evitar que siempre se envie el formulario y salte error al no votar
+ - Parametros: none
+ - Return: null
+ */
 function debesVotar() {
     //cojo las opciones
     var opciones = document.getElementsByName("opcion");
@@ -567,10 +705,21 @@ function debesVotar() {
         mensajeError("Debes escoger una opción!");
     }
 }
+/*
+ - Descripcion: envio el formulario de invitación, la funcionalidad aun no esta implementada
+ - Parametros: none
+ - Return: null
+ */
 function comprobarEmail() {
     formulario = document.getElementById("formularioInvitacion");
     formulario.submit();
 }
+/*
+ - Descripcion: validar que los campos sean correctos (ningun campo vacio, primera y segunda contraseña iguales...). 
+ 				si todo es correcto, se acepta el registro (envio de formulario)
+ - Parametros: none
+ - Return: null
+ */
 function validarFormularioRegistro() {
     var formulario = document.querySelector("#formularioRegistro");
     var usuario = document.querySelector("#usuarioRegistro").value;
